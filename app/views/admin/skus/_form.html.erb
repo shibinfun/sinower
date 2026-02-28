@@ -1,0 +1,119 @@
+<% content_for :admin_title, @sku.new_record? ? "创建 SKU" : "编辑 SKU" %>
+
+<div class="max-w-4xl bg-white p-8 rounded-xl border border-slate-200 shadow-sm">
+  <%= form_with(model: [:admin, @sku], local: true) do |f| %>
+    <% if @sku.errors.any? %>
+      <div class="mb-6 p-4 bg-red-50 border border-red-100 rounded-lg text-sm text-red-800">
+        <ul class="list-disc pl-5">
+          <% @sku.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+      <div class="md:col-span-2">
+        <%= f.label :name, "型号名称", class: "block text-sm font-medium text-slate-700 mb-2" %>
+        <%= f.text_field :name, class: "w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" %>
+      </div>
+
+      <div>
+        <%= f.label :category_id, "所属分类 (必须是叶子分类)", class: "block text-sm font-medium text-slate-700 mb-2" %>
+        <%= f.collection_select :category_id, Category.all, :id, :name, { prompt: "请选择分类" }, class: "w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" %>
+      </div>
+
+      <div>
+        <%= f.label :price, "价格", class: "block text-sm font-medium text-slate-700 mb-2" %>
+        <%= f.number_field :price, step: 0.01, class: "w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" %>
+      </div>
+
+      <div>
+        <%= f.label :stock, "库存", class: "block text-sm font-medium text-slate-700 mb-2" %>
+        <%= f.number_field :stock, class: "w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" %>
+      </div>
+
+      <div>
+        <%= f.label :status, "状态", class: "block text-sm font-medium text-slate-700 mb-2" %>
+        <%= f.select :status, [['草稿', 'draft'], ['上架', 'active'], ['归档', 'archived']], {}, class: "w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" %>
+      </div>
+
+      <div>
+        <%= f.label :visible, class: "flex items-center space-x-2 text-sm font-medium text-slate-700" do %>
+          <%= f.check_box :visible, class: "rounded border-slate-300 text-blue-600 focus:ring-blue-500" %>
+          <span>前台显示</span>
+        <% end %>
+      </div>
+
+      <div>
+        <%= f.label :image, "产品图片", class: "block text-sm font-medium text-slate-700 mb-2" %>
+        <%= f.file_field :image, class: "w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" %>
+      </div>
+    </div>
+
+    <!-- 动态详情字段 -->
+    <%= f.fields_for :skuable do |sf| %>
+      <% case @sku.skuable_type %>
+      <% when 'ASkuDetail' %>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+          <div class="md:col-span-2">
+            <h3 class="text-lg font-bold text-slate-800 border-b pb-2 mb-4">制冷参数 (ASkuDetail)</h3>
+          </div>
+          <div>
+            <%= sf.label :net_capacity, "净容积", class: "block text-sm font-medium text-slate-700 mb-2" %>
+            <%= sf.text_field :net_capacity, class: "w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" %>
+          </div>
+          <div>
+            <%= sf.label :unit_dimensions, "外形尺寸", class: "block text-sm font-medium text-slate-700 mb-2" %>
+            <%= sf.text_field :unit_dimensions, class: "w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" %>
+          </div>
+          <div>
+            <%= sf.label :temp_range, "温度范围", class: "block text-sm font-medium text-slate-700 mb-2" %>
+            <%= sf.text_field :temp_range, class: "w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" %>
+          </div>
+          <div>
+            <%= sf.label :voltage_frequency, "电压频率", class: "block text-sm font-medium text-slate-700 mb-2" %>
+            <%= sf.text_field :voltage_frequency, class: "w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" %>
+          </div>
+          <div class="md:col-span-2">
+            <%= sf.label :standard_features, "标准特性", class: "block text-sm font-medium text-slate-700 mb-2" %>
+            <%= sf.text_area :standard_features, rows: 4, class: "w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" %>
+          </div>
+        </div>
+      <% when 'BSkuDetail' %>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+          <div class="md:col-span-2">
+            <h3 class="text-lg font-bold text-slate-800 border-b pb-2 mb-4">烹饪参数 (BSkuDetail)</h3>
+          </div>
+          <div>
+            <%= sf.label :unit_dimensions, "外形尺寸", class: "block text-sm font-medium text-slate-700 mb-2" %>
+            <%= sf.text_field :unit_dimensions, class: "w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" %>
+          </div>
+        </div>
+      <% when 'CSkuDetail' %>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+          <div class="md:col-span-2">
+            <h3 class="text-lg font-bold text-slate-800 border-b pb-2 mb-4">不锈钢/燃气参数 (CSkuDetail)</h3>
+          </div>
+          <div>
+            <%= sf.label :gas_type, "燃气类型", class: "block text-sm font-medium text-slate-700 mb-2" %>
+            <%= sf.text_field :gas_type, class: "w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" %>
+          </div>
+          <div>
+            <%= sf.label :total_btu, "总热负荷", class: "block text-sm font-medium text-slate-700 mb-2" %>
+            <%= sf.text_field :total_btu, class: "w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" %>
+          </div>
+          <div class="md:col-span-2">
+            <%= sf.label :key_features, "关键特性", class: "block text-sm font-medium text-slate-700 mb-2" %>
+            <%= sf.text_area :key_features, rows: 4, class: "w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+
+    <div class="flex space-x-4">
+      <%= f.submit "保存 SKU", class: "bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium transition-colors" %>
+      <%= link_to "取消", admin_skus_path, class: "bg-slate-100 hover:bg-slate-200 text-slate-700 px-6 py-2 rounded-lg font-medium transition-colors" %>
+    </div>
+  <% end %>
+</div>

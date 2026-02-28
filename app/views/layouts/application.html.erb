@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
   <head>
     <title><%= content_for(:title) || "Sinower" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -22,15 +22,19 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="flex flex-col min-h-screen bg-slate-50">
+  <body class="flex flex-col min-h-screen bg-white">
     <%= render "layouts/navbar" %>
     
-    <main class="container mx-auto mt-24 px-5 flex-grow">
+    <main class="flex-grow pt-20">
       <% if notice %>
-        <p class="p-4 mb-4 text-sm text-blue-800 rounded-lg bg-blue-50" role="alert"><%= notice %></p>
+        <div class="max-w-screen-xl mx-auto px-5 mt-4">
+          <p class="p-4 text-sm text-blue-800 rounded-lg bg-blue-50 border border-blue-100" role="alert"><%= notice %></p>
+        </div>
       <% end %>
       <% if alert %>
-        <p class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50" role="alert"><%= alert %></p>
+        <div class="max-w-screen-xl mx-auto px-5 mt-4">
+          <p class="p-4 text-sm text-red-800 rounded-lg bg-red-50 border border-red-100" role="alert"><%= alert %></p>
+        </div>
       <% end %>
 
       <%= yield %>

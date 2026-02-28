@@ -1,0 +1,59 @@
+<% content_for :admin_title, "SKU 管理" %>
+
+<div class="mb-6 flex justify-between items-center">
+  <p class="text-slate-600">管理所有的产品型号 (SKU)。注意：只能在叶子分类下创建 SKU。</p>
+  <%= link_to "添加 SKU", new_admin_sku_path, class: "bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors" %>
+</div>
+
+<div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+  <div class="overflow-x-auto">
+    <table class="w-full text-left border-collapse">
+      <thead>
+        <tr class="bg-slate-50 border-b border-slate-200">
+          <th class="px-6 py-4 text-sm font-semibold text-slate-700">预览</th>
+          <th class="px-6 py-4 text-sm font-semibold text-slate-700">名称</th>
+          <th class="px-6 py-4 text-sm font-semibold text-slate-700">分类</th>
+          <th class="px-6 py-4 text-sm font-semibold text-slate-700">核心规格</th>
+          <th class="px-6 py-4 text-sm font-semibold text-slate-700">状态</th>
+          <th class="px-6 py-4 text-sm font-semibold text-slate-700">操作</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-slate-100">
+        <% @skus.each do |sku| %>
+          <tr class="hover:bg-slate-50 transition-colors">
+            <td class="px-6 py-4">
+              <% if sku.image.attached? %>
+                <%= image_tag sku.image.variant(resize_to_limit: [50, 50]), class: "rounded-md shadow-sm" %>
+              <% else %>
+                <div class="w-10 h-10 bg-slate-100 rounded-md flex items-center justify-center text-slate-400 text-[10px]">无图</div>
+              <% end %>
+            </td>
+            <td class="px-6 py-4 text-sm font-medium text-slate-800"><%= sku.name %></td>
+            <td class="px-6 py-4 text-sm text-slate-600"><%= sku.category.name %></td>
+            <td class="px-6 py-4 text-sm text-slate-600">
+              <% case sku.category.category_kind %>
+              <% when 'a' %>
+                <span class="block">容积: <%= sku.skuable.net_capacity %></span>
+                <span class="block text-xs">温度: <%= sku.skuable.temp_range %></span>
+              <% when 'b' %>
+                <span class="block">尺寸: <%= sku.skuable.unit_dimensions %></span>
+              <% when 'c' %>
+                <span class="block">燃气: <%= sku.skuable.gas_type %></span>
+                <span class="block text-xs">热值: <%= sku.skuable.total_btu %></span>
+              <% end %>
+            </td>
+            <td class="px-6 py-4 text-sm">
+              <span class="px-2 py-1 rounded-full text-xs font-medium <%= sku.status == 'active' ? 'bg-green-100 text-green-700' : 'bg-slate-100 text-slate-700' %>">
+                <%= sku.status.upcase %>
+              </span>
+            </td>
+            <td class="px-6 py-4 text-sm text-slate-600 space-x-3">
+              <%= link_to "编辑", edit_admin_sku_path(sku), class: "text-blue-600 hover:text-blue-800 font-medium" %>
+              <%= link_to "删除", admin_sku_path(sku), data: { turbo_method: :delete, turbo_confirm: "确定要删除该 SKU 吗？" }, class: "text-red-500 hover:text-red-700 font-medium" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

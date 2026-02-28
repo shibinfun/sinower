@@ -1,15 +1,22 @@
-<footer class="bg-slate-900 border-t border-slate-800 mt-auto">
+<footer class="bg-slate-900 border-t border-white/5 mt-auto">
     <div class="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
         <div class="md:flex md:justify-between">
           <div class="mb-6 md:mb-0">
               <a href="<%= root_path %>" class="flex items-center">
-                  <span class="self-center text-2xl font-semibold whitespace-nowrap text-blue-400 tracking-wider">SINOWER</span>
+                  <span class="self-center text-2xl font-black whitespace-nowrap text-white tracking-[0.2em]">SIN<span class="text-blue-500">O</span>WER</span>
               </a>
               <p class="mt-2 text-sm text-slate-400">领先的制冷设备科技解决方案提供商</p>
           </div>
           <div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
               <div>
-                  <h2 class="mb-6 text-sm font-semibold text-white uppercase">联系我们</h2>
+                  <h2 class="mb-6 text-sm font-semibold text-white uppercase">快速链接</h2>
+                  <ul class="text-slate-400 font-medium text-sm space-y-4">
+                      <li><%= link_to "保修条款", warranty_path, class: "hover:underline" %></li>
+                      <li><%= link_to "联系我们", contact_path, class: "hover:underline" %></li>
+                  </ul>
+              </div>
+              <div>
+                  <h2 class="mb-6 text-sm font-semibold text-white uppercase">联系方式</h2>
                   <ul class="text-slate-400 font-medium text-sm">
                       <li class="mb-4">
                           <span class="hover:underline">电话: 400-123-4567</span>

@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  burners_and_control_method: MyString
+  gas_type: MyString
+  intake_tube_pressure: MyString
+  per_btu: MyString
+  total_btu: MyString
+  regulator: MyString
+  work_area: MyString
+  exterior_dimensions: MyString
+  key_features: MyText
+
+two:
+  burners_and_control_method: MyString
+  gas_type: MyString
+  intake_tube_pressure: MyString
+  per_btu: MyString
+  total_btu: MyString
+  regulator: MyString
+  work_area: MyString
+  exterior_dimensions: MyString
+  key_features: MyText

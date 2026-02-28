@@ -1,0 +1,2 @@
+class ASkuDetail < ApplicationRecord
+end

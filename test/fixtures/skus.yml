@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  net_capacity: MyString
+  unit_dimensions: MyString
+  packaging_dimensions: MyString
+  voltage_frequency: MyString
+  temp_range: MyString
+  standard_features: MyText
+  category: one
+
+two:
+  name: MyString
+  net_capacity: MyString
+  unit_dimensions: MyString
+  packaging_dimensions: MyString
+  voltage_frequency: MyString
+  temp_range: MyString
+  standard_features: MyText
+  category: two
