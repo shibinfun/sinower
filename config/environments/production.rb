@@ -80,14 +80,11 @@ Rails.application.configure do
   config.active_record.attributes_for_inspect = [ :id ]
 
   # Enable DNS rebinding protection and other `Host` header attacks.
-  config.hosts = [
-    ".railway.app",     # Allow all Railway subdomains
-    "localhost",        # Local development
-    "127.0.0.1",        # Local loopback
-    "example.com",      # Production domain (if any)
-    /.*\.example\.com/  # Subdomains
-  ]
-  #
+  # Allow Railway dynamic subdomains and explicit production domain.
+  config.hosts << /\A.*\.railway\.app\z/
+  config.hosts << "web-production-b39ae.up.railway.app"
+  config.hosts << "localhost"
+  config.hosts << "127.0.0.1"
   # Skip DNS rebinding protection for the default health check endpoint.
   config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
 end

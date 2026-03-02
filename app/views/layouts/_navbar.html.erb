@@ -8,18 +8,18 @@
         <% if user_signed_in? %>
           <div class="flex items-center space-x-4">
             <span class="text-slate-300 text-sm"><%= current_user.email %></span>
-            <%= button_to "登出", destroy_user_session_path, method: :delete, class: "text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center" %>
+            <%= button_to "Log out", destroy_user_session_path, method: :delete, class: "text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center" %>
           </div>
         <% else %>
           <div class="flex space-x-2">
-            <%= link_to "登录", new_user_session_path, class: "text-slate-300 hover:text-white px-3 py-2 text-sm font-medium" %>
-            <%= link_to "注册", new_user_registration_path, class: "text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center" %>
+            <%= link_to "Log in", new_user_session_path, class: "text-slate-300 hover:text-white px-3 py-2 text-sm font-medium" %>
+            <%= link_to "Sign up", new_user_registration_path, class: "text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center" %>
           </div>
         <% end %>
       </div>
 
       <button data-action="click->navbar#toggle" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-slate-400 rounded-lg md:hidden hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-700" aria-controls="navbar-sticky" aria-expanded="false">
-        <span class="sr-only">打开菜单</span>
+        <span class="sr-only">Open menu</span>
         <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
         </svg>
@@ -29,41 +29,41 @@
     <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky" data-navbar-target="menu">
       <ul class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-slate-800 rounded-lg bg-slate-900 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-slate-900">
         <li>
-          <%= link_to "首页", root_path, class: "block py-2 px-3 #{current_page?(root_path) ? 'text-white font-bold border-b-2 border-blue-500' : 'text-slate-300 hover:text-white'} transition-all duration-300 rounded-sm md:bg-transparent md:p-0" %>
+          <%= link_to "Home", root_path, class: "block py-2 px-3 #{current_page?(root_path) ? 'text-white font-bold border-b-2 border-blue-500' : 'text-slate-300 hover:text-white'} transition-all duration-300 rounded-sm md:bg-transparent md:p-0" %>
         </li>
         <li>
-          <%= link_to "关于我们", about_path, class: "block py-2 px-3 #{current_page?(about_path) ? 'text-white font-bold border-b-2 border-blue-500' : 'text-slate-300 hover:text-white'} transition-all duration-300 rounded-sm md:bg-transparent md:p-0" %>
+          <%= link_to "About Us", about_path, class: "block py-2 px-3 #{current_page?(about_path) ? 'text-white font-bold border-b-2 border-blue-500' : 'text-slate-300 hover:text-white'} transition-all duration-300 rounded-sm md:bg-transparent md:p-0" %>
         </li>
         <li>
-          <%= link_to "制冷设备", a_channel_path, class: "block py-2 px-3 #{params[:kind] == 'a' ? 'text-white font-bold border-b-2 border-blue-500' : 'text-slate-300 hover:text-white'} transition-all duration-300 rounded-sm md:bg-transparent md:p-0" %>
+          <%= link_to "Refrigeration", a_channel_path, class: "block py-2 px-3 #{params[:kind] == 'a' ? 'text-white font-bold border-b-2 border-blue-500' : 'text-slate-300 hover:text-white'} transition-all duration-300 rounded-sm md:bg-transparent md:p-0" %>
         </li>
         <li>
-          <%= link_to "烹饪设备", b_channel_path, class: "block py-2 px-3 #{params[:kind] == 'b' ? 'text-white font-bold border-b-2 border-blue-500' : 'text-slate-300 hover:text-white'} transition-all duration-300 rounded-sm md:bg-transparent md:p-0" %>
+          <%= link_to "Cooking", b_channel_path, class: "block py-2 px-3 #{params[:kind] == 'b' ? 'text-white font-bold border-b-2 border-blue-500' : 'text-slate-300 hover:text-white'} transition-all duration-300 rounded-sm md:bg-transparent md:p-0" %>
         </li>
         <li>
-          <%= link_to "不锈钢餐饮用品", c_channel_path, class: "block py-2 px-3 #{params[:kind] == 'c' ? 'text-white font-bold border-b-2 border-blue-500' : 'text-slate-300 hover:text-white'} transition-all duration-300 rounded-sm md:bg-transparent md:p-0" %>
+          <%= link_to "Foodservice", c_channel_path, class: "block py-2 px-3 #{params[:kind] == 'c' ? 'text-white font-bold border-b-2 border-blue-500' : 'text-slate-300 hover:text-white'} transition-all duration-300 rounded-sm md:bg-transparent md:p-0" %>
         </li>
         <li>
-          <%= link_to "保修条款", warranty_path, class: "block py-2 px-3 #{current_page?(warranty_path) ? 'text-white font-bold border-b-2 border-blue-500' : 'text-slate-300 hover:text-white'} transition-all duration-300 rounded-sm md:bg-transparent md:p-0" %>
+          <%= link_to "Warranty", warranty_path, class: "block py-2 px-3 #{current_page?(warranty_path) ? 'text-white font-bold border-b-2 border-blue-500' : 'text-slate-300 hover:text-white'} transition-all duration-300 rounded-sm md:bg-transparent md:p-0" %>
         </li>
         <li>
-          <%= link_to "联系我们", contact_path, class: "block py-2 px-3 #{current_page?(contact_path) ? 'text-white font-bold border-b-2 border-blue-500' : 'text-slate-300 hover:text-white'} transition-all duration-300 rounded-sm md:bg-transparent md:p-0" %>
+          <%= link_to "Contact Us", contact_path, class: "block py-2 px-3 #{current_page?(contact_path) ? 'text-white font-bold border-b-2 border-blue-500' : 'text-slate-300 hover:text-white'} transition-all duration-300 rounded-sm md:bg-transparent md:p-0" %>
         </li>
         <% if user_signed_in? && current_user.admin? %>
           <li>
-            <a href="<%= admin_root_path %>" class="block py-2 px-3 text-yellow-400 font-bold hover:text-yellow-300 transition-all duration-300 rounded-sm md:bg-transparent md:p-0 border-b-2 border-transparent hover:border-yellow-400">后台管理</a>
+            <a href="<%= admin_root_path %>" class="block py-2 px-3 text-yellow-400 font-bold hover:text-yellow-300 transition-all duration-300 rounded-sm md:bg-transparent md:p-0 border-b-2 border-transparent hover:border-yellow-400">Admin</a>
           </li>
         <% end %>
         <li class="md:hidden pt-4 border-t border-slate-800 mt-2">
           <% if user_signed_in? %>
             <div class="flex flex-col space-y-3">
               <span class="text-slate-300 text-sm px-3"><%= current_user.email %></span>
-              <%= button_to "登出", destroy_user_session_path, method: :delete, class: "text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-4 py-2 text-center w-full" %>
+              <%= button_to "Log out", destroy_user_session_path, method: :delete, class: "text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-4 py-2 text-center w-full" %>
             </div>
           <% else %>
             <div class="flex flex-col space-y-2">
-              <%= link_to "登录", new_user_session_path, class: "text-slate-300 hover:text-white px-3 py-2 text-sm font-medium" %>
-              <%= link_to "注册", new_user_registration_path, class: "text-white bg-blue-600 hover:bg-blue-700 font-medium rounded-lg text-sm px-4 py-2 text-center" %>
+              <%= link_to "Log in", new_user_session_path, class: "text-slate-300 hover:text-white px-3 py-2 text-sm font-medium" %>
+              <%= link_to "Sign up", new_user_registration_path, class: "text-white bg-blue-600 hover:bg-blue-700 font-medium rounded-lg text-sm px-4 py-2 text-center" %>
             </div>
           <% end %>
         </li>
