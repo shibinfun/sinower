@@ -6,6 +6,9 @@ class HomeController < ApplicationController
     @contact_message = ContactMessage.new
   end
 
+  def about
+  end
+
   def create_contact
     @contact_message = ContactMessage.new(contact_params)
     if @contact_message.save

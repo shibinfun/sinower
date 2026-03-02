@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   get "categories/index"
   get "categories/show"
   root "home#index"
+  get "about", to: "home#about"
   get "contact", to: "home#contact"
   post "contact", to: "home#create_contact"
   get "warranty", to: "home#warranty"
