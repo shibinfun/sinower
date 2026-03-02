@@ -81,9 +81,11 @@ Rails.application.configure do
 
   # Enable DNS rebinding protection and other `Host` header attacks.
   config.hosts = [
-    ".railway.app",     # 允许所有 Railway 子域名访问
-    "example.com",     # 你的正式域名 (如果有)
-    /.*\.example\.com/ # 允许子域名
+    ".railway.app",     # Allow all Railway subdomains
+    "localhost",        # Local development
+    "127.0.0.1",        # Local loopback
+    "example.com",      # Production domain (if any)
+    /.*\.example\.com/  # Subdomains
   ]
   #
   # Skip DNS rebinding protection for the default health check endpoint.
