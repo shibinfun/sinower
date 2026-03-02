@@ -5,7 +5,8 @@ gem "rails", "~> 8.0.4"
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
 gem "propshaft"
 # Use PostgreSQL as the database for production
-gem "pg", ">= 1.6", group: :production
+gem "pg", "~> 1.1"
+
 # Use sqlite3 as the database for local development
 gem "sqlite3", ">= 2.1", groups: [:development, :test]
 # Use the Puma web server [https://github.com/puma/puma]

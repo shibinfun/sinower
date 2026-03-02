@@ -444,7 +444,7 @@ DEPENDENCIES
   jbuilder
   kamal
   kaminari
-  pg (>= 1.6)
+  pg (~> 1.1)
   propshaft
   puma (>= 5.0)
   rails (~> 8.0.4)
