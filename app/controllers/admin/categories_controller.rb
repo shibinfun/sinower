@@ -9,7 +9,12 @@ class Admin::CategoriesController < Admin::BaseController
   end
 
   def new
-    @category = Category.new(parent_id: params[:parent_id])
+    if params[:parent_id].present?
+      parent = Category.find(params[:parent_id])
+      @category = Category.new(parent_id: parent.id, category_kind: parent.category_kind)
+    else
+      @category = Category.new
+    end
   end
 
   def edit
