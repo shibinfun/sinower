@@ -52,6 +52,12 @@
     </div>
 
     <!-- 动态详情字段 -->
+    <% if @sku.category && !@sku.category.leaf? %>
+      <div class="mb-6 p-4 bg-red-50 border border-red-100 rounded-lg text-sm text-red-800">
+        警告：所选分类不是叶子分类。SKU 必须挂载在没有子分类的叶子节点上。
+      </div>
+    <% end %>
+
     <% if @sku.skuable.present? %>
       <%= f.fields_for :skuable do |sf| %>
         <% case @sku.skuable_type || (@sku.category&.category_kind ? "#{@sku.category.category_kind.upcase}SkuDetail" : nil) %>
@@ -115,9 +121,13 @@
           </div>
         <% end %>
       <% end %>
+    <% elsif @sku.category&.leaf? %>
+      <div class="mb-6 p-4 bg-yellow-50 border border-yellow-100 rounded-lg text-sm text-yellow-800">
+        未加载详细参数，请确认分类设置。
+      </div>
     <% else %>
       <div class="mb-6 p-4 bg-blue-50 border border-blue-100 rounded-lg text-sm text-blue-800">
-        请先选择有效的分类以加载详细参数字段。
+        请先选择有效的叶子分类以加载详细参数字段。
       </div>
     <% end %>
 

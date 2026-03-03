@@ -11,7 +11,7 @@ class Admin::SkusController < Admin::BaseController
   def new
     category = Category.find_by(id: params[:category_id])
     @sku = Sku.new(category: category)
-    if category
+    if category && category.leaf?
       case category.category_kind
       when "a"
         @sku.skuable = ASkuDetail.new
@@ -20,17 +20,15 @@ class Admin::SkusController < Admin::BaseController
       when "c"
         @sku.skuable = CSkuDetail.new
       else
-        # Fallback or handle 'd' if it's introduced later
         @sku.skuable = nil
       end
     else
-      # Ensure @sku.skuable is initialized to a default or nil
       @sku.skuable = nil
     end
   end
 
   def edit
-    if @sku.category && @sku.skuable.nil?
+    if @sku.category && @sku.category.leaf? && @sku.skuable.nil?
       case @sku.category.category_kind
       when "a"
         @sku.skuable = ASkuDetail.new
