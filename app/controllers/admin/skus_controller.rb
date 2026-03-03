@@ -9,10 +9,31 @@ class Admin::SkusController < Admin::BaseController
   end
 
   def new
-    @sku = Sku.new(category_id: params[:category_id])
+    category = Category.find_by(id: params[:category_id])
+    @sku = Sku.new(category: category)
+    if category
+      case category.category_kind
+      when "a"
+        @sku.skuable = ASkuDetail.new
+      when "b"
+        @sku.skuable = BSkuDetail.new
+      when "c"
+        @sku.skuable = CSkuDetail.new
+      end
+    end
   end
 
   def edit
+    if @sku.category && @sku.skuable.nil?
+      case @sku.category.category_kind
+      when "a"
+        @sku.skuable = ASkuDetail.new
+      when "b"
+        @sku.skuable = BSkuDetail.new
+      when "c"
+        @sku.skuable = CSkuDetail.new
+      end
+    end
   end
 
   def create
