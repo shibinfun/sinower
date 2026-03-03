@@ -59,6 +59,7 @@
     <% end %>
 
     <% if @sku.skuable.present? %>
+      <%= f.hidden_field :skuable_type, value: @sku.skuable_type || (@sku.category&.category_kind ? "#{@sku.category.category_kind.upcase}SkuDetail" : nil) %>
       <%= f.fields_for :skuable do |sf| %>
         <% case @sku.skuable_type || (@sku.category&.category_kind ? "#{@sku.category.category_kind.upcase}SkuDetail" : nil) %>
         <% when 'ASkuDetail' %>
