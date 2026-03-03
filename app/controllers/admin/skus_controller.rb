@@ -19,7 +19,13 @@ class Admin::SkusController < Admin::BaseController
         @sku.skuable = BSkuDetail.new
       when "c"
         @sku.skuable = CSkuDetail.new
+      else
+        # Fallback or handle 'd' if it's introduced later
+        @sku.skuable = nil
       end
+    else
+      # Ensure @sku.skuable is initialized to a default or nil
+      @sku.skuable = nil
     end
   end
 

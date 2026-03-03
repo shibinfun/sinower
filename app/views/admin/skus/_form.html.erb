@@ -52,67 +52,73 @@
     </div>
 
     <!-- 动态详情字段 -->
-    <%= f.fields_for :skuable do |sf| %>
-      <% case @sku.skuable_type || (@sku.category&.category_kind ? "#{@sku.category.category_kind.upcase}SkuDetail" : nil) %>
-      <% when 'ASkuDetail' %>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-          <div class="md:col-span-2">
-            <h3 class="text-lg font-bold text-slate-800 border-b pb-2 mb-4">制冷参数 (ASkuDetail)</h3>
+    <% if @sku.skuable.present? %>
+      <%= f.fields_for :skuable do |sf| %>
+        <% case @sku.skuable_type || (@sku.category&.category_kind ? "#{@sku.category.category_kind.upcase}SkuDetail" : nil) %>
+        <% when 'ASkuDetail' %>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div class="md:col-span-2">
+              <h3 class="text-lg font-bold text-slate-800 border-b pb-2 mb-4">制冷参数 (ASkuDetail)</h3>
+            </div>
+            <div>
+              <%= sf.label :net_capacity, "净容积", class: "block text-sm font-medium text-slate-700 mb-2" %>
+              <%= sf.text_field :net_capacity, class: "w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" %>
+            </div>
+            <div>
+              <%= sf.label :unit_dimensions, "外形尺寸", class: "block text-sm font-medium text-slate-700 mb-2" %>
+              <%= sf.text_field :unit_dimensions, class: "w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" %>
+            </div>
+            <div>
+              <%= sf.label :temp_range, "温度范围", class: "block text-sm font-medium text-slate-700 mb-2" %>
+              <%= sf.text_field :temp_range, class: "w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" %>
+            </div>
+            <div>
+              <%= sf.label :voltage_frequency, "电压频率", class: "block text-sm font-medium text-slate-700 mb-2" %>
+              <%= sf.text_field :voltage_frequency, class: "w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" %>
+            </div>
+            <div class="md:col-span-2">
+              <%= sf.label :standard_features, "标准特性", class: "block text-sm font-medium text-slate-700 mb-2" %>
+              <%= sf.text_area :standard_features, rows: 4, class: "w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" %>
+            </div>
           </div>
-          <div>
-            <%= sf.label :net_capacity, "净容积", class: "block text-sm font-medium text-slate-700 mb-2" %>
-            <%= sf.text_field :net_capacity, class: "w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" %>
+        <% when 'BSkuDetail' %>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div class="md:col-span-2">
+              <h3 class="text-lg font-bold text-slate-800 border-b pb-2 mb-4">烹饪参数 (BSkuDetail)</h3>
+            </div>
+            <div>
+              <%= sf.label :unit_dimensions, "外形尺寸", class: "block text-sm font-medium text-slate-700 mb-2" %>
+              <%= sf.text_field :unit_dimensions, class: "w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" %>
+            </div>
           </div>
-          <div>
-            <%= sf.label :unit_dimensions, "外形尺寸", class: "block text-sm font-medium text-slate-700 mb-2" %>
-            <%= sf.text_field :unit_dimensions, class: "w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" %>
+        <% when 'CSkuDetail' %>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div class="md:col-span-2">
+              <h3 class="text-lg font-bold text-slate-800 border-b pb-2 mb-4">不锈钢/燃气参数 (CSkuDetail)</h3>
+            </div>
+            <div>
+              <%= sf.label :gas_type, "燃气类型", class: "block text-sm font-medium text-slate-700 mb-2" %>
+              <%= sf.text_field :gas_type, class: "w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" %>
+            </div>
+            <div>
+              <%= sf.label :total_btu, "总热负荷", class: "block text-sm font-medium text-slate-700 mb-2" %>
+              <%= sf.text_field :total_btu, class: "w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" %>
+            </div>
+            <div class="md:col-span-2">
+              <%= sf.label :key_features, "关键特性", class: "block text-sm font-medium text-slate-700 mb-2" %>
+              <%= sf.text_area :key_features, rows: 4, class: "w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" %>
+            </div>
           </div>
-          <div>
-            <%= sf.label :temp_range, "温度范围", class: "block text-sm font-medium text-slate-700 mb-2" %>
-            <%= sf.text_field :temp_range, class: "w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" %>
+        <% else %>
+          <div class="mb-6 p-4 bg-yellow-50 border border-yellow-100 rounded-lg text-sm text-yellow-800">
+            该分类频道尚未定义详细参数字段。
           </div>
-          <div>
-            <%= sf.label :voltage_frequency, "电压频率", class: "block text-sm font-medium text-slate-700 mb-2" %>
-            <%= sf.text_field :voltage_frequency, class: "w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" %>
-          </div>
-          <div class="md:col-span-2">
-            <%= sf.label :standard_features, "标准特性", class: "block text-sm font-medium text-slate-700 mb-2" %>
-            <%= sf.text_area :standard_features, rows: 4, class: "w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" %>
-          </div>
-        </div>
-      <% when 'BSkuDetail' %>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-          <div class="md:col-span-2">
-            <h3 class="text-lg font-bold text-slate-800 border-b pb-2 mb-4">烹饪参数 (BSkuDetail)</h3>
-          </div>
-          <div>
-            <%= sf.label :unit_dimensions, "外形尺寸", class: "block text-sm font-medium text-slate-700 mb-2" %>
-            <%= sf.text_field :unit_dimensions, class: "w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" %>
-          </div>
-        </div>
-      <% when 'CSkuDetail' %>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-          <div class="md:col-span-2">
-            <h3 class="text-lg font-bold text-slate-800 border-b pb-2 mb-4">不锈钢/燃气参数 (CSkuDetail)</h3>
-          </div>
-          <div>
-            <%= sf.label :gas_type, "燃气类型", class: "block text-sm font-medium text-slate-700 mb-2" %>
-            <%= sf.text_field :gas_type, class: "w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" %>
-          </div>
-          <div>
-            <%= sf.label :total_btu, "总热负荷", class: "block text-sm font-medium text-slate-700 mb-2" %>
-            <%= sf.text_field :total_btu, class: "w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" %>
-          </div>
-          <div class="md:col-span-2">
-            <%= sf.label :key_features, "关键特性", class: "block text-sm font-medium text-slate-700 mb-2" %>
-            <%= sf.text_area :key_features, rows: 4, class: "w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" %>
-          </div>
-        </div>
-      <% else %>
-        <div class="mb-6 p-4 bg-blue-50 border border-blue-100 rounded-lg text-sm text-blue-800">
-          请先选择有效的分类以加载详细参数字段。
-        </div>
+        <% end %>
       <% end %>
+    <% else %>
+      <div class="mb-6 p-4 bg-blue-50 border border-blue-100 rounded-lg text-sm text-blue-800">
+        请先选择有效的分类以加载详细参数字段。
+      </div>
     <% end %>
 
     <div class="flex space-x-4">
