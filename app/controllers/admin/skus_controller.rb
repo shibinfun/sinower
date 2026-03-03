@@ -9,8 +9,11 @@ class Admin::SkusController < Admin::BaseController
   end
 
   def new
-    category = Category.find_by(id: params[:category_id])
+    category_id = params[:category_id]
+    category = Category.find_by(id: category_id) if category_id.present?
+    
     @sku = Sku.new(category: category)
+    
     if category && category.leaf?
       case category.category_kind
       when "a"
