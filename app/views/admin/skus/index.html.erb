@@ -23,7 +23,11 @@
           <tr class="hover:bg-slate-50 transition-colors">
             <td class="px-6 py-4">
               <% if sku.image.attached? %>
-                <%= image_tag sku.image.variant(resize_to_limit: [50, 50]), class: "rounded-md shadow-sm" %>
+                <% begin %>
+                  <%= image_tag sku.image.variant(resize_to_limit: [50, 50]), class: "rounded-md shadow-sm" %>
+                <% rescue ActiveStorage::FileNotFoundError %>
+                  <div class="w-10 h-10 bg-red-50 rounded-md flex items-center justify-center text-red-400 text-[10px] text-center" title="文件丢失，请重新上传">丢失</div>
+                <% end %>
               <% else %>
                 <div class="w-10 h-10 bg-slate-100 rounded-md flex items-center justify-center text-slate-400 text-[10px]">无图</div>
               <% end %>
