@@ -1,0 +1,29 @@
+<%# app/views/layouts/_navbar_category.html.erb %>
+<div class="relative">
+  <div class="flex items-center justify-between group/item">
+    <%= link_to send("#{kind}_channel_path", category_id: category.id), 
+        class: "flex-grow px-4 py-3 text-sm text-slate-300 hover:bg-blue-600 hover:text-white transition-all truncate" do %>
+      <%= category.name %>
+    <% end %>
+
+    <% if category.children.any? %>
+      <button type="button" 
+              data-action="click->navbar#toggleDropdown" 
+              class="px-4 py-3 text-slate-500 hover:text-white hover:bg-blue-700/50 transition-all focus:outline-none">
+        <svg class="w-4 h-4 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+        </svg>
+      </button>
+    <% end %>
+  </div>
+
+  <% if category.children.any? %>
+    <div class="hidden md:absolute md:left-8 md:top-8 w-64 z-50 pl-2 animate-fade-in-right ml-4 dropdown-container">
+      <div class="bg-slate-800 border border-slate-700 rounded-2xl shadow-2xl overflow-visible backdrop-blur-xl bg-opacity-95 py-2 ring-1 ring-white/10">
+        <% category.children.each do |sub_cat| %>
+          <%= render 'layouts/navbar_category', category: sub_cat, kind: kind %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>

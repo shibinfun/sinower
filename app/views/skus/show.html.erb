@@ -23,7 +23,7 @@
         <div class="aspect-square relative overflow-hidden bg-slate-50">
           <% if @sku.image.attached? %>
             <% begin %>
-              <%= image_tag @sku.image, class: "w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 ease-in-out" %>
+              <%= image_tag @sku.image, class: "w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-1000 ease-in-out" %>
             <% rescue ActiveStorage::FileNotFoundError %>
               <div class="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100">
                 <svg class="w-32 h-32 text-slate-200 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
@@ -154,8 +154,10 @@
           <div class="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center text-blue-600 font-black">ST</div>
           <h3 class="text-xl font-black text-slate-900 tracking-tight">核心特性 (Core Features)</h3>
         </div>
-        <div class="bg-slate-50 rounded-2xl p-8 text-slate-600 text-base leading-relaxed font-medium border border-slate-100 whitespace-pre-line">
+        <div class="bg-slate-50 rounded-2xl p-8 text-slate-600 text-base leading-relaxed font-medium border border-slate-100 prose prose-slate max-w-none">
           <% if @sku.category.category_kind == 'a' %>
+            <%= @sku.skuable.standard_features %>
+          <% elsif @sku.category.category_kind == 'b' %>
             <%= @sku.skuable.standard_features %>
           <% elsif @sku.category.category_kind == 'c' %>
             <%= @sku.skuable.key_features %>

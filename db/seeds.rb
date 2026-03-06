@@ -14,10 +14,12 @@ puts "Admin user created: admin@example.com / password"
 cat_a = Category.create!(name: '制冷设备', category_kind: 'a')
 cat_a1 = Category.create!(name: '商用冰箱', parent: cat_a, category_kind: 'a')
 cat_a1_1 = Category.create!(name: '立式冰箱', parent: cat_a1, category_kind: 'a')
+cat_a1_1_1 = Category.create!(name: '单门展示柜', parent: cat_a1_1, category_kind: 'a')
+cat_a1_1_2 = Category.create!(name: '双门展示柜', parent: cat_a1_1, category_kind: 'a')
 
 sku_a1 = Sku.create!(
   name: '高端立式单门冷柜 SN-1000',
-  category: cat_a1_1,
+  category: cat_a1_1_1,
   price: 5999.00,
   stock: 50,
   status: 'active'

@@ -1,7 +1,7 @@
   <nav class="bg-slate-900/90 backdrop-blur-md border-b border-white/5 fixed w-full z-30 top-0 start-0" data-controller="navbar">
   <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
     <a href="<%= root_path %>" class="flex items-center space-x-3 rtl:space-x-reverse">
-      <span class="self-center text-2xl font-black whitespace-nowrap text-white tracking-[0.2em]">SIN<span class="text-blue-500">O</span>WER</span>
+      <%= image_tag "logo.png", class: "h-12 w-auto", alt: "Sinower Logo" %>
     </a>
     <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
       <div class="hidden md:flex">
@@ -34,15 +34,27 @@
         <li>
           <%= link_to "About Us", about_path, class: "block py-2 px-3 #{current_page?(about_path) ? 'text-white font-bold border-b-2 border-blue-500' : 'text-slate-300 hover:text-white'} transition-all duration-300 rounded-sm md:bg-transparent md:p-0" %>
         </li>
-        <li>
-          <%= link_to "Refrigeration", a_channel_path, class: "block py-2 px-3 #{params[:kind] == 'a' ? 'text-white font-bold border-b-2 border-blue-500' : 'text-slate-300 hover:text-white'} transition-all duration-300 rounded-sm md:bg-transparent md:p-0" %>
-        </li>
-        <li>
-          <%= link_to "Cooking", b_channel_path, class: "block py-2 px-3 #{params[:kind] == 'b' ? 'text-white font-bold border-b-2 border-blue-500' : 'text-slate-300 hover:text-white'} transition-all duration-300 rounded-sm md:bg-transparent md:p-0" %>
-        </li>
-        <li>
-          <%= link_to "Foodservice", c_channel_path, class: "block py-2 px-3 #{params[:kind] == 'c' ? 'text-white font-bold border-b-2 border-blue-500' : 'text-slate-300 hover:text-white'} transition-all duration-300 rounded-sm md:bg-transparent md:p-0" %>
-        </li>
+
+        <% [ ['Refrigeration', 'a'], ['Cooking', 'b'], ['Foodservice', 'c'] ].each do |label, kind| %>
+          <li class="relative group" data-navbar-target="rootDropdown">
+            <div class="flex items-center">
+              <%= link_to label, send("#{kind}_channel_path"), class: "block py-2 px-3 #{params[:kind] == kind ? 'text-white font-bold border-b-2 border-blue-500' : 'text-slate-300 hover:text-white'} transition-all duration-300 rounded-sm md:bg-transparent md:p-0 flex-grow" %>
+              <button type="button" data-action="click->navbar#toggleMobileRoot" class="ml-auto text-slate-400 p-2 focus:outline-none">
+                <svg class="w-4 h-4 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+              </button>
+            </div>
+            
+            <!-- Desktop/Mobile Dropdown -->
+            <div class="hidden md:absolute md:left-0 md:top-full w-full md:w-64 z-50 pt-2 animate-fade-in-right dropdown-container">
+              <div class="bg-slate-800 border border-slate-700 rounded-2xl shadow-2xl overflow-visible backdrop-blur-xl bg-opacity-95 py-2 ring-1 ring-white/10">
+                <% categories_for_kind(kind).each do |cat| %>
+                  <%= render 'layouts/navbar_category', category: cat, kind: kind %>
+                <% end %>
+              </div>
+            </div>
+          </li>
+        <% end %>
+
         <li>
           <%= link_to "Warranty", warranty_path, class: "block py-2 px-3 #{current_page?(warranty_path) ? 'text-white font-bold border-b-2 border-blue-500' : 'text-slate-300 hover:text-white'} transition-all duration-300 rounded-sm md:bg-transparent md:p-0" %>
         </li>
