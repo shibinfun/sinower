@@ -35,24 +35,30 @@
           <%= link_to "About Us", about_path, class: "block py-2 px-3 #{current_page?(about_path) ? 'text-white font-bold border-b-2 border-blue-500' : 'text-slate-300 hover:text-white'} transition-all duration-300 rounded-sm md:bg-transparent md:p-0" %>
         </li>
 
-        <% [ ['Refrigeration', 'a'], ['Cooking', 'b'], ['Foodservice', 'c'] ].each do |label, kind| %>
-          <li class="relative group" data-navbar-target="rootDropdown">
-            <div class="flex items-center">
-              <%= link_to label, send("#{kind}_channel_path"), class: "block py-2 px-3 #{params[:kind] == kind ? 'text-white font-bold border-b-2 border-blue-500' : 'text-slate-300 hover:text-white'} transition-all duration-300 rounded-sm md:bg-transparent md:p-0 flex-grow" %>
-              <button type="button" data-action="click->navbar#toggleMobileRoot" class="ml-auto text-slate-400 p-2 focus:outline-none">
-                <svg class="w-4 h-4 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-              </button>
-            </div>
-            
-            <!-- Desktop/Mobile Dropdown -->
-            <div class="hidden md:absolute md:left-0 md:top-full w-full md:w-64 z-50 pt-2 animate-fade-in-right dropdown-container">
-              <div class="bg-slate-800 border border-slate-700 rounded-2xl shadow-2xl overflow-visible backdrop-blur-xl bg-opacity-95 py-2 ring-1 ring-white/10">
-                <% categories_for_kind(kind).each do |cat| %>
-                  <%= render 'layouts/navbar_category', category: cat, kind: kind %>
+        <% [ 'a', 'b', 'c' ].each do |kind| %>
+          <% categories_for_kind(kind).each do |category| %>
+            <li class="relative group" data-navbar-target="rootDropdown">
+              <div class="flex items-center">
+                <%= link_to category.name, category_path(category), class: "block py-2 px-3 #{params[:id].to_i == category.id ? 'text-white font-bold border-b-2 border-blue-500' : 'text-slate-300 hover:text-white'} transition-all duration-300 rounded-sm md:bg-transparent md:p-0 flex-grow" %>
+                <% if category.children.any? %>
+                  <button type="button" data-action="click->navbar#toggleMobileRoot" class="md:hidden ml-auto text-slate-400 p-2 focus:outline-none">
+                    <svg class="w-4 h-4 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                  </button>
                 <% end %>
               </div>
-            </div>
-          </li>
+              
+              <% if category.children.any? %>
+                <!-- Desktop/Mobile Dropdown -->
+                <div class="hidden md:group-hover:block md:absolute md:left-0 md:top-full w-full md:w-64 z-50 pt-2 dropdown-container">
+                  <div class="bg-slate-800 border border-slate-700 rounded-2xl shadow-2xl overflow-visible backdrop-blur-xl bg-opacity-95 py-2 ring-1 ring-white/10 md:animate-fade-in-up">
+                    <% category.children.each do |child| %>
+                      <%= render 'layouts/navbar_category', category: child, kind: kind %>
+                    <% end %>
+                  </div>
+                </div>
+              <% end %>
+            </li>
+          <% end %>
         <% end %>
 
         <li>

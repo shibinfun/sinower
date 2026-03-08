@@ -20,7 +20,10 @@ export default class extends Controller {
 
   closeAllDropdowns() {
     this.element.querySelectorAll('.dropdown-container').forEach(dropdown => {
-      dropdown.classList.add("hidden")
+      // Only hide manually if it's not handled by Tailwind's hover classes
+      if (!dropdown.classList.contains('md:group-hover:block')) {
+        dropdown.classList.add("hidden")
+      }
     })
     this.element.querySelectorAll('svg.rotate-180, svg.rotate-90').forEach(svg => {
       svg.classList.remove("rotate-180", "rotate-90")
