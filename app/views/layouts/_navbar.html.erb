@@ -1,7 +1,7 @@
   <nav class="bg-slate-900/90 backdrop-blur-md border-b border-white/5 fixed w-full z-30 top-0 start-0" data-controller="navbar">
   <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
     <a href="<%= root_path %>" class="flex items-center space-x-3 rtl:space-x-reverse">
-      <%= image_tag "logo.png", class: "h-12 w-auto", alt: "Sinower Logo" %>
+      <%= image_tag "logo.avif", class: "h-12 w-auto", alt: "Sinower Logo" %>
     </a>
     <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
       <div class="hidden md:flex">
@@ -37,7 +37,7 @@
 
         <% [ 'a', 'b', 'c' ].each do |kind| %>
           <% categories_for_kind(kind).each do |category| %>
-            <li class="relative group" data-navbar-target="rootDropdown">
+            <li class="relative group/cat-0" data-navbar-target="rootDropdown">
               <div class="flex items-center">
                 <%= link_to category.name, category_path(category), class: "block py-2 px-3 #{params[:id].to_i == category.id ? 'text-white font-bold border-b-2 border-blue-500' : 'text-slate-300 hover:text-white'} transition-all duration-300 rounded-sm md:bg-transparent md:p-0 flex-grow" %>
                 <% if category.children.any? %>
@@ -49,10 +49,10 @@
               
               <% if category.children.any? %>
                 <!-- Desktop/Mobile Dropdown -->
-                <div class="hidden md:group-hover:block md:absolute md:left-0 md:top-full w-full md:w-64 z-50 pt-2 dropdown-container">
+                <div class="hidden md:group-hover/cat-0:block md:absolute md:left-0 md:top-full w-full md:w-64 z-50 pt-2 dropdown-container pointer-events-auto">
                   <div class="bg-slate-800 border border-slate-700 rounded-2xl shadow-2xl overflow-visible backdrop-blur-xl bg-opacity-95 py-2 ring-1 ring-white/10 md:animate-fade-in-up">
                     <% category.children.each do |child| %>
-                      <%= render 'layouts/navbar_category', category: child, kind: kind %>
+                      <%= render 'layouts/navbar_category', category: child, kind: kind, depth: 1 %>
                     <% end %>
                   </div>
                 </div>

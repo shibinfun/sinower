@@ -20,8 +20,8 @@ export default class extends Controller {
 
   closeAllDropdowns() {
     this.element.querySelectorAll('.dropdown-container').forEach(dropdown => {
-      // Only hide manually if it's not handled by Tailwind's hover classes
-      if (!dropdown.classList.contains('md:group-hover:block')) {
+      // 在电脑端宽度下，不手动操作 hidden 类，以免干扰 Tailwind 的 hover 逻辑
+      if (window.innerWidth < 768) {
         dropdown.classList.add("hidden")
       }
     })

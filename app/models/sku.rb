@@ -1,6 +1,7 @@
 class Sku < ApplicationRecord
   belongs_to :category
   has_one_attached :image
+  has_one_attached :manual
 
   delegated_type :skuable, types: %w[ ASkuDetail BSkuDetail CSkuDetail ], dependent: :destroy
   accepts_nested_attributes_for :skuable

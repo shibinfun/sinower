@@ -132,8 +132,15 @@
             <svg class="w-5 h-5 ml-3 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
           <% end %>
           
-          <%= link_to "#", class: "inline-flex justify-center items-center px-10 py-5 bg-slate-900 hover:bg-black text-white rounded-[1.5rem] font-black text-sm tracking-widest uppercase transition-all duration-300" do %>
-            下载技术手册
+          <% if @sku.manual.attached? %>
+            <%= link_to rails_blob_path(@sku.manual, disposition: "attachment"), 
+                        class: "inline-flex justify-center items-center px-10 py-5 bg-slate-900 hover:bg-black text-white rounded-[1.5rem] font-black text-sm tracking-widest uppercase transition-all duration-300" do %>
+              下载技术手册
+            <% end %>
+          <% else %>
+            <div class="inline-flex justify-center items-center px-10 py-5 bg-slate-200 text-slate-400 rounded-[1.5rem] font-black text-sm tracking-widest uppercase cursor-not-allowed">
+              手册准备中
+            </div>
           <% end %>
         </div>
         <p class="text-[9px] text-slate-400 text-center sm:text-left font-bold uppercase tracking-tighter">

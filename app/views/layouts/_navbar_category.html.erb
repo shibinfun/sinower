@@ -1,7 +1,24 @@
 <%# app/views/layouts/_navbar_category.html.erb %>
-<div class="relative group/sub">
+<% 
+  group_name = "group/cat-#{depth}"
+  hover_class = case depth
+                when 1 then "md:group-hover/cat-1:block"
+                when 2 then "md:group-hover/cat-2:block"
+                when 3 then "md:group-hover/cat-3:block"
+                when 4 then "md:group-hover/cat-4:block"
+                else "md:group-hover/cat-5:block"
+                end
+  text_hover_class = case depth
+                     when 1 then "group-hover/cat-1:text-white"
+                     when 2 then "group-hover/cat-2:text-white"
+                     when 3 then "group-hover/cat-3:text-white"
+                     when 4 then "group-hover/cat-4:text-white"
+                     else "group-hover/cat-5:text-white"
+                     end
+%>
+<div class="relative <%= group_name %>">
   <div class="flex items-center justify-between group/item">
-    <%= link_to send("#{kind}_channel_path", category_id: category.id), 
+    <%= link_to category_path(category), 
         class: "flex-grow px-4 py-3 text-sm text-slate-300 hover:bg-blue-600 hover:text-white transition-all truncate" do %>
       <%= category.name %>
     <% end %>
@@ -16,7 +33,7 @@
       </button>
       
       <%# Add a visual indicator for desktop that there are children, but not as a separate button %>
-      <div class="hidden md:block px-4 py-3 text-slate-500 group-hover/item:text-white transition-all pointer-events-none">
+      <div class="hidden md:block px-4 py-3 text-slate-500 <%= text_hover_class %> transition-all pointer-events-none">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
         </svg>
@@ -25,10 +42,10 @@
   </div>
 
   <% if category.children.any? %>
-    <div class="hidden md:group-hover:block md:absolute md:left-full md:top-0 w-64 z-50 dropdown-container">
-      <div class="bg-slate-800 border border-slate-700 rounded-2xl shadow-2xl overflow-visible backdrop-blur-xl bg-opacity-95 py-2 ring-1 ring-white/10 ml-1 md:animate-fade-in-right">
+    <div class="hidden <%= hover_class %> md:absolute md:left-full md:top-0 w-64 z-50 dropdown-container pointer-events-auto">
+      <div class="bg-slate-800 border border-slate-700 rounded-2xl shadow-2xl overflow-visible backdrop-blur-xl bg-opacity-95 py-2 ring-1 ring-white/10 ml-0.5 md:animate-fade-in-right">
         <% category.children.each do |sub_cat| %>
-          <%= render 'layouts/navbar_category', category: sub_cat, kind: kind %>
+          <%= render 'layouts/navbar_category', category: sub_cat, kind: kind, depth: depth + 1 %>
         <% end %>
       </div>
     </div>

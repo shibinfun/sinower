@@ -12,6 +12,10 @@ class Category < ApplicationRecord
     children.empty?
   end
 
+  def depth
+    parent ? parent.depth + 1 : 0
+  end
+
   def all_descendant_skus
     if leaf?
       skus
