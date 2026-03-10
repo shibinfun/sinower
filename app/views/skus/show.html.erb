@@ -51,11 +51,29 @@
       
       <!-- 核心卖点图标 -->
       <div class="grid grid-cols-3 gap-4">
-        <% [
-          { title: "智能温控", subtitle: "AI Control", icon: "M13 10V3L4 14h7v7l9-11h-7z" },
-          { title: "低能耗", subtitle: "Eco Friendly", icon: "M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" },
-          { title: "耐用性", subtitle: "Industrial", icon: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" }
-        ].each do |feature| %>
+        <% 
+          features = case @sku.category.category_kind
+                    when 'c'
+                      [
+                        { title: "优质不锈钢", subtitle: "Premium SS", icon: "M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" },
+                        { title: "易于清洁", subtitle: "Easy Clean", icon: "M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" },
+                        { title: "重型结构", subtitle: "Heavy Duty", icon: "M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0zM13 11V7a1 1 0 011-1h6l2 2v5a1 1 0 01-1 1H3a1 1 0 01-1-1V7a1 1 0 011-1h6" }
+                      ]
+                    when 'b'
+                      [
+                        { title: "高效燃烧", subtitle: "High Heat", icon: "M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.99 7.99 0 0120 13a7.99 7.99 0 01-2.343 5.657z" },
+                        { title: "精确控制", subtitle: "Pro Control", icon: "M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" },
+                        { title: "工业品质", subtitle: "Heavy Duty", icon: "M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.673.224a2 2 0 01-1.547 0l-.673-.224a6 6 0 00-3.86-.517l-2.387.477a2 2 0 00-1.022.547l-1.16 1.16a2 2 0 000 2.828l1.16 1.16a2 2 0 001.022.547l2.387.477a6 6 0 003.86-.517l.673-.224a2 2 0 011.547 0l.673.224a6 6 0 003.86.517l2.387-.477a2 2 0 001.022-.547l1.16-1.16a2 2 0 000-2.828l-1.16-1.16z" }
+                      ]
+                    else
+                      [
+                        { title: "智能温控", subtitle: "AI Control", icon: "M13 10V3L4 14h7v7l9-11h-7z" },
+                        { title: "低能耗", subtitle: "Eco Friendly", icon: "M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" },
+                        { title: "耐用性", subtitle: "Industrial", icon: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" }
+                      ]
+                    end
+        %>
+        <% features.each do |feature| %>
           <div class="p-5 bg-slate-50 rounded-2xl border border-slate-100 text-center hover:bg-white hover:shadow-xl hover:border-blue-100 transition-all duration-300 group">
             <svg class="w-6 h-6 text-blue-600 mx-auto mb-3 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="<%= feature[:icon] %>"></path></svg>
             <h4 class="text-[11px] font-black text-slate-900 uppercase tracking-tight mb-1"><%= feature[:title] %></h4>
@@ -77,7 +95,13 @@
         
         
         <p class="text-slate-500 text-lg leading-relaxed font-medium max-w-xl">
-          SINOWER 致力于重新定义商业制冷标准。该型号结合了行业领先的高效压缩系统与多维气流管理，为您的食材提供无懈可击的保鲜环境。
+          <% if @sku.category.category_kind == 'c' %>
+            SINOWER 优质不锈钢制品专为高强度商业厨房设计。采用高等级不锈钢材料，结合精湛的焊接工艺与人性化设计，为您的餐饮空间提供持久耐用、卫生安全的专业解决方案。
+          <% elsif @sku.category.category_kind == 'b' %>
+            SINOWER 商业烹饪设备专为追求极致火力的专业厨房打造。结合高效的热能系统与精准的操控体验，确保每一份菜品都能达到完美的烹饪效果。
+          <% else %>
+            SINOWER 致力于重新定义商业制冷标准。该型号结合了行业领先的高效压缩系统与多维气流管理，为您的食材提供无懈可击的保鲜环境。
+          <% end %>
         </p>
       </div>
 
@@ -100,16 +124,18 @@
           <% end %>
         <% elsif @sku.category.category_kind == 'c' %>
           <% [
-            { label: "燃气类型", value: @sku.skuable.gas_type, sub: "Gas Type" },
-            { label: "总热负荷", value: @sku.skuable.total_btu, sub: "Total BTU", highlight: true },
-            { label: "工作区域", value: @sku.skuable.work_area, sub: "Work Area" },
-            { label: "外形尺寸", value: @sku.skuable.exterior_dimensions, sub: "Exterior Dimensions" }
-          ].each do |spec| %>
+            { label: "外形尺寸", value: @sku.skuable.unit_dimensions, sub: "Unit Dimensions" },
+            { label: "产品尺寸", value: @sku.skuable.product_dimensions, sub: "Product Dimensions" },
+            { label: "水槽尺寸", value: @sku.skuable.sink_bowl_dimensions, sub: "Bowl Dimensions" },
+            { label: "水槽深度", value: @sku.skuable.sink_depth, sub: "Sink Depth" },
+            { label: "支脚加固", value: @sku.skuable.leg_bracing, sub: "Leg Bracing" },
+            { label: "龙头/落水", value: @sku.skuable.faucet_and_drain, sub: "Faucet & Drain" }
+          ].select { |s| s[:value].present? }.each do |spec| %>
             <div class="group">
               <div class="flex flex-col border-l-2 border-slate-100 pl-6 group-hover:border-blue-600 transition-all duration-300">
                 <span class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1"><%= spec[:sub] %></span>
                 <span class="text-xs font-bold text-slate-500 mb-1"><%= spec[:label] %></span>
-                <span class="text-xl font-black <%= spec[:highlight] ? 'text-blue-600' : 'text-slate-900' %> tracking-tight"><%= spec[:value] %></span>
+                <span class="text-xl font-black text-slate-900 tracking-tight"><%= spec[:value] %></span>
               </div>
             </div>
           <% end %>
@@ -127,7 +153,7 @@
       <!-- 操作区域 -->
       <div class="mt-auto space-y-4">
         <div class="flex flex-col sm:flex-row gap-4">
-          <%= link_to "#", class: "flex-1 inline-flex justify-center items-center px-10 py-5 bg-blue-600 hover:bg-blue-700 text-white rounded-[1.5rem] font-black text-sm tracking-widest uppercase transition-all duration-300 shadow-2xl shadow-blue-500/30 group" do %>
+          <%= link_to contact_path, class: "flex-1 inline-flex justify-center items-center px-10 py-5 bg-blue-600 hover:bg-blue-700 text-white rounded-[1.5rem] font-black text-sm tracking-widest uppercase transition-all duration-300 shadow-2xl shadow-blue-500/30 group" do %>
             <span>获取专业报价</span>
             <svg class="w-5 h-5 ml-3 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
           <% end %>
@@ -164,7 +190,7 @@
           <% elsif @sku.category.category_kind == 'b' %>
             <%= @sku.skuable.standard_features %>
           <% elsif @sku.category.category_kind == 'c' %>
-            <%= @sku.skuable.key_features %>
+            <%= @sku.skuable.standard_features if @sku.skuable.standard_features.present? %>
           <% else %>
             SINOWER 致力于提供卓越的产品性能与可靠性。
           <% end %>
@@ -179,7 +205,13 @@
         
         <h3 class="text-xl font-black mb-6 tracking-tight relative z-10">需要更多信息？</h3>
         <p class="text-slate-400 text-sm mb-8 leading-relaxed relative z-10">
-          我们的技术专家团队随时准备为您提供量身定制的冷链咨询服务，帮助您优化运营效率。
+          <% if @sku.category.category_kind == 'c' %>
+            我们的技术专家团队随时准备为您提供量身定制的产品咨询服务，帮助您优化运营效率。
+          <% elsif @sku.category.category_kind == 'b' %>
+            我们的技术专家团队随时准备为您提供量身定制的烹饪设备咨询服务，帮助您优化厨房流程。
+          <% else %>
+            我们的技术专家团队随时准备为您提供量身定制的冷链咨询服务，帮助您优化运营效率。
+          <% end %>
         </p>
         
         <ul class="space-y-4 relative z-10 mb-8">
@@ -197,9 +229,7 @@
           </li>
         </ul>
         
-        <a href="#" class="inline-block w-full text-center py-4 bg-white text-slate-900 rounded-xl font-black text-xs tracking-widest uppercase hover:bg-blue-50 transition-colors relative z-10">
-          立即联系
-        </a>
+        <%= link_to "立即联系", contact_path, class: "inline-block w-full text-center py-4 bg-white text-slate-900 rounded-xl font-black text-xs tracking-widest uppercase hover:bg-blue-50 transition-colors relative z-10" %>
       </div>
     </div>
   </div>

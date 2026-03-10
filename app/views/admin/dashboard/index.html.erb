@@ -6,55 +6,56 @@
     <div class="flex items-center justify-between mb-4">
       <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
         <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 11m8 4v10M4 11v10l8 4"></path>
         </svg>
       </div>
-      <span class="text-xs font-medium text-green-600 bg-green-50 px-2 py-1 rounded-full">+12%</span>
+      <span class="text-xs font-medium text-blue-600 bg-blue-50 px-2 py-1 rounded-full">库存储备</span>
     </div>
-    <h3 class="text-slate-500 text-sm font-medium">用户总数</h3>
-    <p class="text-2xl font-bold text-slate-800"><%= @users_count %></p>
+    <h3 class="text-slate-500 text-sm font-medium">产品总量</h3>
+    <p class="text-2xl font-bold text-slate-800"><%= @total_skus %></p>
   </div>
 
   <%# Stat Card 2 %>
   <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
     <div class="flex items-center justify-between mb-4">
-      <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-        <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 11m8 4v10M4 11v10l8 4"></path>
+      <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+        <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
         </svg>
       </div>
-      <span class="text-xs font-medium text-blue-600 bg-blue-50 px-2 py-1 rounded-full">正常运行</span>
+      <span class="text-xs font-medium text-green-600 bg-green-50 px-2 py-1 rounded-full">正常运行</span>
     </div>
     <h3 class="text-slate-500 text-sm font-medium">在售产品</h3>
-    <p class="text-2xl font-bold text-slate-800">24</p>
+    <p class="text-2xl font-bold text-slate-800"><%= @active_skus %></p>
   </div>
 
   <%# Stat Card 3 %>
   <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
     <div class="flex items-center justify-between mb-4">
-      <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-        <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 002 2h2a2 2 0 002-2"></path>
+      <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+        <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
         </svg>
       </div>
-      <span class="text-xs font-medium text-slate-500 bg-slate-50 px-2 py-1 rounded-full">近7天</span>
+      <span class="text-xs font-medium text-purple-600 bg-purple-50 px-2 py-1 rounded-full">全站统计</span>
     </div>
-    <h3 class="text-slate-500 text-sm font-medium">浏览量</h3>
-    <p class="text-2xl font-bold text-slate-800">1,280</p>
+    <h3 class="text-slate-500 text-sm font-medium">浏览总量</h3>
+    <p class="text-2xl font-bold text-slate-800"><%= number_with_delimiter(@total_views) %></p>
   </div>
 
   <%# Stat Card 4 %>
   <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
     <div class="flex items-center justify-between mb-4">
-      <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-        <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+      <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
+        <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path>
         </svg>
       </div>
-      <span class="text-xs font-medium text-green-600 bg-green-50 px-2 py-1 rounded-full">在线</span>
+      <span class="text-xs font-medium text-orange-600 bg-orange-50 px-2 py-1 rounded-full">需处理</span>
     </div>
-    <h3 class="text-slate-500 text-sm font-medium">系统状态</h3>
-    <p class="text-2xl font-bold text-slate-800">稳定</p>
+    <h3 class="text-slate-500 text-sm font-medium">咨询消息</h3>
+    <p class="text-2xl font-bold text-slate-800"><%= @messages_count %></p>
   </div>
 </div>
 

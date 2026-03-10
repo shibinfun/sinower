@@ -79,7 +79,8 @@ class Admin::SkusController < Admin::BaseController
         :voltage_frequency, :temp_range, :standard_features,
         :burners_and_control_method, :gas_type, :intake_tube_pressure,
         :per_btu, :total_btu, :regulator, :work_area,
-        :exterior_dimensions, :key_features
+        :exterior_dimensions,
+        :product_dimensions, :sink_bowl_dimensions, :sink_depth, :leg_bracing, :faucet_and_drain
       ]
     )
   end

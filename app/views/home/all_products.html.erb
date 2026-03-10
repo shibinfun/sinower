@@ -1,0 +1,119 @@
+<div class="bg-slate-50 min-h-screen pb-20">
+  <!-- Header Section -->
+  <div class="bg-slate-900 py-16 mb-12">
+    <div class="max-w-screen-xl mx-auto px-6">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+        <div>
+          <h1 class="text-4xl md:text-5xl font-black text-white tracking-tight mb-4">
+            全线产品目录
+          </h1>
+          <p class="text-slate-400 text-lg font-medium max-w-2xl">
+            探索 SINOWER 完整的产品生态系统。从先进的制冷技术到耐用的不锈钢设施，我们为您的商业厨房提供一站式解决方案。
+          </p>
+        </div>
+        <div class="hidden md:block">
+          <div class="text-right">
+            <div class="text-3xl font-black text-blue-400 mb-1"><%= Sku.count %></div>
+            <div class="text-[10px] font-bold text-slate-500 uppercase tracking-widest text-nowrap">当前在册产品总量</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="max-w-screen-xl mx-auto px-6">
+    <% @root_categories.order(:category_kind).each do |root| %>
+      <div class="mb-20">
+        <!-- Root Channel Header -->
+        <div class="flex items-center gap-4 mb-8 border-b border-slate-200 pb-4">
+          <span class="px-3 py-1 bg-blue-600 text-white text-xs font-black rounded-md uppercase">
+            <%= case root.category_kind
+                when 'a' then 'Refrigeration'
+                when 'b' then 'Cooking'
+                when 'c' then 'Stainless Steel'
+                else root.category_kind.upcase
+                end %>
+          </span>
+          <h2 class="text-2xl font-black text-slate-900 tracking-tight">
+            <%= link_to root.name, category_path(root), class: "hover:text-blue-600 transition-colors" %>
+          </h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+          <% root.children.each do |sub1| %>
+            <div class="bg-white rounded-[2rem] p-8 shadow-sm border border-slate-100 hover:shadow-xl hover:shadow-slate-200/50 transition-all duration-500 group">
+              <h3 class="text-xl font-black text-slate-900 mb-6 flex items-center justify-between border-b border-slate-50 pb-4 group-hover:border-blue-100 transition-colors">
+                <%= link_to sub1.name, category_path(sub1), class: "hover:text-blue-600" %>
+                <span class="text-slate-300 group-hover:text-blue-400 transition-colors">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg>
+                </span>
+              </h3>
+
+              <div class="space-y-6">
+                <!-- Level 3 Categories -->
+                <% sub1.children.each do |sub2| %>
+                  <div>
+                    <h4 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-3 flex items-center gap-2">
+                      <span class="w-1.5 h-1.5 bg-blue-500 rounded-full"></span>
+                      <%= link_to sub2.name, category_path(sub2), class: "hover:text-blue-600 transition-colors" %>
+                    </h4>
+                    
+                    <% if sub2.children.any? %>
+                      <!-- Level 4 Categories and their products -->
+                      <div class="ml-3 space-y-4">
+                        <% sub2.children.each do |sub3| %>
+                          <div class="pl-3 border-l-2 border-slate-50 hover:border-blue-100 transition-colors py-1">
+                            <h5 class="text-[13px] font-bold text-slate-700 mb-2">
+                              <%= link_to sub3.name, category_path(sub3), class: "hover:text-blue-600" %>
+                            </h5>
+                            
+                            <ul class="grid grid-cols-1 gap-1.5">
+                              <% sub3.all_descendant_skus.each do |sku| %>
+                                <li>
+                                  <%= link_to sku_path(sku), class: "text-sm text-slate-500 hover:text-blue-600 flex items-center group/sku py-0.5" do %>
+                                    <span class="w-1 h-1 bg-slate-200 group-hover/sku:bg-blue-400 rounded-full mr-2 transition-colors"></span>
+                                    <span class="truncate"><%= sku.name %></span>
+                                  <% end %>
+                                </li>
+                              <% end %>
+                            </ul>
+                          </div>
+                        <% end %>
+                      </div>
+                    <% else %>
+                      <!-- Direct products under Level 3 if no Level 4 -->
+                      <ul class="ml-3 grid grid-cols-1 gap-1.5">
+                        <% sub2.all_descendant_skus.each do |sku| %>
+                          <li>
+                            <%= link_to sku_path(sku), class: "text-sm text-slate-500 hover:text-blue-600 flex items-center group/sku py-0.5" do %>
+                              <span class="w-1 h-1 bg-slate-200 group-hover/sku:bg-blue-400 rounded-full mr-2 transition-colors"></span>
+                              <span class="truncate"><%= sku.name %></span>
+                            <% end %>
+                          </li>
+                        <% end %>
+                      </ul>
+                    <% end %>
+                  </div>
+                <% end %>
+
+                <!-- Direct products under Level 2 if no Level 3 -->
+                <% if sub1.children.empty? %>
+                  <ul class="grid grid-cols-1 gap-1.5">
+                    <% sub1.skus.each do |sku| %>
+                      <li>
+                        <%= link_to sku_path(sku), class: "text-sm text-slate-500 hover:text-blue-600 flex items-center group/sku py-0.5" do %>
+                          <span class="w-1 h-1 bg-slate-200 group-hover/sku:bg-blue-400 rounded-full mr-2 transition-colors"></span>
+                          <span class="truncate"><%= sku.name %></span>
+                        <% end %>
+                      </li>
+                    <% end %>
+                  </ul>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -2,6 +2,10 @@ class HomeController < ApplicationController
   def index
   end
 
+  def all_products
+    @root_categories = Category.where(parent_id: nil).includes(children: { children: { children: :skus } })
+  end
+
   def contact
     @contact_message = ContactMessage.new
   end

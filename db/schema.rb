@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_03_06_014454) do
+ActiveRecord::Schema[8.0].define(version: 2026_03_10_041101) do
   create_table "a_sku_details", force: :cascade do |t|
     t.string "net_capacity"
     t.string "unit_dimensions"
@@ -76,9 +76,15 @@ ActiveRecord::Schema[8.0].define(version: 2026_03_06_014454) do
     t.string "regulator"
     t.string "work_area"
     t.string "exterior_dimensions"
-    t.text "key_features"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "unit_dimensions"
+    t.string "product_dimensions"
+    t.string "sink_bowl_dimensions"
+    t.string "sink_depth"
+    t.string "leg_bracing"
+    t.string "faucet_and_drain"
+    t.text "standard_features"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -110,6 +116,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_03_06_014454) do
     t.boolean "visible", default: true
     t.string "skuable_type"
     t.integer "skuable_id"
+    t.integer "views", default: 0
     t.index ["category_id"], name: "index_skus_on_category_id"
     t.index ["skuable_type", "skuable_id"], name: "index_skus_on_skuable_type_and_skuable_id"
   end
