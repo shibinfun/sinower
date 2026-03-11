@@ -1,30 +1,32 @@
 Rails.application.routes.draw do
-  get "skus/show"
-  get "categories/index"
-  get "categories/show"
-  root "home#index"
-  get "about", to: "home#about"
-  get "all_products", to: "home#all_products"
-  get "contact", to: "home#contact"
-  post "contact", to: "home#create_contact"
-  get "warranty", to: "home#warranty"
+  scope "(:locale)", locale: /en|zh-CN/ do
+    get "skus/show"
+    get "categories/index"
+    get "categories/show"
+    root "home#index"
+    get "about", to: "home#about"
+    get "all_products", to: "home#all_products"
+    get "contact", to: "home#contact"
+    post "contact", to: "home#create_contact"
+    get "warranty", to: "home#warranty"
+
+    namespace :admin do
+      root to: "dashboard#index"
+      get "dashboard", to: "dashboard#index"
+      resources :categories
+      resources :skus
+      resources :contact_messages, only: [:index, :show, :destroy]
+    end
+
+    %w[a b c].each do |kind|
+      get kind, to: "channels#index", defaults: { kind: kind }, as: "#{kind}_channel"
+    end
+
+    resources :categories, only: [:index, :show]
+    resources :skus, only: [:show]
+  end
+
   devise_for :users
-
-  namespace :admin do
-    root to: "dashboard#index"
-    get "dashboard", to: "dashboard#index"
-    resources :categories
-    resources :skus
-    resources :contact_messages, only: [:index, :show, :destroy]
-  end
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  %w[a b c].each do |kind|
-    get kind, to: "channels#index", defaults: { kind: kind }, as: "#{kind}_channel"
-  end
-
-  resources :categories, only: [:index, :show]
-  resources :skus, only: [:show]
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check
 

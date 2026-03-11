@@ -28,4 +28,159 @@
 #       enabled: "ON"
 
 en:
-  hello: "Hello world"
+  navbar:
+    all_products: "All Products"
+    home: "Home"
+    cooling: "Refrigeration"
+    cooking: "Cooking"
+    stainless: "Foodservice"
+    warranty: "Warranty"
+    about_us: "About Us"
+    contact_us: "Contact Us"
+    login: "Log In"
+    register: "Sign Up"
+    admin_dashboard: "Admin Dashboard"
+    logout: "Log Out"
+  footer:
+    quick_links: "Quick Links"
+    contact_us: "Contact Us"
+    company_desc: "Leading provider of refrigeration and catering equipment technology solutions."
+    rights_reserved: "All Rights Reserved."
+  home:
+    index:
+      global_expertise: "GLOBAL MANUFACTURING EXPERTISE SINCE 2005"
+      hero_title_1: "20 YEARS OF EXPERTISE"
+      hero_title_2: "FOR U.S. COLD CHAIN FUTURE"
+      hero_desc: "SINOWER USA leverages over 20 years of global manufacturing experience across Europe and the Middle East. Based in Georgia, we provide factory-direct premium equipment and localized technical support for the U.S. foodservice industry."
+      explore_products: "EXPLORE PRODUCTS"
+      contact_us: "CONTACT US"
+      stats:
+        customers: "CUSTOMERS"
+        patents: "PATENTS"
+        support: "SUPPORT"
+        efficiency: "EFFICIENCY"
+      core_tech: "CORE TECHNOLOGY"
+      features:
+        factory_direct:
+          title: "Factory-Direct Value"
+          desc: "Vertically integrated manufacturing eliminates middleman costs. We ship directly to our GA warehouse to provide competitive pricing and superior quality."
+        inventory:
+          title: "U.S. Inventory Guarantee"
+          desc: "Establishing a nationwide distribution network with stock ready in Georgia. Ensuring fast fulfillment and stable supply across the U.S."
+        support:
+          title: "Professional Local Support"
+          desc: "Factory-dispatched technical teams based in the U.S. provide in-depth warranty service and training, ensuring 24/7 peace of mind for our partners."
+    about:
+      title: "About Us"
+      subtitle: "GLOBAL EXPERTISE, LOCAL SUPPORT"
+      hero_title: "About SINOWER"
+      hero_desc: "Established in 2025, SINOWER USA represents the next phase of our global expansion into the North American market. Our Georgia (GA) facility serves as our first official U.S. company and distribution center, marking the foundation of our long-term national development strategy."
+      heritage_title: "Over 20 Years of Expertise"
+      heritage_desc_1: "While newly established in the United States, Sinower is backed by more than 20 years of manufacturing expertise and international market experience. Our manufacturing group has successfully operated across Europe and the Middle East, with established subsidiaries in France, Germany, Czech Republic, Italy, the United Kingdom, and Dubai (UAE)."
+      heritage_desc_2: "Over the past two decades, we have built strong operational systems, advanced production capabilities, and strict quality control standards to serve global distributors and OEM partners."
+      stats:
+        years: "YEARS OF EXPERTISE"
+        subsidiaries: "GLOBAL SUBSIDIARIES"
+      product_lines_title: "Our Core Product Lines"
+      product_lines:
+        refrigeration: "Commercial Refrigeration"
+        cooking: "Commercial Cooking"
+        stainless: "Stainless Foodservice"
+      value_title: "Manufacturing Strength & Competitive Value"
+      value_desc_1: "With vertically integrated production and efficient cost management, Sinower delivers competitive factory-direct pricing while maintaining higher build standards and consistent product reliability."
+      value_desc_2: "Our Georgia warehouse maintains sufficient inventory to ensure fast fulfillment and stable supply across the U.S. market. In addition, our factory-based engineering and technical teams provide professional support and dependable warranty service, ensuring confidence for both distributors and end users."
+      expansion_title: "Strategic U.S. Expansion Plan"
+      expansion_desc: "Sinower USA is committed to building a strong national footprint. Within the next three years, we plan to establish a total of nine branch offices and distribution centers across the East and West Coasts of the United States."
+      expansion_stats:
+        offices: "Branch Offices & Distribution Centers"
+        plan: "Year Strategic Expansion Plan"
+        efficiency: "East & West Coast Logistics Efficiency"
+      expansion_footer: "This expansion will enhance logistics efficiency, improve response time, and provide localized service support as we continue to grow alongside our partners."
+      commitment_title: "Our Commitment"
+      commitment_desc: "As a fast-growing brand in the U.S. market, Sinower offers early partners the opportunity to grow together within a structured and stable distribution model. We believe long-term success is built on integrity, transparency, and mutual benefit."
+      become_dealer_title: "Become a Sinower Dealer"
+      become_dealer_desc: "Grow With a Brand Positioned for Expansion. We not only supply equipment, but build sustainable partnerships powered by manufacturing strength and global experience."
+      apply_now: "Apply Now"
+      why_title: "Why Partner With Sinower?"
+      reasons:
+        pricing:
+          title: "Competitive Factory-Direct Pricing"
+          desc: "Our vertically integrated manufacturing structure allows us to provide attractive margins while maintaining consistent quality standards."
+        support:
+          title: "Warranty & Technical Support"
+          desc: "We provide dependable warranty programs supported by factory-based engineering teams to ensure long-term confidence for our dealers and end users."
+        standards:
+          title: "Strong Build Standards"
+          desc: "Engineered with reliable components and strict quality control, our products are designed for durability and long-term performance in demanding commercial environments."
+        opportunity:
+          title: "Growth-Stage Opportunity"
+          desc: "As Sinower expands across the U.S., early partners benefit from structured distribution planning, reduced market saturation, and long-term territory growth potential."
+        inventory:
+          title: "U.S.-Based Inventory"
+          desc: "Our Georgia warehouse maintains sufficient stock to support fast fulfillment and stable supply across the United States."
+    contact:
+      title: "Contact SINOWER USA"
+      subtitle: "Contact SINOWER USA"
+      hero_title: "Start Your Smart Cold Chain Partnership"
+      hero_desc: "Whether it's product inquiries, technical support, or business partnerships, our Georgia-based expert team is ready to provide exceptional service."
+      send_message: "Send a Message"
+      form:
+        name: "Your Name"
+        name_placeholder: "Enter your name"
+        email: "Email Address"
+        email_placeholder: "example@email.com"
+        subject: "Subject"
+        subject_placeholder: "Inquiry topic"
+        message: "Message Details"
+        message_placeholder: "Describe your needs or questions..."
+        submit: "Send Message Now"
+      address_title: "Our Office Address"
+      phone_title: "Service Phone"
+      email_title: "Official Email"
+      support_card_title: "Need Technical Support?"
+      support_card_desc: "If you already own our equipment and need technical guidance or warranty service, please contact our dedicated technical team."
+      view_warranty: "View Warranty Terms"
+    warranty:
+      subtitle: "Warranty & Support"
+      hero_title_1: "SINOWER"
+      hero_title_2: "Quality Assurance"
+      hero_title_3: "Commitment"
+      hero_desc: "We don't just provide top-tier equipment; we promise to provide you with the most reliable after-sales support system in the industry."
+      plans:
+        full:
+          title: "Full Unit Warranty"
+          period: "12 Months"
+          desc: "12 months of free full-unit warranty service from the date of installation and acceptance."
+        core:
+          title: "Core Components"
+          period: "36 Months"
+          desc: "Compressors, condensers, and other core industrial components enjoy a 3-year quality guarantee."
+        lifetime:
+          title: "Lifetime Maintenance"
+          period: "LIFETIME"
+          desc: "After the warranty period, we provide technical support and original spare parts supply services."
+      process:
+        title: "Service Process"
+        step1:
+          title: "Registration"
+          desc: "Call hotline or feedback online"
+        step2:
+          title: "Diagnosis"
+          desc: "Expert video assistance"
+        step3:
+          title: "On-site Service"
+          desc: "Technician arrives within 24h"
+        step4:
+          title: "Feedback"
+          desc: "Closed-loop management"
+      exclusion_title: "Non-Warranty Coverage"
+      exclusions:
+        damage: "Mechanical damage or scratches caused by human factors."
+        unauthorized: "Unauthorized disassembly or modification without SINOWER's consent."
+        force_majeure: "Equipment failure caused by force majeure (e.g., lightning, flood, earthquake)."
+        improper_use: "Operational abnormalities caused by failure to follow product instructions."
+  contact_info:
+    address: "6155 A Jimmy Carter Blvd, Norcross, GA 30071, USA"
+    phone: "1 (470) 403-3490"
+    email: "info@sinowerus.com"
+    support_email: "support@sinowerus.com"

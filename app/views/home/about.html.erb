@@ -1,4 +1,4 @@
-<% content_for :title, "关于我们 - SINOWER USA" %>
+<% content_for :title, "#{t('home.about.title')} - SINOWER USA" %>
 
 <!-- Hero Section: 关于我们 -->
 <div class="relative bg-slate-900 py-24 overflow-hidden">
@@ -10,14 +10,13 @@
   <div class="relative z-10 max-w-screen-xl mx-auto px-6 text-center lg:text-left">
     <div class="inline-flex items-center px-4 py-2 bg-blue-500/10 border border-blue-500/20 rounded-full text-blue-400 text-xs font-bold tracking-widest uppercase mb-6 backdrop-blur-sm">
       <span class="w-2 h-2 bg-blue-400 rounded-full mr-3 animate-pulse"></span>
-      GLOBAL EXPERTISE, LOCAL SUPPORT
+      <%= t('home.about.subtitle') %>
     </div>
     <h1 class="text-5xl md:text-6xl font-black text-white tracking-tight mb-6">
-      关于 SINOWER <span class="text-blue-500">USA</span>
+      <%= t('home.about.hero_title') %> <span class="text-blue-500">USA</span>
     </h1>
     <p class="max-w-2xl text-slate-400 text-lg font-medium leading-relaxed">
-      始于 2025 年，SINOWER USA 标志着我们向北美市场全球扩张的新阶段。
-      我们在乔治亚州 (GA) 的设施不仅是我们的首个美国分公司，更是我们长期国家发展战略的基石。
+      <%= t('home.about.hero_desc') %>
     </p>
   </div>
 </div>
@@ -28,31 +27,30 @@
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
       <div class="space-y-8">
         <div>
-          <h2 class="text-3xl font-black text-slate-900 mb-6 tracking-tight">深厚的制造积淀</h2>
+          <h2 class="text-3xl font-black text-slate-900 mb-6 tracking-tight"><%= t('home.about.heritage_title') %></h2>
           <p class="text-slate-600 leading-relaxed font-medium">
-            虽然在美国是新设立的，但 SINOWER 背后拥有超过 20 年的制造专业知识和国际市场经验。
-            我们的制造集团在欧洲和中东成功运营多年，在法国、德国、捷克、意大利、英国和迪拜（阿联酋）均设有成熟的分公司。
+            <%= t('home.about.heritage_desc_1') %>
           </p>
           <p class="text-slate-600 mt-4 leading-relaxed font-medium">
-            在过去的二十年里，我们建立了强大的运营体系、先进的生产能力和严格的质量控制标准，为全球经销商和 OEM 合作伙伴提供服务。
+            <%= t('home.about.heritage_desc_2') %>
           </p>
         </div>
         
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div class="p-6 bg-slate-50 rounded-3xl border border-slate-100 group hover:bg-white hover:shadow-xl transition-all">
             <div class="text-blue-600 font-black text-2xl mb-2">20+</div>
-            <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">YEARS OF EXPERTISE</p>
+            <p class="text-xs font-bold text-slate-400 uppercase tracking-widest"><%= t('home.about.stats.years') %></p>
           </div>
           <div class="p-6 bg-slate-50 rounded-3xl border border-slate-100 group hover:bg-white hover:shadow-xl transition-all">
             <div class="text-blue-600 font-black text-2xl mb-2">7+</div>
-            <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">GLOBAL SUBSIDIARIES</p>
+            <p class="text-xs font-bold text-slate-400 uppercase tracking-widest"><%= t('home.about.stats.subsidiaries') %></p>
           </div>
         </div>
       </div>
       
       <div class="relative">
         <div class="aspect-[4/3] rounded-[3rem] overflow-hidden shadow-2xl">
-          <%= image_tag "factory.avif", class: "w-full h-full object-cover", alt: "Sinower Factory" %>
+          <%= image_tag "factory.avif", class: "w-full h-full object-contain p-2", alt: "Sinower Factory" %>
           <div class="absolute inset-0 bg-blue-600/10 mix-blend-overlay"></div>
         </div>
         <div class="absolute -bottom-8 -left-8 w-48 h-48 bg-blue-600 rounded-[2rem] -z-10 animate-blob"></div>
@@ -64,12 +62,12 @@
 <!-- 核心产品线 -->
 <div class="py-24 bg-slate-50">
   <div class="max-w-screen-xl mx-auto px-6 text-center">
-    <h2 class="text-3xl font-black text-slate-900 mb-16 tracking-tight">我们的核心产品线</h2>
+    <h2 class="text-3xl font-black text-slate-900 mb-16 tracking-tight"><%= t('home.about.product_lines_title') %></h2>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
       <% [
-        { name: "商用制冷设备", sub: "Commercial Refrigeration", icon: "M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" },
-        { name: "商用烹饪设备", sub: "Commercial Cooking", icon: "M13 10V3L4 14h7v7l9-11h-7z" },
-        { name: "不锈钢餐饮用品", sub: "Stainless Foodservice", icon: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" }
+        { name: t('home.about.product_lines.refrigeration'), sub: "Commercial Refrigeration", icon: "M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" },
+        { name: t('home.about.product_lines.cooking'), sub: "Commercial Cooking", icon: "M13 10V3L4 14h7v7l9-11h-7z" },
+        { name: t('home.about.product_lines.stainless'), sub: "Stainless Foodservice", icon: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" }
       ].each do |line| %>
         <div class="p-10 bg-white rounded-[2.5rem] border border-slate-100 shadow-sm hover:shadow-2xl hover:shadow-blue-500/10 transition-all group">
           <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mb-8 mx-auto text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-colors">
@@ -89,19 +87,19 @@
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
       <div class="order-2 lg:order-1 relative">
         <div class="aspect-[4/3] rounded-[3rem] overflow-hidden shadow-2xl">
-          <%= image_tag "office.avif", class: "w-full h-full object-cover", alt: "Sinower USA Office" %>
+          <%= image_tag "office.avif", class: "w-full h-full object-contain p-2", alt: "Sinower USA Office" %>
         </div>
         <div class="absolute -top-8 -right-8 w-48 h-48 bg-slate-900 rounded-[2rem] -z-10"></div>
       </div>
       
       <div class="order-1 lg:order-2 space-y-8">
         <div>
-          <h2 class="text-3xl font-black text-slate-900 mb-6 trackingssh-add ~/.ssh/id_ed25519_shibinfun-tight">制造实力与竞争价值</h2>
+          <h2 class="text-3xl font-black text-slate-900 mb-6 tracking-tight"><%= t('home.about.value_title') %></h2>
           <p class="text-slate-600 leading-relaxed font-medium">
-            凭借纵向一体化的生产和高效的成本管理，SINOWER 在保持极高制造标准和产品可靠性的同时，提供极具竞争力的工厂直供价格。
+            <%= t('home.about.value_desc_1') %>
           </p>
           <p class="text-slate-600 mt-4 leading-relaxed font-medium">
-            我们在乔治亚州的仓库保持充足的库存，以确保美国市场的快速履行和稳定供应。此外，我们基于工厂的工程和技术团队提供专业支持和可靠的保修服务，为经销商和最终用户增强信心。
+            <%= t('home.about.value_desc_2') %>
           </p>
         </div>
       </div>
@@ -115,28 +113,28 @@
   
   <div class="relative z-10 max-w-screen-xl mx-auto px-6">
     <div class="max-w-3xl">
-      <h2 class="text-4xl font-black mb-8 tracking-tight">战略性的美国扩张计划</h2>
+      <h2 class="text-4xl font-black mb-8 tracking-tight"><%= t('home.about.expansion_title') %></h2>
       <p class="text-slate-400 text-lg leading-relaxed mb-12">
-        SINOWER USA 致力于建立强大的全国覆盖网。在未来三年内，我们计划在美国东西海岸共建立 **9 个分公司及分销中心**。
+        <%= t('home.about.expansion_desc') %>
       </p>
       
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         <div class="p-8 bg-white/5 rounded-3xl border border-white/10 backdrop-blur-sm">
           <div class="text-3xl font-black text-blue-400 mb-2">9</div>
-          <p class="text-sm font-bold text-slate-500 uppercase tracking-widest leading-tight">Branch Offices<br/>& Distribution Centers</p>
+          <p class="text-sm font-bold text-slate-500 uppercase tracking-widest leading-tight"><%= t('home.about.expansion_stats.offices') %></p>
         </div>
         <div class="p-8 bg-white/5 rounded-3xl border border-white/10 backdrop-blur-sm">
           <div class="text-3xl font-black text-blue-400 mb-2">3</div>
-          <p class="text-sm font-bold text-slate-500 uppercase tracking-widest leading-tight">Year Strategic<br/>Expansion Plan</p>
+          <p class="text-sm font-bold text-slate-500 uppercase tracking-widest leading-tight"><%= t('home.about.expansion_stats.plan') %></p>
         </div>
         <div class="p-8 bg-white/5 rounded-3xl border border-white/10 backdrop-blur-sm">
           <div class="text-3xl font-black text-blue-400 mb-2">Coast</div>
-          <p class="text-sm font-bold text-slate-500 uppercase tracking-widest leading-tight">East & West Coast<br/>Logistics Efficiency</p>
+          <p class="text-sm font-bold text-slate-500 uppercase tracking-widest leading-tight"><%= t('home.about.expansion_stats.efficiency') %></p>
         </div>
       </div>
       
       <p class="mt-12 text-slate-400 font-medium leading-relaxed">
-        这一扩张将提高物流效率，缩短响应时间，并在我们与合作伙伴共同成长的过程中提供本地化的服务支持。
+        <%= t('home.about.expansion_footer') %>
       </p>
     </div>
   </div>
@@ -145,21 +143,21 @@
 <!-- 合作伙伴与承诺 -->
 <div class="py-24 bg-white">
   <div class="max-w-screen-xl mx-auto px-6 text-center">
-    <h2 class="text-3xl font-black text-slate-900 mb-8 tracking-tight">我们的承诺</h2>
+    <h2 class="text-3xl font-black text-slate-900 mb-8 tracking-tight"><%= t('home.about.commitment_title') %></h2>
     <p class="max-w-3xl mx-auto text-slate-500 text-lg font-medium leading-relaxed mb-16">
-      作为美国市场快速增长的品牌，SINOWER 为早期合作伙伴提供了在结构化、稳定的分销模式中共同成长的机会。我们相信，长期的成功建立在诚信、透明和互利的基础之上。
+      <%= t('home.about.commitment_desc') %>
     </p>
     
     <div class="bg-blue-600 rounded-[3rem] p-12 lg:p-20 text-white relative overflow-hidden">
       <div class="absolute top-0 left-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10"></div>
       <div class="relative z-10">
-        <h3 class="text-4xl font-black mb-8 tracking-tight">成为 SINOWER 经销商</h3>
+        <h3 class="text-4xl font-black mb-8 tracking-tight"><%= t('home.about.become_dealer_title') %></h3>
         <p class="text-blue-100 text-xl font-medium mb-12 max-w-2xl mx-auto">
-          与定位扩张的品牌共同成长。我们不仅供应设备，更致力于建立由全球制造实力支撑的可持续合作伙伴关系。
+          <%= t('home.about.become_dealer_desc') %>
         </p>
         <div class="flex flex-col sm:flex-row justify-center gap-6">
           <%= link_to contact_path, class: "px-10 py-5 bg-white text-blue-600 rounded-2xl font-black text-sm tracking-widest uppercase hover:bg-slate-50 transition-all shadow-xl" do %>
-            立即申请加入
+            <%= t('home.about.apply_now') %>
           <% end %>
         </div>
       </div>
@@ -171,16 +169,16 @@
 <div class="py-24 bg-slate-50">
   <div class="max-w-screen-xl mx-auto px-6">
     <div class="text-center mb-16">
-      <h2 class="text-3xl font-black text-slate-900 tracking-tight">为什么选择 SINOWER?</h2>
+      <h2 class="text-3xl font-black text-slate-900 tracking-tight"><%= t('home.about.why_title') %></h2>
     </div>
     
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
       <% [
-        { title: "极具竞争力的工厂直供价格", desc: "纵向一体化的制造结构让我们在保持品质的同时提供更优的利润空间。" },
-        { title: "保修与技术支持", desc: "工厂工程团队直接支持，为经销商和最终用户提供长期保障。" },
-        { title: "卓越的制造标准", desc: "采用可靠组件和严格品控，专为严苛的商业环境设计。" },
-        { title: "成长阶段的机遇", desc: "早期合作伙伴受益于结构化的分销规划和广阔的市场潜力。" },
-        { title: "美国本土库存", desc: "乔治亚州仓库维持充足库存，支持全美快速履行。" }
+        { title: t('home.about.reasons.pricing.title'), desc: t('home.about.reasons.pricing.desc') },
+        { title: t('home.about.reasons.support.title'), desc: t('home.about.reasons.support.desc') },
+        { title: t('home.about.reasons.standards.title'), desc: t('home.about.reasons.standards.desc') },
+        { title: t('home.about.reasons.opportunity.title'), desc: t('home.about.reasons.opportunity.desc') },
+        { title: t('home.about.reasons.inventory.title'), desc: t('home.about.reasons.inventory.desc') }
       ].each do |item| %>
         <div class="p-8 bg-white rounded-3xl border border-slate-100 hover:shadow-xl transition-all">
           <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center mb-6">

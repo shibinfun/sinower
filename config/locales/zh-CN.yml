@@ -1,0 +1,157 @@
+zh-CN:
+  navbar:
+    all_products: "全部产品"
+    home: "首页"
+    cooling: "制冷设备"
+    cooking: "烹饪设备"
+    stainless: "不锈钢餐饮用品"
+    warranty: "保修条款"
+    about_us: "关于我们"
+    contact_us: "联系我们"
+    login: "登录"
+    register: "注册"
+    admin_dashboard: "管理后台"
+    logout: "退出登录"
+  footer:
+    quick_links: "快速链接"
+    contact_us: "联系我们"
+    company_desc: "领先的制冷及餐饮设备科技解决方案提供商。"
+    rights_reserved: "版权所有。"
+  home:
+    index:
+      global_expertise: "始于 2005 年的全球制造经验"
+      hero_title_1: "20 年行业积淀"
+      hero_title_2: "赋能美国冷链未来"
+      hero_desc: "SINOWER USA 拥有超过 20 年在欧洲和中东市场的全球制造经验。总部位于佐治亚州，我们为美国餐饮服务行业提供工厂直供的优质设备和本地化的技术支持。"
+      explore_products: "探索产品"
+      contact_us: "联系我们"
+      stats:
+        customers: "服务客户"
+        patents: "专利技术"
+        support: "技术支持"
+        efficiency: "能效表现"
+      core_tech: "核心技术"
+      features:
+        factory_direct:
+          title: "工厂直供价值"
+          desc: "垂直整合的制造模式消除了中间商成本。我们直接发货至佐治亚州仓库，提供更具竞争力的价格和卓越的品质。"
+        inventory:
+          title: "美国本土库存保证"
+          desc: "建立全国性分销网络，佐治亚州现货供应。确保全美范围内的快速履行和稳定供应。"
+        support:
+          title: "专业本地支持"
+          desc: "派驻美国的工厂技术团队提供深入的保修服务和培训，确保合作伙伴 24/7 无后顾之忧。"
+    about:
+      title: "关于我们"
+      subtitle: "全球视野，本地支持"
+      hero_title: "关于 SINOWER"
+      hero_desc: "SINOWER USA 成立于 2025 年，标志着我们向北美市场全球扩张的新阶段。我们在佐治亚州 (GA) 的设施是我们首个官方美国分公司和分销中心，奠定了我们长期国家发展战略的基础。"
+      heritage_title: "超过 20 年的制造专业知识"
+      heritage_desc_1: "虽然在美国是新品牌，但 Sinower 拥有超过 20 年的制造专业知识和国际市场经验。我们的制造集团在欧洲和中东地区成功运营，在法国、德国、捷克、意大利、英国和迪拜（阿联酋）设有分公司。"
+      heritage_desc_2: "在过去的二十年里，我们建立了强大的运营体系、先进的生产能力和严格的质量控制标准，为全球经销商和 OEM 合作伙伴提供服务。"
+      stats:
+        years: "年制造经验"
+        subsidiaries: "全球分公司"
+      product_lines_title: "核心产品线"
+      product_lines:
+        refrigeration: "商用制冷设备"
+        cooking: "商用烹饪设备"
+        stainless: "不锈钢餐饮用品"
+      value_title: "制造实力与竞争价值"
+      value_desc_1: "凭借纵向一体化的生产和高效的成本管理，Sinower 在保持更高制造标准和产品可靠性的同时，提供具有竞争力的工厂直供价格。"
+      value_desc_2: "我们的佐治亚州仓库保持充足库存，确保美国市场的快速交付和稳定供应。此外，基于工厂的工程和技术团队提供专业支持和可靠保修，增强合作伙伴信心。"
+      expansion_title: "美国战略扩张计划"
+      expansion_desc: "SINOWER USA 致力于建立强大的全国覆盖。在未来三年内，我们计划在美国东西海岸共建立 9 个分公司及分销中心。"
+      expansion_stats:
+        offices: "分公司及分销中心"
+        plan: "三年战略扩张计划"
+        efficiency: "东西海岸物流效率"
+      expansion_footer: "这一扩张将提高物流效率，缩短响应时间，并在我们与合作伙伴共同成长的过程中提供本地化服务支持。"
+      commitment_title: "我们的承诺"
+      commitment_desc: "作为美国市场快速增长的品牌，Sinower 为早期合作伙伴提供了在结构化、稳定的分销模式中共同成长的机会。我们相信长期的成功建立在诚信、透明和互利的基础之上。"
+      become_dealer_title: "成为 SINOWER 经销商"
+      become_dealer_desc: "与定位扩张的品牌共同成长。我们不仅供应设备，更致力于建立由制造实力和全球经验驱动的可持续合作伙伴关系。"
+      apply_now: "立即申请"
+      why_title: "为什么选择 SINOWER？"
+      reasons:
+        pricing:
+          title: "竞争力的工厂直供价格"
+          desc: "纵向一体化的制造结构让我们在保持品质的同时提供更优的利润空间。"
+        support:
+          title: "保修与技术支持"
+          desc: "工厂工程团队直接支持，为经销商和最终用户提供长期保障。"
+        standards:
+          title: "卓越的制造标准"
+          desc: "采用可靠组件和严格品控，专为严苛的商业环境设计。"
+        opportunity:
+          title: "成长阶段的机遇"
+          desc: "早期合作伙伴受益于结构化的分销规划和广阔的市场潜力。"
+        inventory:
+          title: "美国本土库存"
+          desc: "佐治亚州仓库维持充足库存，支持全美快速履行。"
+    contact:
+      title: "联系 SINOWER USA"
+      subtitle: "联系 SINOWER USA"
+      hero_title: "开启智慧冷链合作"
+      hero_desc: "无论是产品咨询、技术支持还是商业合作，我们位于佐治亚州的专家团队随时准备为您提供卓越服务。"
+      send_message: "发送消息"
+      form:
+        name: "您的姓名"
+        name_placeholder: "请输入您的姓名"
+        email: "电子邮箱"
+        email_placeholder: "example@email.com"
+        subject: "主题"
+        subject_placeholder: "咨询主题"
+        message: "详细内容"
+        message_placeholder: "请描述您的需求或问题..."
+        submit: "立即发送消息"
+      address_title: "办公地址"
+      phone_title: "服务电话"
+      email_title: "官方邮箱"
+      support_card_title: "需要技术支持？"
+      support_card_desc: "如果您已拥有我们的设备并需要技术指导或保修服务，请联系我们的专职技术团队。"
+      view_warranty: "查看保修条款"
+    warranty:
+      subtitle: "保修与支持"
+      hero_title_1: "SINOWER"
+      hero_title_2: "品质保障"
+      hero_title_3: "承诺"
+      hero_desc: "我们不仅提供顶尖设备，更承诺为您提供行业内最可靠的售后保障体系。"
+      plans:
+        full:
+          title: "全机保修"
+          period: "12 个月"
+          desc: "自安装验收之日起，提供 12 个月的全机免费保修服务。"
+        core:
+          title: "核心部件"
+          period: "36 个月"
+          desc: "压缩机、冷凝器等核心工业部件，享受长达 3 年的品质质保。"
+        lifetime:
+          title: "终身维护"
+          period: "终身"
+          desc: "保修期后，我们提供终身的技术支持与原厂配件供应服务。"
+      process:
+        title: "服务流程"
+        step1:
+          title: "报修登记"
+          desc: "拨打热线或在线反馈"
+        step2:
+          title: "远程诊断"
+          desc: "专家视频在线协助"
+        step3:
+          title: "上门服务"
+          desc: "24 小时内技术员到达"
+        step4:
+          title: "满意评价"
+          desc: "闭环管理确保质量"
+      exclusion_title: "非保修范围说明"
+      exclusions:
+        damage: "人为因素导致的机械损坏或外观刮花。"
+        unauthorized: "未经 SINOWER 授权擅自拆卸或改装设备。"
+        force_majeure: "不可抗力（如雷击、洪水、地震等）导致的设备故障。"
+        improper_use: "未按产品说明书要求使用导致的运行异常。"
+  contact_info:
+    address: "6155 A Jimmy Carter Blvd, Norcross, GA 30071, USA"
+    phone: "1 (470) 403-3490"
+    email: "info@sinowerus.com"
+    support_email: "support@sinowerus.com"

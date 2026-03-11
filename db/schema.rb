@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_03_10_041101) do
+ActiveRecord::Schema[8.0].define(version: 2026_03_10_062716) do
   create_table "a_sku_details", force: :cascade do |t|
     t.string "net_capacity"
     t.string "unit_dimensions"
@@ -65,6 +65,14 @@ ActiveRecord::Schema[8.0].define(version: 2026_03_10_041101) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "standard_features"
+    t.string "burners_and_control_method"
+    t.string "gas_type"
+    t.string "intake_tube_pressure"
+    t.string "per_btu"
+    t.string "total_btu"
+    t.string "regulator"
+    t.string "work_area"
+    t.string "exterior_dimensions"
   end
 
   create_table "c_sku_details", force: :cascade do |t|
