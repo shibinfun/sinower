@@ -23,7 +23,7 @@
         <div class="aspect-square relative overflow-hidden bg-slate-50">
           <% if @sku.image.attached? %>
             <% begin %>
-              <%= image_tag @sku.image, class: "w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-1000 ease-in-out" %>
+              <%= image_tag @sku.image, class: "w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-1000 ease-in-out", style: "background-color: transparent;" %>
             <% rescue ActiveStorage::FileNotFoundError %>
               <div class="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100">
                 <svg class="w-32 h-32 text-slate-200 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
@@ -114,6 +114,25 @@
             { label: "外形尺寸", value: @sku.skuable.unit_dimensions, sub: "Unit Dimensions" },
             { label: "电压频率", value: @sku.skuable.voltage_frequency, sub: "Power Supply" }
           ].each do |spec| %>
+            <div class="group">
+              <div class="flex flex-col border-l-2 border-slate-100 pl-6 group-hover:border-blue-600 transition-all duration-300">
+                <span class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1"><%= spec[:sub] %></span>
+                <span class="text-xs font-bold text-slate-500 mb-1"><%= spec[:label] %></span>
+                <span class="text-xl font-black <%= spec[:highlight] ? 'text-blue-600' : 'text-slate-900' %> tracking-tight"><%= spec[:value] %></span>
+              </div>
+            </div>
+          <% end %>
+        <% elsif @sku.category.category_kind == 'b' %>
+          <% [
+            { label: "燃烧器及控制", value: @sku.skuable.burners_and_control_method, sub: "Burners & Control" },
+            { label: "燃气类型", value: @sku.skuable.gas_type, sub: "Gas Type" },
+            { label: "进气压力", value: @sku.skuable.intake_tube_pressure, sub: "Intake Pressure" },
+            { label: "单头热量", value: @sku.skuable.per_btu, sub: "BTU Per Burner" },
+            { label: "总热量", value: @sku.skuable.total_btu, sub: "Total BTU", highlight: true },
+            { label: "调节阀", value: @sku.skuable.regulator, sub: "Regulator" },
+            { label: "工作区域", value: @sku.skuable.work_area, sub: "Work Area" },
+            { label: "外形尺寸", value: @sku.skuable.exterior_dimensions, sub: "Exterior Dimensions" }
+          ].select { |s| s[:value].present? }.each do |spec| %>
             <div class="group">
               <div class="flex flex-col border-l-2 border-slate-100 pl-6 group-hover:border-blue-600 transition-all duration-300">
                 <span class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1"><%= spec[:sub] %></span>

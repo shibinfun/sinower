@@ -45,19 +45,17 @@ def create_b_skus(category, skus_data)
       visible: true
     )
 
-    features = data[:features] || ""
-    technical_specs = [
-      "Burners: #{data[:burners]}",
-      "Gas Type: #{data[:gas_type]}",
-      "BTU per burner: #{data[:btu_per]}",
-      "Total BTU: #{data[:total_btu]}",
-      "Intake Pressure: #{data[:pressure]}",
-      "Work Area: #{data[:work_area]}"
-    ].compact.join("\n")
-
     s.skuable = BSkuDetail.new(
+      burners_and_control_method: data[:burners],
+      gas_type: data[:gas_type],
+      intake_tube_pressure: data[:pressure],
+      per_btu: data[:btu_per],
+      total_btu: data[:total_btu],
+      regulator: data[:regulator],
+      work_area: data[:work_area],
+      exterior_dimensions: data[:unit_dim],
       unit_dimensions: data[:unit_dim],
-      standard_features: "#{features}\n\nTechnical Specifications:\n#{technical_specs}"
+      standard_features: data[:features]
     )
     s.save!
   end
@@ -337,41 +335,238 @@ puts "Root category: Cooking Equipment"
 # B1. GAS Countertop Radiant Char Broiler
 cat_char_broiler = Category.create!(name: 'GAS Countertop Radiant Char Broiler', parent: root_cooking, category_kind: 'b')
 create_b_skus(cat_char_broiler, [
-  { sku: 'TH-QR-24', burners: '4 Burners, Independent', gas_type: 'NG/LP', btu_per: '25000 (NG) / 24000 (LP)', total_btu: '100000 (NG) / 96000 (LP)', pressure: '5"w.c. (NG) / 10"w.c. (LP)', work_area: '21 13/16” x 22“', unit_dim: '24" x 30 5/16" x 18 5/16"', features: "High-performance radiant burner system, Durable stainless-steel exterior, Heavy-duty cast iron grates, Individual burner controls, Front-positioned grease collection tray" },
-  { sku: 'TH-QR-36', burners: '6 Burners, Independent', gas_type: 'NG/LP', btu_per: '25000 (NG) / 24000 (LP)', total_btu: '150000 (NG) / 144000 (LP)', pressure: '5"w.c. (NG) / 10"w.c. (LP)', work_area: '32 5/8" x 22”', unit_dim: '36" x 30 5/16" x 18 5/16"' },
-  { sku: 'TH-QR-48', burners: '8 Burners, Independent', gas_type: 'NG/LP', btu_per: '25000 (NG) / 24000 (LP)', total_btu: '200000 (NG) / 192000 (LP)', pressure: '5"w.c. (NG) / 10"w.c. (LP)', work_area: '43 5/16“ x 22"', unit_dim: '48" x 30 5/16" x 18 5/16"' }
+  { 
+    sku: 'TH-QR-24', 
+    burners: '4 Burners, Independent', 
+    gas_type: 'NG/LP', 
+    btu_per: '25000 (NG) / 24000 (LP)', 
+    total_btu: '100000 (NG) / 96000 (LP)', 
+    pressure: '5"w.c. (NG) / 10"w.c. (LP)', 
+    regulator: '5"w.c. (NG) / 10"w.c. (LP)',
+    work_area: '21 13/16” x 22“', 
+    unit_dim: '24" x 30 5/16" x 18 5/16"', 
+    features: "High-performance radiant burner system for uniform heat distribution\nDurable stainless-steel exterior designed for commercial environments\nHeavy-duty cast iron grates retain heat and enhance searing results\nIndividual burner controls allow precise temperature management\nFront-positioned grease collection tray simplifies cleaning and maintenance\nCompact countertop design with adjustable legs for flexible installation\nConfigurable for Natural Gas or Liquid Propane (specify at order)" 
+  },
+  { 
+    sku: 'TH-QR-36', 
+    burners: '6 Burners, Independent', 
+    gas_type: 'NG/LP', 
+    btu_per: '25000 (NG) / 24000 (LP)', 
+    total_btu: '150000 (NG) / 144000 (LP)', 
+    pressure: '5"w.c. (NG) / 10"w.c. (LP)', 
+    regulator: '5"w.c. (NG) / 10"w.c. (LP)',
+    work_area: '32 5/8" x 22”', 
+    unit_dim: '36" x 30 5/16" x 18 5/16"' 
+  },
+  { 
+    sku: 'TH-QR-48', 
+    burners: '8 Burners, Independent', 
+    gas_type: 'NG/LP', 
+    btu_per: '25000 (NG) / 24000 (LP)', 
+    total_btu: '200000 (NG) / 192000 (LP)', 
+    pressure: '5"w.c. (NG) / 10"w.c. (LP)', 
+    regulator: '5"w.c. (NG) / 10"w.c. (LP)',
+    work_area: '43 5/16“ x 22"', 
+    unit_dim: '48" x 30 5/16" x 18 5/16"' 
+  }
 ])
 
 # B2. Countertop GAS Griddle
 cat_gas_griddle = Category.create!(name: 'Countertop GAS Griddle', parent: root_cooking, category_kind: 'b')
 create_b_skus(cat_gas_griddle, [
-  { sku: 'TH-RGT-24', burners: '2 Burners', gas_type: 'NG/LP', btu_per: '25000 (NG) / 19000 (LP)', total_btu: '50000 (NG) / 38000 (LP)', pressure: '5"w.c. (NG) / 10"w.c. (LP)', work_area: '24" x 24"', unit_dim: '24" x 33" x 17 5/16"', features: "High-efficiency gas burner, Durable stainless steel, Thick steel griddle plate, Independent manual controls, Front grease drawer" },
-  { sku: 'TH-RGT-36', burners: '3 Burners', gas_type: 'NG/LP', btu_per: '25000 (NG) / 19000 (LP)', total_btu: '75000 (NG) / 57000 (LP)', pressure: '5"w.c. (NG) / 10"w.c. (LP)', work_area: '36" x 24"', unit_dim: '36" x 33" x 17 5/16"' },
-  { sku: 'TH-RGT-48', burners: '4 Burners', gas_type: 'NG/LP', btu_per: '25000 (NG) / 19000 (LP)', total_btu: '100000 (NG) / 76000 (LP)', pressure: '5"w.c. (NG) / 10"w.c. (LP)', work_area: '48" x 24"', unit_dim: '48" x 33" x 17 5/16"' },
-  { sku: 'TH-VEG-1000', burners: '4 Burners', gas_type: 'NG/LP', btu_per: '10000 (NG) / 9000 (LP)', total_btu: '40000 (NG) / 36000 (LP)', pressure: '5"w.c. (NG) / 10"w.c. (LP)', work_area: '39 3/16" x 21 13/16"', unit_dim: '39 5/16“ x 27 1/2" x 15 3/4“' },
-  { sku: 'TH-VEG-1200', burners: '5 Burners', gas_type: 'NG/LP', btu_per: '10000 (NG) / 9000 (LP)', total_btu: '50000 (NG) / 45000 (LP)', pressure: '5"w.c. (NG) / 10"w.c. (LP)', work_area: '47" x 21 13/16"', unit_dim: '47 3/16” x 27 1/2" x 15 3/4“' },
-  { sku: 'TH-VEG-1500', burners: '6 Burners', gas_type: 'NG/LP', btu_per: '10000 (NG) / 9000 (LP)', total_btu: '60000 (NG) / 54000 (LP)', pressure: '5"w.c. (NG) / 10"w.c. (LP)', work_area: '58 13/16” x 21 13/16"', unit_dim: '59" x 27 1/2" x 15 3/4“' },
-  { sku: 'TH-VEG-1800', burners: '7 Burners', gas_type: 'NG/LP', btu_per: '10000 (NG) / 9000 (LP)', total_btu: '70000 (NG) / 63000 (LP)', pressure: '5"w.c. (NG) / 10"w.c. (LP)', work_area: '70 3/4” x 21 13/16"', unit_dim: '70 13/16” x 27 1/2" x 15 3/4“' }
+  { 
+    sku: 'TH-RGT-24', 
+    burners: '2 Burners, Independent', 
+    gas_type: 'NG/LP', 
+    btu_per: '25000 (NG) / 19000 (LP)', 
+    total_btu: '50000 (NG) / 38000 (LP)', 
+    pressure: '5"w.c. (NG) / 10"w.c. (LP)', 
+    regulator: '5"w.c. (NG) / 10"w.c. (LP)',
+    work_area: '24" x 24"', 
+    unit_dim: '24" x 33" x 17 5/16"', 
+    features: "High-efficiency gas burner system for even heat distribution\nDurable stainless steel construction for commercial use\nThick steel griddle plate ensures excellent heat retention\nIndependent manual controls for each heating zone\nFront grease drawer for quick and easy cleaning\nCompact countertop design with adjustable legs\nConfigurable for Natural Gas or Liquid Propane" 
+  },
+  { 
+    sku: 'TH-RGT-36', 
+    burners: '3 Burners, Independent', 
+    gas_type: 'NG/LP', 
+    btu_per: '25000 (NG) / 19000 (LP)', 
+    total_btu: '75000 (NG) / 57000 (LP)', 
+    pressure: '5"w.c. (NG) / 10"w.c. (LP)', 
+    regulator: '5"w.c. (NG) / 10"w.c. (LP)',
+    work_area: '36" x 24"', 
+    unit_dim: '36" x 33" x 17 5/16"' 
+  },
+  { 
+    sku: 'TH-RGT-48', 
+    burners: '4 Burners, Independent', 
+    gas_type: 'NG/LP', 
+    btu_per: '25000 (NG) / 19000 (LP)', 
+    total_btu: '100000 (NG) / 76000 (LP)', 
+    pressure: '5"w.c. (NG) / 10"w.c. (LP)', 
+    regulator: '5"w.c. (NG) / 10"w.c. (LP)',
+    work_area: '48" x 24"', 
+    unit_dim: '48" x 33" x 17 5/16"' 
+  },
+  { 
+    sku: 'TH-VEG-1000', 
+    burners: '4 Burners, Independent', 
+    gas_type: 'NG/LP', 
+    btu_per: '10000 (NG) / 9000 (LP)', 
+    total_btu: '40000 (NG) / 36000 (LP)', 
+    pressure: '5"w.c. (NG) / 10"w.c. (LP)', 
+    regulator: '5"w.c. (NG) / 10"w.c. (LP)',
+    work_area: '39 3/16" x 21 13/16"', 
+    unit_dim: '39 5/16“ x 27 1/2" x 15 3/4“', 
+    features: "High-efficiency gas burner system for even heat distribution\nDurable stainless steel construction for commercial use\nThick steel griddle plate ensures excellent heat retention\nIndependent manual controls for each heating zone\nFront grease drawer for quick and easy cleaning\nCompact countertop design with adjustable legs\nConfigurable for Natural Gas or Liquid Propane" 
+  },
+  { 
+    sku: 'TH-VEG-1200', 
+    burners: '5 Burners, Independent', 
+    gas_type: 'NG/LP', 
+    btu_per: '10000 (NG) / 9000 (LP)', 
+    total_btu: '50000 (NG) / 45000 (LP)', 
+    pressure: '5"w.c. (NG) / 10"w.c. (LP)', 
+    regulator: '5"w.c. (NG) / 10"w.c. (LP)',
+    work_area: '47" x 21 13/16"', 
+    unit_dim: '47 3/16” x 27 1/2" x 15 3/4“' 
+  },
+  { 
+    sku: 'TH-VEG-1500', 
+    burners: '6 Burners, Independent', 
+    gas_type: 'NG/LP', 
+    btu_per: '10000 (NG) / 9000 (LP)', 
+    total_btu: '60000 (NG) / 54000 (LP)', 
+    pressure: '5"w.c. (NG) / 10"w.c. (LP)', 
+    regulator: '5"w.c. (NG) / 10"w.c. (LP)',
+    work_area: '58 13/16” x 21 13/16"', 
+    unit_dim: '59" x 27 1/2" x 15 3/4“' 
+  },
+  { 
+    sku: 'TH-VEG-1800', 
+    burners: '7 Burners, Independent', 
+    gas_type: 'NG/LP', 
+    btu_per: '10000 (NG) / 9000 (LP)', 
+    total_btu: '70000 (NG) / 63000 (LP)', 
+    pressure: '5"w.c. (NG) / 10"w.c. (LP)', 
+    regulator: '5"w.c. (NG) / 10"w.c. (LP)',
+    work_area: '70 3/4” x 21 13/16"', 
+    unit_dim: '70 13/16” x 27 1/2" x 15 3/4“' 
+  }
 ])
 
 # B3. GAS Floor Fryer
 cat_gas_fryer = Category.create!(name: 'GAS Floor Fryer', parent: root_cooking, category_kind: 'b')
 create_b_skus(cat_gas_fryer, [
-  { sku: 'TH-FY90', burners: '3 Burners', gas_type: 'NG/LP', btu_per: '30000', total_btu: '90000', pressure: '4"w.c. (NG) / 10"w.c. (LP)', unit_dim: '15 1/2” x 30 3/16" x 53 3/16"', features: "Rapid heat-up and recovery, Deep fry pot, Large-capacity fry baskets, Front-mounted controls" },
-  { sku: 'TH-FY120', burners: '4 Burners', gas_type: 'NG/LP', btu_per: '30000', total_btu: '120000', pressure: '4"w.c. (NG) / 10"w.c. (LP)', unit_dim: '15 1/2” x 30 3/16" x 53 3/16"' },
-  { sku: 'TH-FY150', burners: '5 Burners', gas_type: 'NG/LP', btu_per: '30000', total_btu: '150000', pressure: '4"w.c. (NG) / 10"w.c. (LP)', unit_dim: '21" x 30 3/16" x 53 3/16"' }
+  { 
+    sku: 'TH-FY90', 
+    burners: '3 Burners, Independent', 
+    gas_type: 'NG/LP', 
+    btu_per: '30000', 
+    total_btu: '90000', 
+    pressure: '4"w.c. (NG) / 10"w.c. (LP)', 
+    regulator: '4"w.c. (NG) / 10"w.c. (LP)',
+    unit_dim: '15 1/2” x 30 3/16" x 53 3/16"', 
+    features: "High-efficiency gas burner system for rapid heat-up and recovery\nDurable stainless steel construction designed for commercial kitchens\nDeep fry pot with optimized heat transfer for consistent frying results\nLarge-capacity wire fry baskets for high-volume operation\nFront-mounted controls for safe and convenient operation\nAdjustable stainless steel legs for flexible installation\nAvailable in multiple oil capacities to match different output demands\nConfigurable for Natural Gas or Liquid Propane" 
+  },
+  { 
+    sku: 'TH-FY120', 
+    burners: '4 Burners, Independent', 
+    gas_type: 'NG/LP', 
+    btu_per: '30000', 
+    total_btu: '120000', 
+    pressure: '4"w.c. (NG) / 10"w.c. (LP)', 
+    regulator: '4"w.c. (NG) / 10"w.c. (LP)',
+    unit_dim: '15 1/2” x 30 3/16" x 53 3/16"' 
+  },
+  { 
+    sku: 'TH-FY150', 
+    burners: '5 Burners, Independent', 
+    gas_type: 'NG/LP', 
+    btu_per: '30000', 
+    total_btu: '150000', 
+    pressure: '4"w.c. (NG) / 10"w.c. (LP)', 
+    regulator: '4"w.c. (NG) / 10"w.c. (LP)',
+    unit_dim: '21" x 30 3/16" x 53 3/16"' 
+  }
 ])
 
 # B4. GAS Stock Pot Ranges
 cat_gas_range = Category.create!(name: 'GAS Stock Pot Ranges', parent: root_cooking, category_kind: 'b')
 create_b_skus(cat_gas_range, [
-  { sku: 'TH-RB-2', burners: '2 Burners', gas_type: 'NG/LP', btu_per: '30000 (NG) / 24000 (LP)', total_btu: '60000 (NG) / 48000 (LP)', pressure: '5"w.c. (NG) / 10"w.c. (LP)', unit_dim: '12" x 30 5/16" x 14 13/16"', features: "Heavy-duty cast iron burners, Rugged stainless steel, Independent manual controls, Removable burner grates" },
-  { sku: 'TH-RB-4', burners: '4 Burners', gas_type: 'NG/LP', btu_per: '30000 (NG) / 24000 (LP)', total_btu: '120000 (NG) / 96000 (LP)', pressure: '5"w.c. (NG) / 10"w.c. (LP)', unit_dim: '36“ x 30 5/16" x 14 13/16"' },
-  { sku: 'TH-RB-6', burners: '6 Burners', gas_type: 'NG/LP', btu_per: '30000 (NG) / 24000 (LP)', total_btu: '180000 (NG) / 144000 (LP)', pressure: '5"w.c. (NG) / 10"w.c. (LP)', unit_dim: '48" x 30 5/16" x 14 13/16"' },
-  { sku: 'TH-RB-1B', burners: '2 Burners', gas_type: 'NG/LP', btu_per: '26500 (NG) / 22500 (LP)', total_btu: '53000 (NG) / 45000 (LP)', pressure: '5"w.c. (NG) / 10"w.c. (LP)', unit_dim: '18" x 21" x 17"', features: "Flame Failure Protection, Heavy-duty cast iron burners" },
-  { sku: 'TH-RB-2B', burners: '4 Burners', gas_type: 'NG/LP', btu_per: '26500 (NG) / 22500 (LP)', total_btu: '106000 (NG) / 90000 (LP)', pressure: '5"w.c. (NG) / 10"w.c. (LP)', unit_dim: '35 13/16" x 21" x 17"' },
-  { sku: 'TH-RB-1', burners: '2 Burners', gas_type: 'NG/LP', btu_per: '40000 (NG) / 29500 (LP)', total_btu: '80000 (NG) / 59000 (LP)', pressure: '5"w.c. (NG) / 10"w.c. (LP)', unit_dim: '18" x 21" x 24 3/8"' },
-  { sku: 'TH-RB-2A', burners: '4 Burners', gas_type: 'NG/LP', btu_per: '40000 (NG) / 29500 (LP)', total_btu: '160000 (NG) / 118000 (LP)', pressure: '5"w.c. (NG) / 10"w.c. (LP)', unit_dim: '18" x 42" x 24 24 3/8"' }
+  { 
+    sku: 'TH-RB-2', 
+    burners: '2 Burners, Independent', 
+    gas_type: 'NG/LP', 
+    btu_per: '30000 (NG) / 24000 (LP)', 
+    total_btu: '60000 (NG) / 48000 (LP)', 
+    pressure: '5"w.c. (NG) / 10"w.c. (LP)', 
+    regulator: '5"w.c. (NG) / 10"w.c. (LP)',
+    unit_dim: '12" x 30 5/16" x 14 13/16"', 
+    features: "Heavy-duty cast iron burners for powerful and stable flame\nRugged stainless steel exterior designed for commercial kitchens\nIndependent manual controls for each burner\nRemovable burner grates for easy cleaning and service\nCompact countertop footprint with adjustable legs\nMultiple configurations available: 2, 4, or 6 burners\nCompatible with Natural Gas or Liquid Propane" 
+  },
+  { 
+    sku: 'TH-RB-4', 
+    burners: '4 Burners, Independent', 
+    gas_type: 'NG/LP', 
+    btu_per: '30000 (NG) / 24000 (LP)', 
+    total_btu: '120000 (NG) / 96000 (LP)', 
+    pressure: '5"w.c. (NG) / 10"w.c. (LP)', 
+    regulator: '5"w.c. (NG) / 10"w.c. (LP)',
+    unit_dim: '36“ x 30 5/16" x 14 13/16"' 
+  },
+  { 
+    sku: 'TH-RB-6', 
+    burners: '6 Burners, Independent', 
+    gas_type: 'NG/LP', 
+    btu_per: '30000 (NG) / 24000 (LP)', 
+    total_btu: '180000 (NG) / 144000 (LP)', 
+    pressure: '5"w.c. (NG) / 10"w.c. (LP)', 
+    regulator: '5"w.c. (NG) / 10"w.c. (LP)',
+    unit_dim: '48" x 30 5/16" x 14 13/16"' 
+  },
+  { 
+    sku: 'TH-RB-1B', 
+    burners: '2 Burners, Independent', 
+    gas_type: 'NG/LP', 
+    btu_per: '26500 (NG) / 22500 (LP)', 
+    total_btu: '53000 (NG) / 45000 (LP)', 
+    pressure: '5"w.c. (NG) / 10"w.c. (LP)', 
+    regulator: '5"w.c. (NG) / 10"w.c. (LP)',
+    unit_dim: '18" x 21" x 17"', 
+    features: "Heavy-duty cast iron burners for powerful and stable flame\nRugged stainless steel exterior designed for commercial kitchens\nIndependent manual controls for each burner\nRemovable burner grates for easy cleaning and service\nCompact countertop footprint with adjustable legs\nMultiple configurations available: 2, 4, or 6 burners\nCompatible with Natural Gas or Liquid Propane" 
+  },
+  { 
+    sku: 'TH-RB-2B', 
+    burners: '4 Burners, Independent', 
+    gas_type: 'NG/LP', 
+    btu_per: '26500 (NG) / 22500 (LP)', 
+    total_btu: '106000 (NG) / 90000 (LP)', 
+    pressure: '5"w.c. (NG) / 10"w.c. (LP)', 
+    regulator: '5"w.c. (NG) / 10"w.c. (LP)',
+    unit_dim: '35 13/16" x 21" x 17"' 
+  },
+  { 
+    sku: 'TH-RB-1', 
+    burners: '2 Burners, Independent', 
+    gas_type: 'NG/LP', 
+    btu_per: '40000 (NG) / 29500 (LP)', 
+    total_btu: '80000 (NG) / 59000 (LP)', 
+    pressure: '5"w.c. (NG) / 10"w.c. (LP)', 
+    regulator: '5"w.c. (NG) / 10"w.c. (LP)',
+    unit_dim: '18" x 21" x 24 3/8"', 
+    features: "Heavy-duty cast iron burners for powerful and stable flame\nRugged stainless steel exterior designed for commercial kitchens\nIndependent manual controls for each burner\nRemovable burner grates for easy cleaning and service\nCompact countertop footprint with adjustable legs\nMultiple configurations available: 2, 4 burners\nCompatible with Natural Gas or Liquid Propane" 
+  },
+  { 
+    sku: 'TH-RB-2A', 
+    burners: '4 Burners, Independent', 
+    gas_type: 'NG/LP', 
+    btu_per: '40000 (NG) / 29500 (LP)', 
+    total_btu: '160000 (NG) / 118000 (LP)', 
+    pressure: '5"w.c. (NG) / 10"w.c. (LP)', 
+    regulator: '5"w.c. (NG) / 10"w.c. (LP)',
+    unit_dim: '18" x 42" x 24 24 3/8"' 
+  }
 ])
 
 # Stainless Steel Food Service (Category Kind 'c')
