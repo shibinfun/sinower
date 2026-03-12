@@ -5,16 +5,16 @@
       <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
         <div>
           <h1 class="text-4xl md:text-5xl font-black text-white tracking-tight mb-4">
-            全线产品目录
+            <%= t('categories.all_products_catalog') %>
           </h1>
           <p class="text-slate-400 text-lg font-medium max-w-2xl">
-            探索 SINOWER 完整的产品生态系统。从先进的制冷技术到耐用的不锈钢设施，我们为您的商业厨房提供一站式解决方案。
+            <%= t('categories.all_products_desc') %>
           </p>
         </div>
         <div class="hidden md:block">
           <div class="text-right">
             <div class="text-3xl font-black text-blue-400 mb-1"><%= Sku.count %></div>
-            <div class="text-[10px] font-bold text-slate-500 uppercase tracking-widest text-nowrap">当前在册产品总量</div>
+            <div class="text-[10px] font-bold text-slate-500 uppercase tracking-widest text-nowrap"><%= t('categories.total_products_count') %></div>
           </div>
         </div>
       </div>
@@ -28,14 +28,14 @@
         <div class="flex items-center gap-4 mb-8 border-b border-slate-200 pb-4">
           <span class="px-3 py-1 bg-blue-600 text-white text-xs font-black rounded-md uppercase">
             <%= case root.category_kind
-                when 'a' then 'Refrigeration'
-                when 'b' then 'Cooking'
-                when 'c' then 'Stainless Steel'
+                when 'a' then t('navbar.cooling')
+                when 'b' then t('navbar.cooking')
+                when 'c' then t('navbar.stainless')
                 else root.category_kind.upcase
                 end %>
           </span>
           <h2 class="text-2xl font-black text-slate-900 tracking-tight">
-            <%= link_to root.name, category_path(root), class: "hover:text-blue-600 transition-colors" %>
+            <%= link_to root.localized_name, category_path(root), class: "hover:text-blue-600 transition-colors" %>
           </h2>
         </div>
 
@@ -43,7 +43,7 @@
           <% root.children.each do |sub1| %>
             <div class="bg-white rounded-[2rem] p-8 shadow-sm border border-slate-100 hover:shadow-xl hover:shadow-slate-200/50 transition-all duration-500 group">
               <h3 class="text-xl font-black text-slate-900 mb-6 flex items-center justify-between border-b border-slate-50 pb-4 group-hover:border-blue-100 transition-colors">
-                <%= link_to sub1.name, category_path(sub1), class: "hover:text-blue-600" %>
+                <%= link_to sub1.localized_name, category_path(sub1), class: "hover:text-blue-600" %>
                 <span class="text-slate-300 group-hover:text-blue-400 transition-colors">
                   <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg>
                 </span>
@@ -55,7 +55,7 @@
                   <div>
                     <h4 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-3 flex items-center gap-2">
                       <span class="w-1.5 h-1.5 bg-blue-500 rounded-full"></span>
-                      <%= link_to sub2.name, category_path(sub2), class: "hover:text-blue-600 transition-colors" %>
+                      <%= link_to sub2.localized_name, category_path(sub2), class: "hover:text-blue-600 transition-colors" %>
                     </h4>
                     
                     <% if sub2.children.any? %>
@@ -64,7 +64,7 @@
                         <% sub2.children.each do |sub3| %>
                           <div class="pl-3 border-l-2 border-slate-50 hover:border-blue-100 transition-colors py-1">
                             <h5 class="text-[13px] font-bold text-slate-700 mb-2">
-                              <%= link_to sub3.name, category_path(sub3), class: "hover:text-blue-600" %>
+                              <%= link_to sub3.localized_name, category_path(sub3), class: "hover:text-blue-600" %>
                             </h5>
                             
                             <ul class="grid grid-cols-1 gap-1.5">

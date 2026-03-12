@@ -20,7 +20,7 @@
   <div class="flex items-center justify-between group/item">
     <%= link_to category_path(category), 
         class: "flex-grow px-4 py-3 text-sm text-slate-600 hover:bg-blue-600 hover:text-white transition-all truncate" do %>
-      <%= category.name %>
+      <%= category.localized_name %>
     <% end %>
     
     <% if category.children.any? %>

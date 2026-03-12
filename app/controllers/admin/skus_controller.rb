@@ -76,10 +76,10 @@ class Admin::SkusController < Admin::BaseController
       :name, :category_id, :price, :stock, :status, :visible, :image, :manual, :skuable_type,
       skuable_attributes: [
         :id, :net_capacity, :unit_dimensions, :packaging_dimensions,
-        :voltage_frequency, :temp_range, :standard_features,
+        :voltage_frequency, :temp_range, :standard_features, :standard_features_zh,
         :burners_and_control_method, :gas_type, :intake_tube_pressure,
         :per_btu, :total_btu, :regulator, :work_area,
-        :exterior_dimensions,
+        :exterior_dimensions, :standard_features_zh,
         :product_dimensions, :sink_bowl_dimensions, :sink_depth, :leg_bracing, :faucet_and_drain
       ]
     )

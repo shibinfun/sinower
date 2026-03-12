@@ -2,11 +2,11 @@
   <!-- 顶部面包屑导航 -->
   <nav class="flex mb-10 items-center space-x-2 text-sm font-bold bg-white/50 backdrop-blur-sm p-3 rounded-xl border border-slate-200/50 w-fit sticky top-20 z-10">
     <%= link_to categories_path, class: "text-slate-400 hover:text-blue-600 transition-colors" do %>
-      全部产品
+      <%= t('categories.all_products', default: '全部产品') %>
     <% end %>
     <svg class="w-4 h-4 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
     <% @sku.category.ancestors_and_self.each do |cat| %>
-      <%= link_to cat.name, categories_path(category_id: cat.id), class: "text-slate-400 hover:text-blue-600 transition-colors" %>
+      <%= link_to cat.localized_name, categories_path(category_id: cat.id), class: "text-slate-400 hover:text-blue-600 transition-colors" %>
       <svg class="w-4 h-4 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
     <% end %>
     <span class="text-slate-900 truncate max-w-[200px]"><%= @sku.name %></span>
@@ -37,13 +37,12 @@
             </div>
           <% end %>
           
-          <!-- 浮动标签 -->
           <div class="absolute top-6 left-6 flex flex-col space-y-2">
             <span class="bg-blue-600 text-white px-4 py-1.5 rounded-full text-[10px] font-black tracking-widest uppercase shadow-lg shadow-blue-500/30">
-              Professional Series
+              <%= t('skus.pro_series') %>
             </span>
             <span class="bg-slate-900 text-white px-4 py-1.5 rounded-full text-[10px] font-black tracking-widest uppercase shadow-lg">
-              Smart Control
+              <%= t('skus.smart_control') %>
             </span>
           </div>
         </div>
@@ -55,21 +54,21 @@
           features = case @sku.category.category_kind
                     when 'c'
                       [
-                        { title: "优质不锈钢", subtitle: "Premium SS", icon: "M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" },
-                        { title: "易于清洁", subtitle: "Easy Clean", icon: "M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" },
-                        { title: "重型结构", subtitle: "Heavy Duty", icon: "M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0zM13 11V7a1 1 0 011-1h6l2 2v5a1 1 0 01-1 1H3a1 1 0 01-1-1V7a1 1 0 011-1h6" }
+                        { title: t('skus.premium_ss'), subtitle: "Premium SS", icon: "M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" },
+                        { title: t('skus.easy_clean'), subtitle: "Easy Clean", icon: "M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" },
+                        { title: t('skus.heavy_duty'), subtitle: "Heavy Duty", icon: "M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0zM13 11V7a1 1 0 011-1h6l2 2v5a1 1 0 01-1 1H3a1 1 0 01-1-1V7a1 1 0 011-1h6" }
                       ]
                     when 'b'
                       [
-                        { title: "高效燃烧", subtitle: "High Heat", icon: "M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.99 7.99 0 0120 13a7.99 7.99 0 01-2.343 5.657z" },
-                        { title: "精确控制", subtitle: "Pro Control", icon: "M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" },
-                        { title: "工业品质", subtitle: "Heavy Duty", icon: "M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.673.224a2 2 0 01-1.547 0l-.673-.224a6 6 0 00-3.86-.517l-2.387.477a2 2 0 00-1.022.547l-1.16 1.16a2 2 0 000 2.828l1.16 1.16a2 2 0 001.022.547l2.387.477a6 6 0 003.86-.517l.673-.224a2 2 0 011.547 0l.673.224a6 6 0 003.86.517l2.387-.477a2 2 0 001.022-.547l1.16-1.16a2 2 0 000-2.828l-1.16-1.16z" }
+                        { title: t('skus.high_heat'), subtitle: "High Heat", icon: "M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.99 7.99 0 0120 13a7.99 7.99 0 01-2.343 5.657z" },
+                        { title: t('skus.pro_control'), subtitle: "Pro Control", icon: "M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" },
+                        { title: t('skus.industrial_quality'), subtitle: "Heavy Duty", icon: "M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.673.224a2 2 0 01-1.547 0l-.673-.224a6 6 0 00-3.86-.517l-2.387.477a2 2 0 00-1.022.547l-1.16 1.16a2 2 0 000 2.828l1.16 1.16a2 2 0 001.022.547l2.387.477a6 6 0 003.86-.517l.673-.224a2 2 0 011.547 0l.673.224a6 6 0 003.86.517l2.387-.477a2 2 0 001.022-.547l1.16-1.16a2 2 0 000-2.828l-1.16-1.16z" }
                       ]
                     else
                       [
-                        { title: "智能温控", subtitle: "AI Control", icon: "M13 10V3L4 14h7v7l9-11h-7z" },
-                        { title: "低能耗", subtitle: "Eco Friendly", icon: "M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" },
-                        { title: "耐用性", subtitle: "Industrial", icon: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" }
+                        { title: t('skus.smart_temp_control'), subtitle: "AI Control", icon: "M13 10V3L4 14h7v7l9-11h-7z" },
+                        { title: t('skus.low_energy'), subtitle: "Eco Friendly", icon: "M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" },
+                        { title: t('skus.durability'), subtitle: "Industrial", icon: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" }
                       ]
                     end
         %>
@@ -96,64 +95,60 @@
         
         <p class="text-slate-500 text-lg leading-relaxed font-medium max-w-xl">
           <% if @sku.category.category_kind == 'c' %>
-            SINOWER 优质不锈钢制品专为高强度商业厨房设计。采用高等级不锈钢材料，结合精湛的焊接工艺与人性化设计，为您的餐饮空间提供持久耐用、卫生安全的专业解决方案。
+            <%= t('skus.stainless_tagline') %>
           <% elsif @sku.category.category_kind == 'b' %>
-            SINOWER 商业烹饪设备专为追求极致火力的专业厨房打造。结合高效的热能系统与精准的操控体验，确保每一份菜品都能达到完美的烹饪效果。
+            <%= t('skus.cooking_tagline') %>
           <% else %>
-            SINOWER 致力于重新定义商业制冷标准。该型号结合了行业领先的高效压缩系统与多维气流管理，为您的食材提供无懈可击的保鲜环境。
+            <%= t('skus.refrigeration_tagline') %>
           <% end %>
         </p>
       </div>
 
-      <!-- 技术参数矩阵 -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
         <% if @sku.category.category_kind == 'a' %>
           <% [
-            { label: "净容积", value: @sku.skuable.net_capacity, sub: "Net Capacity" },
-            { label: "温度范围", value: @sku.skuable.temp_range, sub: "Temp Range", highlight: true },
-            { label: "外形尺寸", value: @sku.skuable.unit_dimensions, sub: "Unit Dimensions" },
-            { label: "电压频率", value: @sku.skuable.voltage_frequency, sub: "Power Supply" }
+            { label: t('skus.net_capacity'), value: @sku.skuable.net_capacity, sub: "Net Capacity" },
+            { label: t('skus.temp_range'), value: @sku.skuable.temp_range, sub: "Temp Range", highlight: true },
+            { label: t('skus.dimensions'), value: @sku.skuable.unit_dimensions, sub: "Unit Dimensions" },
+            { label: t('skus.voltage'), value: @sku.skuable.voltage_frequency, sub: "Power Supply" }
           ].each do |spec| %>
             <div class="group">
               <div class="flex flex-col border-l-2 border-slate-100 pl-6 group-hover:border-blue-600 transition-all duration-300">
-                <span class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1"><%= spec[:sub] %></span>
-                <span class="text-xs font-bold text-slate-500 mb-1"><%= spec[:label] %></span>
+                <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1"><%= spec[:label] %></span>
                 <span class="text-xl font-black <%= spec[:highlight] ? 'text-blue-600' : 'text-slate-900' %> tracking-tight"><%= spec[:value] %></span>
               </div>
             </div>
           <% end %>
         <% elsif @sku.category.category_kind == 'b' %>
           <% [
-            { label: "燃烧器及控制", value: @sku.skuable.burners_and_control_method, sub: "Burners & Control" },
-            { label: "燃气类型", value: @sku.skuable.gas_type, sub: "Gas Type" },
-            { label: "进气压力", value: @sku.skuable.intake_tube_pressure, sub: "Intake Pressure" },
-            { label: "单头热量", value: @sku.skuable.per_btu, sub: "BTU Per Burner" },
-            { label: "总热量", value: @sku.skuable.total_btu, sub: "Total BTU", highlight: true },
-            { label: "调节阀", value: @sku.skuable.regulator, sub: "Regulator" },
-            { label: "工作区域", value: @sku.skuable.work_area, sub: "Work Area" },
-            { label: "外形尺寸", value: @sku.skuable.exterior_dimensions, sub: "Exterior Dimensions" }
+            { label: t('skus.burners_control'), value: @sku.skuable.burners_and_control_method, sub: "Burners & Control" },
+            { label: t('skus.gas_type'), value: @sku.skuable.gas_type, sub: "Gas Type" },
+            { label: t('skus.intake_pressure'), value: @sku.skuable.intake_tube_pressure, sub: "Intake Pressure" },
+            { label: t('skus.btu_per_burner'), value: @sku.skuable.per_btu, sub: "BTU Per Burner" },
+            { label: t('skus.total_btu'), value: @sku.skuable.total_btu, sub: "Total BTU", highlight: true },
+            { label: t('skus.regulator'), value: @sku.skuable.regulator, sub: "Regulator" },
+            { label: t('skus.work_area'), value: @sku.skuable.work_area, sub: "Work Area" },
+            { label: t('skus.dimensions'), value: @sku.skuable.exterior_dimensions, sub: "Exterior Dimensions" }
           ].select { |s| s[:value].present? }.each do |spec| %>
             <div class="group">
               <div class="flex flex-col border-l-2 border-slate-100 pl-6 group-hover:border-blue-600 transition-all duration-300">
-                <span class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1"><%= spec[:sub] %></span>
-                <span class="text-xs font-bold text-slate-500 mb-1"><%= spec[:label] %></span>
+                <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1"><%= spec[:label] %></span>
                 <span class="text-xl font-black <%= spec[:highlight] ? 'text-blue-600' : 'text-slate-900' %> tracking-tight"><%= spec[:value] %></span>
               </div>
             </div>
           <% end %>
         <% elsif @sku.category.category_kind == 'c' %>
           <% [
-            { label: "外形尺寸", value: @sku.skuable.unit_dimensions, sub: "Unit Dimensions" },
-            { label: "产品尺寸", value: @sku.skuable.product_dimensions, sub: "Product Dimensions" },
-            { label: "水槽尺寸", value: @sku.skuable.sink_bowl_dimensions, sub: "Bowl Dimensions" },
-            { label: "水槽深度", value: @sku.skuable.sink_depth, sub: "Sink Depth" },
-            { label: "支脚加固", value: @sku.skuable.leg_bracing, sub: "Leg Bracing" },
-            { label: "龙头/落水", value: @sku.skuable.faucet_and_drain, sub: "Faucet & Drain" }
+            { label: t('skus.dimensions'), value: @sku.skuable.unit_dimensions, sub: "Unit Dimensions" },
+            { label: t('skus.product_dimensions'), value: @sku.skuable.product_dimensions, sub: "Product Dimensions" },
+            { label: t('skus.bowl_dimensions'), value: @sku.skuable.sink_bowl_dimensions, sub: "Bowl Dimensions" },
+            { label: t('skus.sink_depth'), value: @sku.skuable.sink_depth, sub: "Sink Depth" },
+            { label: t('skus.leg_bracing'), value: @sku.skuable.leg_bracing, sub: "Leg Bracing" },
+            { label: t('skus.faucet_drain'), value: @sku.skuable.faucet_and_drain, sub: "Faucet & Drain" }
           ].select { |s| s[:value].present? }.each do |spec| %>
             <div class="group">
               <div class="flex flex-col border-l-2 border-slate-100 pl-6 group-hover:border-blue-600 transition-all duration-300">
-                <span class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1"><%= spec[:sub] %></span>
-                <span class="text-xs font-bold text-slate-500 mb-1"><%= spec[:label] %></span>
+                <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1"><%= spec[:label] %></span>
                 <span class="text-xl font-black text-slate-900 tracking-tight"><%= spec[:value] %></span>
               </div>
             </div>
@@ -161,8 +156,7 @@
         <% else %>
           <div class="group">
             <div class="flex flex-col border-l-2 border-slate-100 pl-6 group-hover:border-blue-600 transition-all duration-300">
-              <span class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">UNIT DIMENSIONS</span>
-              <span class="text-xs font-bold text-slate-500 mb-1">外形尺寸</span>
+              <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1"><%= t('skus.dimensions') %></span>
               <span class="text-xl font-black text-slate-900 tracking-tight"><%= @sku.skuable.unit_dimensions %></span>
             </div>
           </div>
@@ -173,23 +167,23 @@
       <div class="mt-auto space-y-4">
         <div class="flex flex-col sm:flex-row gap-4">
           <%= link_to contact_path, class: "flex-1 inline-flex justify-center items-center px-10 py-5 bg-blue-600 hover:bg-blue-700 text-white rounded-[1.5rem] font-black text-sm tracking-widest uppercase transition-all duration-300 shadow-2xl shadow-blue-500/30 group" do %>
-            <span>获取专业报价</span>
+            <span><%= t('skus.get_quote') %></span>
             <svg class="w-5 h-5 ml-3 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
           <% end %>
           
           <% if @sku.manual.attached? %>
             <%= link_to rails_blob_path(@sku.manual, disposition: "attachment"), 
                         class: "inline-flex justify-center items-center px-10 py-5 bg-slate-900 hover:bg-black text-white rounded-[1.5rem] font-black text-sm tracking-widest uppercase transition-all duration-300" do %>
-              下载技术手册
+              <%= t('skus.download_manual') %>
             <% end %>
           <% else %>
             <div class="inline-flex justify-center items-center px-10 py-5 bg-slate-200 text-slate-400 rounded-[1.5rem] font-black text-sm tracking-widest uppercase cursor-not-allowed">
-              手册准备中
+              <%= t('skus.manual_preparing') %>
             </div>
           <% end %>
         </div>
         <p class="text-[9px] text-slate-400 text-center sm:text-left font-bold uppercase tracking-tighter">
-          * 最终规格可能因定制要求而异，请联系销售获取最新数据
+          <%= t('skus.spec_notice') %>
         </p>
       </div>
     </div>
@@ -201,17 +195,20 @@
       <div class="bg-white rounded-[2rem] p-10 border border-slate-100 shadow-xl h-full">
         <div class="flex items-center space-x-4 mb-8">
           <div class="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center text-blue-600 font-black">ST</div>
-          <h3 class="text-xl font-black text-slate-900 tracking-tight">核心特性 (Core Features)</h3>
+          <h3 class="text-xl font-black text-slate-900 tracking-tight"><%= t('skus.core_features') %></h3>
         </div>
         <div class="bg-slate-50 rounded-2xl p-8 text-slate-600 text-base leading-relaxed font-medium border border-slate-100 prose prose-slate max-w-none">
-          <% if @sku.category.category_kind == 'a' %>
-            <%= @sku.skuable.standard_features %>
-          <% elsif @sku.category.category_kind == 'b' %>
-            <%= @sku.skuable.standard_features %>
-          <% elsif @sku.category.category_kind == 'c' %>
-            <%= @sku.skuable.standard_features if @sku.skuable.standard_features.present? %>
+          <% 
+            features = if I18n.locale.to_s.start_with?('zh')
+              @sku.skuable.standard_features_zh.presence || @sku.skuable.standard_features
+            else
+              @sku.skuable.standard_features
+            end
+          %>
+          <% if features.present? %>
+            <%= features %>
           <% else %>
-            SINOWER 致力于提供卓越的产品性能与可靠性。
+            <%= t('skus.default_feature_desc') %>
           <% end %>
         </div>
       </div>
@@ -222,33 +219,33 @@
         <!-- 装饰性元素 -->
         <div class="absolute -bottom-10 -right-10 w-40 h-40 bg-blue-600 rounded-full blur-3xl opacity-20"></div>
         
-        <h3 class="text-xl font-black mb-6 tracking-tight relative z-10">需要更多信息？</h3>
+        <h3 class="text-xl font-black mb-6 tracking-tight relative z-10"><%= t('skus.need_more_info') %></h3>
         <p class="text-slate-400 text-sm mb-8 leading-relaxed relative z-10">
           <% if @sku.category.category_kind == 'c' %>
-            我们的技术专家团队随时准备为您提供量身定制的产品咨询服务，帮助您优化运营效率。
+            <%= t('skus.stainless_help') %>
           <% elsif @sku.category.category_kind == 'b' %>
-            我们的技术专家团队随时准备为您提供量身定制的烹饪设备咨询服务，帮助您优化厨房流程。
+            <%= t('skus.cooking_help') %>
           <% else %>
-            我们的技术专家团队随时准备为您提供量身定制的冷链咨询服务，帮助您优化运营效率。
+            <%= t('skus.refrigeration_help') %>
           <% end %>
         </p>
         
         <ul class="space-y-4 relative z-10 mb-8">
           <li class="flex items-center text-xs font-bold text-blue-400">
             <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-            24/7 技术支持
+            <%= t('skus.support_24_7') %>
           </li>
           <li class="flex items-center text-xs font-bold text-blue-400">
             <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-            全球保修覆盖
+            <%= t('skus.warranty_coverage') %>
           </li>
           <li class="flex items-center text-xs font-bold text-blue-400">
             <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-            原厂备件供应
+            <%= t('skus.spare_parts') %>
           </li>
         </ul>
         
-        <%= link_to "立即联系", contact_path, class: "inline-block w-full text-center py-4 bg-white text-slate-900 rounded-xl font-black text-xs tracking-widest uppercase hover:bg-blue-50 transition-colors relative z-10" %>
+        <%= link_to t('skus.contact_now'), contact_path, class: "inline-block w-full text-center py-4 bg-white text-slate-900 rounded-xl font-black text-xs tracking-widest uppercase hover:bg-blue-50 transition-colors relative z-10" %>
       </div>
     </div>
   </div>

@@ -4,6 +4,7 @@ class Category < ApplicationRecord
   has_many :skus, dependent: :destroy
 
   validates :name, presence: true
+  validates :name_zh, presence: true
   validates :category_kind, presence: true, inclusion: { in: %w[a b c d] }
   validate :leaf_category_constraint_for_parent
   validate :consistent_category_kind
@@ -40,6 +41,10 @@ class Category < ApplicationRecord
       res.unshift(node)
     end
     res
+  end
+
+  def localized_name
+    I18n.locale == :"zh-CN" ? name_zh : name
   end
 
   private

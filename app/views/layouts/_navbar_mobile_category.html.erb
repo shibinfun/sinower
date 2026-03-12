@@ -2,7 +2,7 @@
 <% depth = local_assigns.fetch(:depth, 0) %>
 <div class="py-1 relative">
   <div class="flex items-center justify-between px-3">
-    <%= link_to category.name, send("#{kind}_channel_path", category_id: category.id), 
+    <%= link_to category.localized_name, send("#{kind}_channel_path", category_id: category.id),
         class: "block py-2 text-sm text-slate-400 hover:text-white flex-grow",
         style: "padding-left: #{depth * 1.5}rem" %>
     

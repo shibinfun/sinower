@@ -87,7 +87,7 @@
           <% categories_for_kind(kind).each do |category| %>
             <li class="relative group/cat-0" data-navbar-target="rootDropdown">
               <div class="flex items-center">
-                <%= link_to category.name, category_path(category), class: "block py-2 px-3 #{params[:id].to_i == category.id ? 'text-blue-600 font-bold border-b-2 border-blue-600' : 'text-slate-600 hover:text-blue-600'} transition-all duration-300 rounded-sm md:bg-transparent md:p-0 flex-grow" %>
+                <%= link_to category.localized_name, category_path(category), class: "block py-2 px-3 #{params[:id].to_i == category.id ? 'text-blue-600 font-bold border-b-2 border-blue-600' : 'text-slate-600 hover:text-blue-600'} transition-all duration-300 rounded-sm md:bg-transparent md:p-0 flex-grow" %>
                 <% if category.children.any? %>
                   <button type="button" data-action="click->navbar#toggleMobileRoot" class="md:hidden ml-auto text-slate-400 p-2 focus:outline-none">
                     <svg class="w-4 h-4 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>

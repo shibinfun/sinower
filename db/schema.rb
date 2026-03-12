@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_03_10_062716) do
+ActiveRecord::Schema[8.0].define(version: 2026_03_12_072618) do
   create_table "a_sku_details", force: :cascade do |t|
     t.string "net_capacity"
     t.string "unit_dimensions"
@@ -20,6 +20,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_03_10_062716) do
     t.text "standard_features"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "standard_features_zh"
   end
 
   create_table "action_text_rich_texts", force: :cascade do |t|
@@ -73,6 +74,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_03_10_062716) do
     t.string "regulator"
     t.string "work_area"
     t.string "exterior_dimensions"
+    t.text "standard_features_zh"
   end
 
   create_table "c_sku_details", force: :cascade do |t|
@@ -93,6 +95,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_03_10_062716) do
     t.string "leg_bracing"
     t.string "faucet_and_drain"
     t.text "standard_features"
+    t.text "standard_features_zh"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -101,6 +104,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_03_10_062716) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "category_kind"
+    t.string "name_zh"
     t.index ["parent_id"], name: "index_categories_on_parent_id"
   end
 
