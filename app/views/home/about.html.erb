@@ -65,9 +65,9 @@
     <h2 class="text-3xl font-black text-slate-900 mb-16 tracking-tight"><%= t('home.about.product_lines_title') %></h2>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
       <% [
-        { name: t('home.about.product_lines.refrigeration'), sub: "Commercial Refrigeration", icon: "M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" },
-        { name: t('home.about.product_lines.cooking'), sub: "Commercial Cooking", icon: "M13 10V3L4 14h7v7l9-11h-7z" },
-        { name: t('home.about.product_lines.stainless'), sub: "Stainless Foodservice", icon: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" }
+        { name: t('home.about.product_lines.refrigeration'), sub: t('home.about.product_lines.refrigeration_desc'), icon: "M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" },
+        { name: t('home.about.product_lines.cooking'), sub: t('home.about.product_lines.cooking_desc'), icon: "M13 10V3L4 14h7v7l9-11h-7z" },
+        { name: t('home.about.product_lines.stainless'), sub: t('home.about.product_lines.stainless_desc'), icon: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" }
       ].each do |line| %>
         <div class="p-10 bg-white rounded-[2.5rem] border border-slate-100 shadow-sm hover:shadow-2xl hover:shadow-blue-500/10 transition-all group">
           <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mb-8 mx-auto text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-colors">
