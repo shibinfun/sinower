@@ -66,6 +66,12 @@ class Admin::SkusController < Admin::BaseController
     redirect_to admin_skus_path, notice: "SKU 已删除。"
   end
 
+  def delete_image
+    image = @sku.images.find(params[:image_id])
+    image.purge
+    redirect_back fallback_location: edit_admin_sku_path(@sku), notice: "图片已删除。"
+  end
+
   private
 
   def set_sku
@@ -74,7 +80,7 @@ class Admin::SkusController < Admin::BaseController
 
   def sku_params
     params.require(:sku).permit(
-      :name, :category_id, :price, :stock, :status, :visible, :image, :manual, :skuable_type,
+      :name, :category_id, :price, :stock, :status, :visible, :manual, :skuable_type, images: [],
       skuable_attributes: [
         :id, :net_capacity, :unit_dimensions, :packaging_dimensions,
         :voltage_frequency, :temp_range, :standard_features, :standard_features_zh,
