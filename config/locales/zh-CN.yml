@@ -14,6 +14,9 @@ zh-CN:
     logout: "退出登录"
   footer:
     quick_links: "快速链接"
+    company_desc: "可靠、高效、专为商业厨房打造"
+    rights_reserved: "版权所有。"
+    contact_us: "联系我们"
   categories:
     all_products: "全部产品"
     all_products_catalog: "全线产品目录"
@@ -25,8 +28,6 @@ zh-CN:
     no_skus_title: "暂无可用型号"
     no_skus_desc: "该分类正在不断完善中，请稍后再来查看我们的最新发布。"
     contact_us: "联系我们"
-    company_desc: "领先的制冷及餐饮设备科技解决方案提供商。"
-    rights_reserved: "版权所有。"
   skus:
     capacity: "容积"
     temp: "温度"

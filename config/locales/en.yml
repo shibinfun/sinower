@@ -43,6 +43,8 @@ en:
     logout: "Log Out"
   footer:
     quick_links: "Quick Links"
+    company_desc: "RELIABLE. EFFICIENT. BUILT FOR COMMERCIAL KITCHENS"
+    rights_reserved: "All Rights Reserved."
   categories:
     all_products: "All Products"
     all_products_catalog: "All Products Catalog"
@@ -54,8 +56,6 @@ en:
     no_skus_title: "No Available Models"
     no_skus_desc: "This category is currently being updated. Please check back later for our latest releases."
     contact_us: "Contact Us"
-    company_desc: "Leading provider of refrigeration and catering equipment technology solutions."
-    rights_reserved: "All Rights Reserved."
   skus:
     capacity: "Capacity"
     temp: "Temp"

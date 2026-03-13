@@ -91,17 +91,6 @@
         </div>
         
         <h1 class="text-5xl font-black text-slate-900 mb-6 tracking-tight leading-none"><%= @sku.name %></h1>
-        
-        
-        <p class="text-slate-500 text-lg leading-relaxed font-medium max-w-xl">
-          <% if @sku.category.category_kind == 'c' %>
-            <%= t('skus.stainless_tagline') %>
-          <% elsif @sku.category.category_kind == 'b' %>
-            <%= t('skus.cooking_tagline') %>
-          <% else %>
-            <%= t('skus.refrigeration_tagline') %>
-          <% end %>
-        </p>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">

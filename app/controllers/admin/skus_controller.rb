@@ -2,7 +2,8 @@ class Admin::SkusController < Admin::BaseController
   before_action :set_sku, only: [:show, :edit, :update, :destroy]
 
   def index
-    @skus = Sku.includes(:category).all
+    @category_kind = params[:kind] || 'a'
+    @skus = Sku.joins(:category).where(categories: { category_kind: @category_kind }).includes(:category).all
   end
 
   def show
