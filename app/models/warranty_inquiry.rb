@@ -1,0 +1,2 @@
+class WarrantyInquiry < ApplicationRecord
+end

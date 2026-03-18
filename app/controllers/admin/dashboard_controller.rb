@@ -5,5 +5,6 @@ class Admin::DashboardController < Admin::BaseController
     @active_skus = Sku.where(status: 'active').count
     @total_views = Sku.sum(:views)
     @messages_count = ContactMessage.count
+    @warranty_inquiries_count = WarrantyInquiry.count
   end
 end

@@ -205,11 +205,34 @@ en:
       support_card_desc: "If you already own our equipment and need technical guidance or warranty service, please contact our dedicated technical team."
       view_warranty: "View Warranty Terms"
     warranty:
-      subtitle: "Warranty & Support"
+      subtitle: "Service & Support"
       hero_title_1: "SINOWER"
-      hero_title_2: "Quality Assurance"
-      hero_title_3: "Commitment"
+      hero_title_2: "Service & Support"
+      hero_title_3: ""
       hero_desc: "We don't just provide top-tier equipment; we promise to provide you with the most reliable after-sales support system in the industry."
+      download_terms: "Download Warranty Terms"
+      feedback_btn: "Feedback"
+      feedback_success: "We will contact you as soon as possible"
+      product_lines:
+        refrigeration: "Commercial Refrigeration"
+        cooking: "Cooking Equipment"
+        stainless: "Stainless Steel Food Service"
+      form:
+        subject: "Subject"
+        product_type: "Product Type"
+        model_number: "Model Number"
+        description: "Description"
+        name: "Name"
+        phone: "Phone"
+        email: "Email"
+        submit: "Submit Feedback"
+        placeholder:
+          subject: "Enter subject"
+          model_number: "Enter model number"
+          description: "Please describe your issue or question in detail..."
+          name: "Enter your name"
+          phone: "Enter your phone number"
+          email: "Enter your email address"
       plans:
         full:
           title: "Full Unit Warranty"

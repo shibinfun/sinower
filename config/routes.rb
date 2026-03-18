@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     get "contact", to: "home#contact"
     post "contact", to: "home#create_contact"
     get "warranty", to: "home#warranty"
+    post "warranty_inquiry", to: "home#create_warranty_inquiry"
 
     namespace :admin do
       root to: "dashboard#index"
@@ -20,6 +21,7 @@ Rails.application.routes.draw do
         end
       end
       resources :contact_messages, only: [:index, :show, :destroy]
+      resources :warranty_inquiries, only: [:index, :show, :destroy]
     end
 
     %w[a b c].each do |kind|

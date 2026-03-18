@@ -177,11 +177,34 @@ zh-CN:
       support_card_desc: "如果您已拥有我们的设备并需要技术指导或保修服务，请联系我们的专职技术团队。"
       view_warranty: "查看保修条款"
     warranty:
-      subtitle: "保修与支持"
+      subtitle: "服务与支持"
       hero_title_1: "SINOWER"
-      hero_title_2: "品质保障"
-      hero_title_3: "承诺"
+      hero_title_2: "服务与支持"
+      hero_title_3: ""
       hero_desc: "我们不仅提供顶尖设备，更承诺为您提供行业内最可靠的售后保障体系。"
+      download_terms: "下载保修条款"
+      feedback_btn: "反馈按钮"
+      feedback_success: "我们会尽快联系您"
+      product_lines:
+        refrigeration: "商用制冷设备"
+        cooking: "商用烹饪设备"
+        stainless: "不锈钢餐饮用品"
+      form:
+        subject: "主题"
+        product_type: "产品类型"
+        model_number: "具体型号"
+        description: "具体描述"
+        name: "姓名"
+        phone: "手机号"
+        email: "邮箱"
+        submit: "提交反馈"
+        placeholder:
+          subject: "请输入主题"
+          model_number: "请输入产品型号"
+          description: "请详细描述您的问题或需求..."
+          name: "请输入您的姓名"
+          phone: "请输入您的手机号"
+          email: "请输入您的邮箱地址"
       plans:
         full:
           title: "全机保修"

@@ -23,11 +23,26 @@ class HomeController < ApplicationController
   end
 
   def warranty
+    @warranty_inquiry = WarrantyInquiry.new
+  end
+
+  def create_warranty_inquiry
+    @warranty_inquiry = WarrantyInquiry.new(warranty_inquiry_params)
+    if @warranty_inquiry.save
+      redirect_to warranty_path, notice: t('home.warranty.feedback_success', default: "我们会尽快联系您")
+    else
+      # 简单起见，如果失败直接跳回 warranty 页面，通常这里应该处理错误信息
+      redirect_to warranty_path, alert: "提交失败，请检查填写内容"
+    end
   end
 
   private
 
   def contact_params
     params.require(:contact_message).permit(:name, :email, :subject, :message)
+  end
+
+  def warranty_inquiry_params
+    params.require(:warranty_inquiry).permit(:subject, :product_type, :model_number, :description, :name, :phone, :email)
   end
 end
