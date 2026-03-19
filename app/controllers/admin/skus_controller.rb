@@ -80,7 +80,7 @@ class Admin::SkusController < Admin::BaseController
 
   def sku_params
     params.require(:sku).permit(
-      :name, :category_id, :price, :stock, :status, :visible, :manual, :skuable_type, images: [],
+      :name, :category_id, :price, :stock, :status, :visible, :manual, :spec_sheet, :skuable_type, images: [],
       skuable_attributes: [
         :id, :net_capacity, :unit_dimensions, :packaging_dimensions,
         :voltage_frequency, :temp_range, :standard_features, :standard_features_zh,

@@ -134,20 +134,33 @@
 
       <!-- 操作区域 -->
       <div class="mt-auto space-y-4">
-        <div class="flex flex-col sm:flex-row gap-4">
-          <%= link_to contact_path, class: "flex-1 inline-flex justify-center items-center px-10 py-5 bg-blue-600 hover:bg-blue-700 text-white rounded-[1.5rem] font-black text-sm tracking-widest uppercase transition-all duration-300 shadow-2xl shadow-blue-500/30 group" do %>
-            <span><%= t('skus.get_quote') %></span>
-            <svg class="w-5 h-5 ml-3 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
-          <% end %>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="sm:col-span-2">
+            <%= link_to contact_path, class: "w-full inline-flex justify-center items-center px-10 py-5 bg-blue-600 hover:bg-blue-700 text-white rounded-[1.5rem] font-black text-sm tracking-widest uppercase transition-all duration-300 shadow-2xl shadow-blue-500/30 group" do %>
+              <span><%= t('skus.get_quote') %></span>
+              <svg class="w-5 h-5 ml-3 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+            <% end %>
+          </div>
           
           <% if @sku.manual.attached? %>
             <%= link_to rails_blob_path(@sku.manual, disposition: "attachment"), 
-                        class: "inline-flex justify-center items-center px-10 py-5 bg-slate-900 hover:bg-black text-white rounded-[1.5rem] font-black text-sm tracking-widest uppercase transition-all duration-300" do %>
+                        class: "inline-flex justify-center items-center px-6 py-4 bg-slate-900 hover:bg-black text-white rounded-[1.25rem] font-black text-xs tracking-widest uppercase transition-all duration-300 text-center" do %>
               <%= t('skus.download_manual') %>
             <% end %>
           <% else %>
-            <div class="inline-flex justify-center items-center px-10 py-5 bg-slate-200 text-slate-400 rounded-[1.5rem] font-black text-sm tracking-widest uppercase cursor-not-allowed">
+            <div class="inline-flex justify-center items-center px-6 py-4 bg-slate-200 text-slate-400 rounded-[1.25rem] font-black text-xs tracking-widest uppercase cursor-not-allowed text-center">
               <%= t('skus.manual_preparing') %>
+            </div>
+          <% end %>
+
+          <% if @sku.spec_sheet.attached? %>
+            <%= link_to rails_blob_path(@sku.spec_sheet, disposition: "attachment"), 
+                        class: "inline-flex justify-center items-center px-6 py-4 bg-slate-100 hover:bg-slate-200 text-slate-900 rounded-[1.25rem] font-black text-xs tracking-widest uppercase transition-all duration-300 text-center" do %>
+              <%= t('skus.download_spec_sheet') %>
+            <% end %>
+          <% else %>
+            <div class="inline-flex justify-center items-center px-6 py-4 bg-slate-100 text-slate-300 rounded-[1.25rem] font-black text-xs tracking-widest uppercase cursor-not-allowed text-center">
+              <%= t('skus.spec_sheet_preparing') %>
             </div>
           <% end %>
         </div>
