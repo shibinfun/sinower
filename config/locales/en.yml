@@ -207,18 +207,85 @@ en:
       support_card_desc: "If you already own our equipment and need technical guidance or warranty service, please contact our dedicated technical team."
       view_warranty: "View Warranty Terms"
     warranty:
-      subtitle: "Service & Support"
-      hero_title_1: "SINOWER"
-      hero_title_2: "Service & Support"
-      hero_title_3: ""
-      hero_desc: "We don't just provide top-tier equipment; we promise to provide you with the most reliable after-sales support system in the industry."
+      subtitle: "SINOWER Warranty & Service Support"
+      hero_title_1: "Reliable warranty coverage"
+      hero_title_2: "and responsive technical support"
+      hero_title_3: "for your commercial kitchen equipment."
+      hero_desc: "SINOWER is commited to providing professional service and fast response to ensure your equipment operates efficiently."
+      core_cards:
+        parts_labor:
+          title: "2 Year Parts & Labor"
+          subtitle: "Warranty"
+          desc: "Comprehensive coverage"
+        compressor:
+          title: "5 Year Compressor"
+          subtitle: "Support"
+          desc: "Extended reliability"
+        service:
+          title: "Professional Service"
+          subtitle: "Network"
+          desc: "Expert technicians"
+      coverage:
+        title: "Warranty Coverage"
+        refrigeration:
+          title: "Commercial Refrigeration"
+          period: "2 Year Parts & Labor Warranty"
+          desc: "All SINOWER refrigeration equipment includes a two-year parts and labor warranty."
+          extra: "5 Year Compressor Warranty: Compressors are covered under a five-year limited warranty."
+        cooking:
+          title: "Cooking Equipment"
+          period: "1 Year Limited Warranty"
+          desc: "Cooking equipment is covered by a one-year limited warranty against manufacturing defects under normal commercial use."
+        stainless:
+          title: "Stainless Steel Equipment"
+          period: "6 Month Limited Warranty"
+          desc: "SINOWER stainless steel equipment such as worktables, sinks, and shelving includes a six-month limited warranty."
+      view_details: "View Details"
+      process:
+        title: "How Warranty Service Works"
+        step1:
+          title: "Submit Warranty Request"
+          desc: "Submit your warranty claim online or contact SINOWER service department."
+        step2:
+          title: "Technical Diagnosis"
+          desc: "Our technical team reviews the issue and provides troubleshooting assistance."
+        step3:
+          title: "Service Arrangement"
+          desc: "If required, an authorized technician will be arranged for service."
+      exclusions_section:
+        title: "Warranty Exclusions"
+        desc: "This warranty does not cover the following:"
+        items:
+          improper_install: "Improper installation or incorrect electrical supply"
+          unauthorized: "Unauthorized repairs or modifications"
+          misuse: "Misuse, abuse, or improper maintenance"
+          transport: "Damage during transportation or installation"
+          natural_disaster: "Natural disasters such as fire, flood, lightning, or earthquake"
+      liability:
+        title: "Limitation of Liability"
+        desc: "SINOWER shall not be responsible for any indirect, incidental, or consequential damages, including but not limited to:"
+        items:
+          food_loss: "Loss of food or product"
+          profit_loss: "Loss of profit or business interruption"
+          economic_loss: "Economic losses resulting from equipment failure"
+      service_dept:
+        title: "SINOWER Service Department"
+        email_label: "Email"
+        service_hours: "Service Hours"
+        hours_value: "Monday – Friday 9:00 AM – 5:00 PM (EST)"
+        response_time: "Support requests are typically responded to within 24 business hours"
+        parts_support: "Replacement Parts Support"
+        parts_desc: "SINOWER provides genuine replacement parts to ensure reliable operation and efficient repairs."
+        request_parts_btn: "Request Spare Parts"
+      submit_claim_btn: "Submit Warranty Claim"
+      submit_claim_download: "Submit Warranty Claim"
       download_terms: "Download Warranty Terms"
       feedback_btn: "Feedback"
       feedback_success: "We will contact you as soon as possible"
       product_lines:
         refrigeration: "Commercial Refrigeration"
-        cooking: "Cooking Equipment"
-        stainless: "Stainless Steel Food Service"
+        cooking: "Commercial Cooking Equipment"
+        stainless: "Stainless Steel Equipment"
       form:
         subject: "Subject"
         product_type: "Product Type"
@@ -229,45 +296,12 @@ en:
         email: "Email"
         submit: "Submit Feedback"
         placeholder:
-          subject: "Enter subject"
-          model_number: "Enter model number"
-          description: "Please describe your issue or question in detail..."
-          name: "Enter your name"
-          phone: "Enter your phone number"
-          email: "Enter your email address"
-      plans:
-        full:
-          title: "Full Unit Warranty"
-          period: "12 Months"
-          desc: "12 months of free full-unit warranty service from the date of installation and acceptance."
-        core:
-          title: "Core Components"
-          period: "36 Months"
-          desc: "Compressors, condensers, and other core industrial components enjoy a 3-year quality guarantee."
-        lifetime:
-          title: "Lifetime Maintenance"
-          period: "LIFETIME"
-          desc: "After the warranty period, we provide technical support and original spare parts supply services."
-      process:
-        title: "Service Process"
-        step1:
-          title: "Registration"
-          desc: "Call hotline or feedback online"
-        step2:
-          title: "Diagnosis"
-          desc: "Expert video assistance"
-        step3:
-          title: "On-site Service"
-          desc: "Technician arrives within 24h"
-        step4:
-          title: "Feedback"
-          desc: "Closed-loop management"
-      exclusion_title: "Non-Warranty Coverage"
-      exclusions:
-        damage: "Mechanical damage or scratches caused by human factors."
-        unauthorized: "Unauthorized disassembly or modification without SINOWER's consent."
-        force_majeure: "Equipment failure caused by force majeure (e.g., lightning, flood, earthquake)."
-        improper_use: "Operational abnormalities caused by failure to follow product instructions."
+          subject: "Inquiry topic"
+          model_number: "e.g. VR-23D1"
+          description: "Describe the issue in detail..."
+          name: "Your full name"
+          phone: "Contact phone number"
+          email: "example@email.com"
   contact_info:
     address: "6155 A Jimmy Carter Blvd Suite A, Norcross, GA 30071, USA"
     phone: "1 (470) 392-7672"

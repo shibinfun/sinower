@@ -179,13 +179,80 @@ zh-CN:
       support_card_desc: "如果您已拥有我们的设备并需要技术指导或保修服务，请联系我们的专职技术团队。"
       view_warranty: "查看保修条款"
     warranty:
-      subtitle: "服务与支持"
-      hero_title_1: "SINOWER"
-      hero_title_2: "服务与支持"
-      hero_title_3: ""
-      hero_desc: "我们不仅提供顶尖设备，更承诺为您提供行业内最可靠的售后保障体系。"
+      subtitle: "SINOWER 保修与服务支持"
+      hero_title_1: "为您的商用厨房设备提供"
+      hero_title_2: "可靠的保修覆盖"
+      hero_title_3: "和快速响应的技术支持"
+      hero_desc: "SINOWER 致力于提供专业服务和快速响应，确保您的设备高效运行。"
+      core_cards:
+        parts_labor:
+          title: "2 年零件与人工"
+          subtitle: "保修"
+          desc: "全面覆盖"
+        compressor:
+          title: "5 年压缩机"
+          subtitle: "支持"
+          desc: "延长可靠性"
+        service:
+          title: "专业服务"
+          subtitle: "网络"
+          desc: "专家技术团队"
+      coverage:
+        title: "保修覆盖范围"
+        refrigeration:
+          title: "商用制冷设备"
+          period: "2 年零件与人工保修"
+          desc: "所有 SINOWER 制冷设备均包含两年零件和人工保修。"
+          extra: "5 年压缩机保修：压缩机享受五年有限保修。"
+        cooking:
+          title: "烹饪设备"
+          period: "1 年有限保修"
+          desc: "烹饪设备在正常商业使用下，针对制造缺陷提供一年有限保修。"
+        stainless:
+          title: "不锈钢设备"
+          period: "6 个月有限保修"
+          desc: "SINOWER 不锈钢设备（如操作台、水槽和货架）包含六个月有限保修。"
+      view_details: "查看详情"
+      process:
+        title: "保修服务流程"
+        step1:
+          title: "提交保修申请"
+          desc: "在线提交保修申请或联系 SINOWER 服务部门。"
+        step2:
+          title: "技术诊断"
+          desc: "我们的技术团队将审核问题并提供故障排除协助。"
+        step3:
+          title: "服务安排"
+          desc: "如有需要，将安排授权技术人员进行现场服务。"
+      exclusions_section:
+        title: "保修排除条款"
+        desc: "本保修不涵盖以下情况："
+        items:
+          improper_install: "安装不当或电气供应错误"
+          unauthorized: "未经授权的维修或改装"
+          misuse: "误用、滥用或维护不当"
+          transport: "运输或安装过程中的损坏"
+          natural_disaster: "火灾、洪水、雷击或地震等自然灾害"
+      liability:
+        title: "责任限制"
+        desc: "SINOWER 对任何间接、偶然或后果性损害不承担责任，包括但不限于："
+        items:
+          food_loss: "食品或产品损失"
+          profit_loss: "利润损失或业务中断"
+          economic_loss: "因设备故障导致的经济损失"
+      service_dept:
+        title: "SINOWER 服务部门"
+        email_label: "电子邮箱"
+        service_hours: "服务时间"
+        hours_value: "周一至周五 9:00 AM – 5:00 PM (EST)"
+        response_time: "支持请求通常会在 24 个工作小时内得到答复"
+        parts_support: "配件支持"
+        parts_desc: "SINOWER 提供原厂备件，以确保设备的可靠运行和高效维修。"
+        request_parts_btn: "索取备件"
+      submit_claim_btn: "提交保修申请"
+      submit_claim_download: "提交保修申请"
       download_terms: "下载保修条款"
-      feedback_btn: "反馈按钮"
+      feedback_btn: "反馈"
       feedback_success: "我们会尽快联系您"
       product_lines:
         refrigeration: "商用制冷设备"
@@ -220,7 +287,8 @@ zh-CN:
           title: "终身维护"
           period: "终身"
           desc: "保修期后，我们提供终身的技术支持与原厂配件供应服务。"
-      process:
+      # 旧的服务流程，稍后可以移除或保持作为参考
+      old_process:
         title: "服务流程"
         step1:
           title: "报修登记"
