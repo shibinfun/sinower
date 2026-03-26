@@ -16,6 +16,11 @@ Rails.application.routes.draw do
       get "dashboard", to: "dashboard#index"
       resources :categories
       resources :skus do
+        collection do
+          get :export
+          get :import_page
+          post :import
+        end
         member do
           delete :delete_image
         end
