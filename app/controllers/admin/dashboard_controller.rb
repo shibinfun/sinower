@@ -6,5 +6,9 @@ class Admin::DashboardController < Admin::BaseController
     @total_views = Sku.sum(:views)
     @messages_count = ContactMessage.count
     @warranty_inquiries_count = WarrantyInquiry.count
+    
+    # 诊断信息
+    @storage_writable = File.writable?("/app/storage") rescue false
+    @vips_installed = system("vips --version") rescue false
   end
 end

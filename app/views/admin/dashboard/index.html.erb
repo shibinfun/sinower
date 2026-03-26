@@ -73,19 +73,50 @@
   </div>
 </div>
 
-<div class="mt-8 bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
-  <div class="p-6 border-b border-slate-200 flex justify-between items-center">
-    <h3 class="font-bold text-slate-800">快速向导</h3>
-  </div>
-  <div class="p-6">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <div class="p-4 bg-slate-50 rounded-lg border border-slate-100">
-        <h4 class="font-semibold text-slate-700 mb-2">欢迎来到 Sinower 管理系统</h4>
-        <p class="text-sm text-slate-500">在这里，您可以管理您的产品线、监控用户活动并查看销售统计数据。所有的操作都经过了科技感十足的界面优化。</p>
+<div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+  <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+    <div class="p-6 border-b border-slate-200 flex justify-between items-center">
+      <h3 class="font-bold text-slate-800">系统诊断 (仅管理员可见)</h3>
+    </div>
+    <div class="p-6">
+      <div class="space-y-4">
+        <div class="flex items-center justify-between">
+          <span class="text-sm text-slate-600">存储目录可写 (/app/storage):</span>
+          <% if @storage_writable %>
+            <span class="px-2 py-1 bg-green-100 text-green-700 text-xs font-bold rounded">YES</span>
+          <% else %>
+            <span class="px-2 py-1 bg-red-100 text-red-700 text-xs font-bold rounded border border-red-200">NO (权限错误)</span>
+          <% end %>
+        </div>
+        <div class="flex items-center justify-between">
+          <span class="text-sm text-slate-600">图片处理库 (libvips):</span>
+          <% if @vips_installed %>
+            <span class="px-2 py-1 bg-green-100 text-green-700 text-xs font-bold rounded">INSTALLED</span>
+          <% else %>
+            <span class="px-2 py-1 bg-yellow-100 text-yellow-700 text-xs font-bold rounded border border-yellow-200">NOT FOUND</span>
+          <% end %>
+        </div>
+        <div class="text-xs text-slate-400 italic">
+          注：如果图片处理库缺失，上传图片可能导致应用崩溃或保存失败。
+        </div>
       </div>
-      <div class="p-4 bg-slate-50 rounded-lg border border-slate-100">
-        <h4 class="font-semibold text-slate-700 mb-2">安全提示</h4>
-        <p class="text-sm text-slate-500">请确保定期检查管理员权限分配，并保持系统处于最新状态以获得最佳的安全性能。</p>
+    </div>
+  </div>
+
+  <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+    <div class="p-6 border-b border-slate-200 flex justify-between items-center">
+      <h3 class="font-bold text-slate-800">快速向导</h3>
+    </div>
+    <div class="p-6">
+      <div class="grid grid-cols-1 gap-4">
+        <div class="p-4 bg-slate-50 rounded-lg border border-slate-100">
+          <h4 class="font-semibold text-slate-700 mb-1 text-sm">欢迎使用管理系统</h4>
+          <p class="text-xs text-slate-500">在这里，您可以管理您的产品线、监控用户活动并查看全站统计数据。</p>
+        </div>
+        <div class="p-4 bg-slate-50 rounded-lg border border-slate-100">
+          <h4 class="font-semibold text-slate-700 mb-1 text-sm">安全提示</h4>
+          <p class="text-xs text-slate-500">请确保定期检查管理员权限分配，并保持系统处于最新状态。</p>
+        </div>
       </div>
     </div>
   </div>
