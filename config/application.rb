@@ -16,7 +16,9 @@ module Sinower
 
     # Allow Railway hosts in any environment since mis-detection happens
     config.hosts << ".railway.app"
+    config.hosts << ".up.railway.app"
     config.hosts << "web-production-b39ae.up.railway.app"
+    config.hosts << "web-production-c67ae.up.railway.app"
 
     # Please, add to the `ignore` list any other `lib` subdirectories that do
     # not contain `.rb` files, or that should not be reloaded or eager loaded.
