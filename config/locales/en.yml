@@ -190,6 +190,7 @@ en:
       hero_title: "Partner with SINOWER USA"
       hero_desc: "Contact our team for product inquiries, technical support, or business partnerships. We are ready to help."
       send_message: "Send a Message"
+      success_notice: "Message sent successfully. We will contact you as soon as possible. / 消息已成功发送，我们会尽快与您联系。"
       form:
         name: "Your Name"
         name_placeholder: "Enter your name"
@@ -281,7 +282,7 @@ en:
       submit_claim_download: "Submit Warranty Claim"
       download_terms: "Download Warranty Terms"
       feedback_btn: "Feedback"
-      feedback_success: "We will contact you as soon as possible"
+      feedback_success: "Message sent successfully. We will contact you as soon as possible. / 消息已成功发送，我们会尽快与您联系。"
       product_lines:
         refrigeration: "Commercial Refrigeration"
         cooking: "Commercial Cooking Equipment"

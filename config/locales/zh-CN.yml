@@ -162,6 +162,7 @@ zh-CN:
       hero_title: "与 SINOWER USA 合作"
       hero_desc: "如有产品咨询、技术支持或业务合作需求，请联系我们的团队。我们随时为您提供帮助。"
       send_message: "发送消息"
+      success_notice: "Message sent successfully. We will contact you as soon as possible. / 消息已成功发送，我们会尽快与您联系。"
       form:
         name: "您的姓名"
         name_placeholder: "请输入您的姓名"
@@ -253,7 +254,7 @@ zh-CN:
       submit_claim_download: "提交保修申请"
       download_terms: "下载保修条款"
       feedback_btn: "反馈"
-      feedback_success: "我们会尽快联系您"
+      feedback_success: "Message sent successfully. We will contact you as soon as possible. / 消息已成功发送，我们会尽快与您联系。"
       product_lines:
         refrigeration: "商用制冷设备"
         cooking: "商用烹饪设备"

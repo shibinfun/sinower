@@ -71,6 +71,7 @@ class Admin::SkusController < Admin::BaseController
     if @sku.save
       redirect_to admin_skus_path, notice: "SKU 创建成功。"
     else
+      Rails.logger.error "SKU Create Failed: #{@sku.errors.full_messages.join(', ')}"
       render :new, status: :unprocessable_entity
     end
   end
@@ -79,6 +80,7 @@ class Admin::SkusController < Admin::BaseController
     if @sku.update(sku_params)
       redirect_to admin_skus_path, notice: "SKU 更新成功。"
     else
+      Rails.logger.error "SKU Update Failed: #{@sku.errors.full_messages.join(', ')}"
       render :edit, status: :unprocessable_entity
     end
   end
