@@ -82,7 +82,7 @@ Rails.application.configure do
   # Enable DNS rebinding protection and other `Host` header attacks.
   # Allow Railway dynamic subdomains and explicit production domain.
   config.hosts << /\A.*\.railway\.app\z/
-  config.hosts << "web-production-b39ae.up.railway.app"
+  config.hosts << "web-production-c67ae.up.railway.app"
   config.hosts << "localhost"
   config.hosts << "127.0.0.1"
   # Skip DNS rebinding protection for the default health check endpoint.

@@ -11,6 +11,9 @@ module Sinower
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 8.0
 
+    # Fallback for eager_load to avoid nil warning in some environments
+    config.eager_load = true
+
     # Allow Railway hosts in any environment since mis-detection happens
     config.hosts << ".railway.app"
     config.hosts << "web-production-b39ae.up.railway.app"
