@@ -5,6 +5,11 @@
   },
   "deploy": {
     "restartPolicyType": "ON_FAILURE",
-    "numReplicas": 1
+    "numReplicas": 1,
+    "env": {
+      "NIXPACKS_PKGS": "vips",
+      "RAILS_LOG_TO_STDOUT": "enabled",
+      "RAILS_SERVE_STATIC_FILES": "true"
+    }
   }
 }
