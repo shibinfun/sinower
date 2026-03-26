@@ -86,6 +86,15 @@ Rails.application.configure do
   config.hosts << "web-production-c67ae.up.railway.app"
   config.hosts << "localhost"
   config.hosts << "127.0.0.1"
+
+  # Force Action Cable config load for Solid Cable compatibility
+  config.after_initialize do
+    ActionCable.server.config.cable = Rails.application.config_for(:cable) if ActionCable.server.config.cable.nil?
+    if ActionCable.server.config.cable.is_a?(Hash) && !ActionCable.server.config.cable.respond_to?(:connects_to)
+      ActionCable.server.config.cable = ActiveSupport::OrderedOptions.new.update(ActionCable.server.config.cable)
+    end
+  end
+
   # Skip DNS rebinding protection for the default health check endpoint.
   config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
 end
