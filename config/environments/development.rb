@@ -33,14 +33,11 @@ Rails.application.configure do
 
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = {
-    address: "smtp.resend.com",
-    port: 587,
-    user_name: "resend",
-    password: ENV["RESEND_SMTP_KEY"],
-    authentication: :plain,
-    enable_starttls_auto: true
+  
+  # Use Resend HTTP API for email delivery
+  config.action_mailer.delivery_method = :resend
+  config.action_mailer.resend_settings = {
+    api_key: ENV["RESEND_API_KEY"]
   }
 
   # Make template changes take effect immediately.

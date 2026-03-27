@@ -60,17 +60,10 @@ Rails.application.configure do
   # Set host to be used by links generated in mailer templates.
   config.action_mailer.default_url_options = { host: ENV.fetch("APP_HOST", "sinowerus.com") }
 
-  # Specify outgoing SMTP server.
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = {
-    address: "smtp.resend.com",
-    port: 587,
-    user_name: "resend",
-    password: ENV["RESEND_SMTP_KEY"],
-    authentication: :plain,
-    enable_starttls_auto: true,
-    open_timeout: 30,
-    read_timeout: 30
+  # Use Resend HTTP API for email delivery (more reliable than SMTP)
+  config.action_mailer.delivery_method = :resend
+  config.action_mailer.resend_settings = {
+    api_key: ENV["RESEND_API_KEY"]
   }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
