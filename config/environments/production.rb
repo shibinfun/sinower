@@ -83,13 +83,10 @@ Rails.application.configure do
 
   # Enable DNS rebinding protection and other `Host` header attacks.
   # Allow Railway dynamic subdomains and explicit production domain.
-  config.hosts << /\A.*\.railway\.app\z/
-  config.hosts << /\A.*\.up\.railway\.app\z/
+  config.hosts.clear
   config.hosts << "www.sinowerus.com"
   config.hosts << "sinowerus.com"
-  config.hosts << "web-production-c67ae.up.railway.app"
-  config.hosts << "localhost"
-  config.hosts << "127.0.0.1"
+  config.hosts << /.*/ # Allow all hosts (Railway handles SSL/redirect)
   # Skip DNS rebinding protection for the default health check endpoint.
   config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
 end

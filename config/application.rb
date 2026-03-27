@@ -14,11 +14,10 @@ module Sinower
     # Fallback for eager_load to avoid nil warning in some environments
     config.eager_load = true
 
-    # Allow Railway hosts in any environment since mis-detection happens
+    # Host authorization is configured in environment-specific files
+    # Production hosts are configured in config/environments/production.rb
     config.hosts << ".railway.app"
     config.hosts << ".up.railway.app"
-    config.hosts << "www.sinowerus.com"
-    config.hosts << "sinowerus.com"
     config.hosts << "web-production-b39ae.up.railway.app"
     config.hosts << "web-production-c67ae.up.railway.app"
 
