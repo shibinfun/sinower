@@ -74,34 +74,7 @@
 </div>
 
 <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
-  <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
-    <div class="p-6 border-b border-slate-200 flex justify-between items-center">
-      <h3 class="font-bold text-slate-800">系统诊断 (仅管理员可见)</h3>
-    </div>
-    <div class="p-6">
-      <div class="space-y-4">
-        <div class="flex items-center justify-between">
-          <span class="text-sm text-slate-600">存储目录可写 (/app/storage):</span>
-          <% if @storage_writable %>
-            <span class="px-2 py-1 bg-green-100 text-green-700 text-xs font-bold rounded">YES</span>
-          <% else %>
-            <span class="px-2 py-1 bg-red-100 text-red-700 text-xs font-bold rounded border border-red-200">NO (权限错误)</span>
-          <% end %>
-        </div>
-        <div class="flex items-center justify-between">
-          <span class="text-sm text-slate-600">图片处理库 (libvips):</span>
-          <% if @vips_installed %>
-            <span class="px-2 py-1 bg-green-100 text-green-700 text-xs font-bold rounded">INSTALLED</span>
-          <% else %>
-            <span class="px-2 py-1 bg-yellow-100 text-yellow-700 text-xs font-bold rounded border border-yellow-200">NOT FOUND</span>
-          <% end %>
-        </div>
-        <div class="text-xs text-slate-400 italic">
-          注：如果图片处理库缺失，上传图片可能导致应用崩溃或保存失败。
-        </div>
-      </div>
-    </div>
-  </div>
+  
 
   <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
     <div class="p-6 border-b border-slate-200 flex justify-between items-center">

@@ -1,0 +1,61 @@
+<div class="min-h-screen bg-gray-50">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="mb-6">
+      <div class="flex items-center justify-between">
+        <div>
+          <h1 class="text-2xl font-bold text-gray-900">用户详情</h1>
+          <p class="mt-1 text-sm text-gray-500">查看用户详细信息</p>
+        </div>
+        <%= link_to "返回列表", admin_users_path, class: "text-indigo-600 hover:text-indigo-900" %>
+      </div>
+    </div>
+
+    <div class="bg-white shadow rounded-lg overflow-hidden">
+      <div class="px-6 py-5 border-b border-gray-200">
+        <h3 class="text-lg font-medium text-gray-900">基本信息</h3>
+      </div>
+      <div class="px-6 py-5">
+        <dl class="space-y-4">
+          <div class="grid grid-cols-3 gap-4">
+            <dt class="text-sm font-medium text-gray-500">用户 ID</dt>
+            <dd class="text-sm text-gray-900 col-span-2"><%= @user.id %></dd>
+          </div>
+          <div class="grid grid-cols-3 gap-4">
+            <dt class="text-sm font-medium text-gray-500">邮箱</dt>
+            <dd class="text-sm text-gray-900 col-span-2"><%= @user.email %></dd>
+          </div>
+          <div class="grid grid-cols-3 gap-4">
+            <dt class="text-sm font-medium text-gray-500">角色</dt>
+            <dd class="text-sm text-gray-900 col-span-2">
+              <% if @user.admin? %>
+                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-purple-100 text-purple-800">
+                  管理员
+                </span>
+              <% else %>
+                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-800">
+                  普通用户
+                </span>
+              <% end %>
+            </dd>
+          </div>
+          <div class="grid grid-cols-3 gap-4">
+            <dt class="text-sm font-medium text-gray-500">注册时间</dt>
+            <dd class="text-sm text-gray-900 col-span-2"><%= @user.created_at.strftime("%Y-%m-%d %H:%M:%S") %></dd>
+          </div>
+          <div class="grid grid-cols-3 gap-4">
+            <dt class="text-sm font-medium text-gray-500">更新时间</dt>
+            <dd class="text-sm text-gray-900 col-span-2"><%= @user.updated_at.strftime("%Y-%m-%d %H:%M:%S") %></dd>
+          </div>
+        </dl>
+      </div>
+      <% if @user != current_user %>
+        <div class="px-6 py-4 bg-gray-50 border-t border-gray-200">
+          <%= link_to "删除用户", admin_user_path(@user), 
+              method: :delete, 
+              class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700",
+              data: { turbo_method: :delete, turbo_confirm: "确定要删除此用户吗？此操作不可撤销！" } %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

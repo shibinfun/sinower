@@ -27,6 +27,7 @@ Rails.application.routes.draw do
       end
       resources :contact_messages, only: [:index, :show, :destroy]
       resources :warranty_inquiries, only: [:index, :show, :destroy]
+      resources :users, only: [:index, :show, :destroy]
     end
 
     %w[a b c].each do |kind|
