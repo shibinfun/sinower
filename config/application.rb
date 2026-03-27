@@ -17,6 +17,8 @@ module Sinower
     # Allow Railway hosts in any environment since mis-detection happens
     config.hosts << ".railway.app"
     config.hosts << ".up.railway.app"
+    config.hosts << "www.sinowerus.com"
+    config.hosts << "sinowerus.com"
     config.hosts << "web-production-b39ae.up.railway.app"
     config.hosts << "web-production-c67ae.up.railway.app"
 

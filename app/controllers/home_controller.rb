@@ -16,6 +16,11 @@ class HomeController < ApplicationController
   def create_contact
     @contact_message = ContactMessage.new(contact_params)
     if @contact_message.save
+      begin
+        NotificationMailer.contact_notification(@contact_message).deliver_later
+      rescue => e
+        Rails.logger.error "Failed to send contact email: #{e.message}"
+      end
       redirect_to contact_path, notice: t('home.contact.success_notice', default: "Message sent successfully. We will contact you as soon as possible. / 消息已成功发送，我们会尽快与您联系。")
     else
       render :contact, status: :unprocessable_entity
@@ -29,6 +34,11 @@ class HomeController < ApplicationController
   def create_warranty_inquiry
     @warranty_inquiry = WarrantyInquiry.new(warranty_inquiry_params)
     if @warranty_inquiry.save
+      begin
+        NotificationMailer.warranty_notification(@warranty_inquiry).deliver_later
+      rescue => e
+        Rails.logger.error "Failed to send warranty email: #{e.message}"
+      end
       redirect_to warranty_path, notice: t('home.warranty.feedback_success', default: "Message sent successfully. We will contact you as soon as possible. / 消息已成功发送，我们会尽快与您联系。")
     else
       # 简单起见，如果失败直接跳回 warranty 页面，通常这里应该处理错误信息

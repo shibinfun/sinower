@@ -1,0 +1,9 @@
+<h1>New Warranty Claim</h1>
+<p><strong>Subject:</strong> <%= @warranty_inquiry.subject %></p>
+<p><strong>Product Type:</strong> <%= @warranty_inquiry.product_type %></p>
+<p><strong>Model Number:</strong> <%= @warranty_inquiry.model_number %></p>
+<p><strong>From:</strong> <%= @warranty_inquiry.name %></p>
+<p><strong>Email:</strong> <%= @warranty_inquiry.email %></p>
+<p><strong>Phone:</strong> <%= @warranty_inquiry.phone %></p>
+<p><strong>Description:</strong></p>
+<p><%= simple_format(@warranty_inquiry.description) %></p>
