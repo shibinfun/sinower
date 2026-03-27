@@ -9,7 +9,8 @@
     "env": {
       "NIXPACKS_PKGS": "vips",
       "RAILS_LOG_TO_STDOUT": "enabled",
-      "RAILS_SERVE_STATIC_FILES": "true"
+      "RAILS_SERVE_STATIC_FILES": "true",
+      "SOLID_QUEUE_IN_PUMA": "true"
     }
   }
 }
