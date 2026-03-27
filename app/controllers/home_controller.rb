@@ -17,7 +17,7 @@ class HomeController < ApplicationController
     @contact_message = ContactMessage.new(contact_params)
     if @contact_message.save
       begin
-        NotificationMailer.contact_notification(@contact_message).deliver_later
+        NotificationMailer.contact_notification(@contact_message).deliver_now
       rescue => e
         Rails.logger.error "Failed to send contact email: #{e.message}"
       end
@@ -35,7 +35,7 @@ class HomeController < ApplicationController
     @warranty_inquiry = WarrantyInquiry.new(warranty_inquiry_params)
     if @warranty_inquiry.save
       begin
-        NotificationMailer.warranty_notification(@warranty_inquiry).deliver_later
+        NotificationMailer.warranty_notification(@warranty_inquiry).deliver_now
       rescue => e
         Rails.logger.error "Failed to send warranty email: #{e.message}"
       end
