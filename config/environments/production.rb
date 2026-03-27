@@ -68,7 +68,9 @@ Rails.application.configure do
     user_name: "resend",
     password: ENV["RESEND_SMTP_KEY"],
     authentication: :plain,
-    enable_starttls_auto: true
+    enable_starttls_auto: true,
+    open_timeout: 30,
+    read_timeout: 30
   }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
