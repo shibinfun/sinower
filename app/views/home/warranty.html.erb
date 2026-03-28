@@ -73,7 +73,12 @@
               <% end %>
             </p>
             <div class="space-y-3">
-              <%= link_to asset_path('creatical.pdf'), class: "w-full py-4 bg-blue-900 hover:bg-slate-900 text-white rounded-2xl font-black text-sm transition-all flex items-center justify-center space-x-2 shadow-lg shadow-blue-900/20", download: "SINOWER_Warranty_#{item[:key]}.pdf" do %>
+              <% pdf_paths = {
+                'refrigeration' => 'Sinower-refrigeration-warranty-2026.pdf',
+                'cooking' => 'sinower_cooking equipment_warranty_onepage.pdf',
+                'stainless' => 'Sinower_Stainles Steel Products 90_day_warranty.pdf'
+              } %>
+              <%= link_to asset_path(pdf_paths[item[:key]]), class: "w-full py-4 bg-blue-900 hover:bg-slate-900 text-white rounded-2xl font-black text-sm transition-all flex items-center justify-center space-x-2 shadow-lg shadow-blue-900/20", download: "SINOWER_Warranty_#{item[:key]}.pdf" do %>
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
                 <span><%= t('home.warranty.view_details') %></span>
               <% end %>

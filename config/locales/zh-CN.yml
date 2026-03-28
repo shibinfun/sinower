@@ -211,8 +211,8 @@ zh-CN:
           desc: "烹饪设备在正常商业使用下，针对制造缺陷提供一年有限保修。"
         stainless:
           title: "不锈钢设备"
-          period: "6 个月有限保修"
-          desc: "SINOWER 不锈钢设备（如操作台、水槽和货架）包含六个月有限保修。"
+          period: "90 天有限保修"
+          desc: "SINOWER 不锈钢设备（如操作台、水槽和货架）包含 90 天有限保修。"
       view_details: "查看详情"
       process:
         title: "保修服务流程"
