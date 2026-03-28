@@ -1,5 +1,5 @@
 class Admin::SkusController < Admin::BaseController
-  before_action :set_sku, only: [:show, :edit, :update, :destroy]
+  before_action :set_sku, only: [:show, :edit, :update, :destroy, :delete_image]
 
   def index
     @category_kind = params[:kind] || 'a'
