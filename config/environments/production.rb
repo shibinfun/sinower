@@ -21,18 +21,10 @@ Rails.application.configure do
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   # config.asset_host = "http://assets.example.com"
 
-  # Store uploaded files on Google Cloud Storage
+  # Store uploaded files on Google Cloud Storage (see config/storage.yml for options)
   config.active_storage.service = :google
   config.active_storage.track_variants = true
   config.active_storage.resolve_model_to_route = :rails_storage_redirect
-  
-  # Initialize GCS credentials once at boot time
-  config.x.gcs_credentials = if ENV['GCP_CREDENTIALS_JSON'].present?
-    JSON.parse(ENV['GCP_CREDENTIALS_JSON'])
-  else
-    Rails.application.credentials.dig(:gcp, :credentials)&.to_h&.transform_keys(&:to_s)
-  end
-  config.x.gcs_project = ENV.fetch('GCP_PROJECT_ID') { Rails.application.credentials.dig(:gcp, :project) }
 
   # Assume all access to the app is happening through a SSL-terminating reverse proxy.
   config.assume_ssl = true
