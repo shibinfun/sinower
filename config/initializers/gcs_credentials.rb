@@ -3,6 +3,7 @@
 
 module GcsConfig
   def self.credentials_hash
+    # Try to get credentials from Rails encrypted credentials
     creds = Rails.application.credentials.dig(:gcp, :credentials)
     
     # Convert ActiveSupport::OrderedOptions to regular Hash
@@ -13,6 +14,10 @@ module GcsConfig
     end
     
     creds
+  end
+  
+  def self.project_id
+    Rails.application.credentials.dig(:gcp, :project)
   end
   
   private
