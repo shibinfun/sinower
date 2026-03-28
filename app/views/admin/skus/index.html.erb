@@ -3,8 +3,6 @@
 <div class="mb-6 flex justify-between items-center">
   <p class="text-slate-600">管理所有的产品型号 (SKU)。注意：只能在叶子分类下创建 SKU。</p>
   <div class="flex items-center space-x-3">
-    <%= link_to "导入", import_page_admin_skus_path, class: "bg-slate-100 hover:bg-slate-200 text-slate-700 px-4 py-2 rounded-lg text-sm font-medium transition-colors" %>
-    <%= link_to "导出全部 (CSV)", export_admin_skus_path, class: "bg-slate-100 hover:bg-slate-200 text-slate-700 px-4 py-2 rounded-lg text-sm font-medium transition-colors" %>
     <%= link_to "添加 SKU", new_admin_sku_path, class: "bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors" %>
   </div>
 </div>
