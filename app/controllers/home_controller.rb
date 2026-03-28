@@ -29,6 +29,12 @@ class HomeController < ApplicationController
 
   def warranty
     @warranty_inquiry = WarrantyInquiry.new
+    @warranty_pdfs = WarrantyPdf.all
+    @refrigeration_pdf = @warranty_pdfs.find_by(pdf_type: 'refrigeration')
+    @cooking_pdf = @warranty_pdfs.find_by(pdf_type: 'cooking')
+    @stainless_pdf = @warranty_pdfs.find_by(pdf_type: 'stainless')
+    @claim_form_pdf = @warranty_pdfs.find_by(pdf_type: 'claim_form')
+    @spare_parts_pdf = @warranty_pdfs.find_by(pdf_type: 'spare_parts')
   end
 
   def create_warranty_inquiry

@@ -1,0 +1,121 @@
+<div class="px-4 sm:px-6 lg:px-8">
+  <div class="sm:flex sm:items-start">
+    <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left w-full">
+      <h3 class="text-2xl font-bold leading-6 text-gray-900">PDF 详情</h3>
+      
+      <div class="mt-6">
+        <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+          <div class="px-4 py-5 sm:px-6">
+            <div class="flex items-center justify-between">
+              <h3 class="text-lg leading-6 font-medium text-gray-900">
+                <%= @warranty_pdf.name %>
+              </h3>
+              <div class="flex space-x-3">
+                <%= link_to "下载", download_admin_warranty_pdf_path(@warranty_pdf), 
+                    class: "inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50" %>
+                <%= link_to "编辑", edit_admin_warranty_pdf_path(@warranty_pdf), 
+                    class: "inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700" %>
+              </div>
+            </div>
+          </div>
+          <div class="border-t border-gray-200">
+            <dl>
+              <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt class="text-sm font-medium text-gray-500">PDF 类型</dt>
+                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                  <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
+                    <%= case @warranty_pdf.pdf_type
+                        when 'refrigeration' then 'bg-blue-100 text-blue-800'
+                        when 'cooking' then 'bg-orange-100 text-orange-800'
+                        when 'stainless' then 'bg-gray-100 text-gray-800'
+                        when 'claim_form' then 'bg-green-100 text-green-800'
+                        when 'spare_parts' then 'bg-purple-100 text-purple-800'
+                      end %>">
+                    <%= @warranty_pdf.display_name %>
+                  </span>
+                </dd>
+              </div>
+              <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt class="text-sm font-medium text-gray-500">描述</dt>
+                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                  <%= @warranty_pdf.description || "无描述" %>
+                </dd>
+              </div>
+              <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt class="text-sm font-medium text-gray-500">文件信息</dt>
+                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                  <% if @warranty_pdf.file.attached? %>
+                    <ul class="border border-gray-200 rounded-md divide-y divide-gray-200">
+                      <li class="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
+                        <div class="w-0 flex-1 flex items-center">
+                          <svg class="flex-shrink-0 h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                          </svg>
+                          <span class="ml-2 flex-1 w-0 truncate">
+                            <%= @warranty_pdf.file.filename %>
+                          </span>
+                        </div>
+                        <div class="ml-4 flex-shrink-0">
+                          <%= number_to_human_size(@warranty_pdf.file.byte_size) %>
+                        </div>
+                      </li>
+                      <li class="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
+                        <div class="w-0 flex-1 flex items-center">
+                          <span class="text-gray-500">内容类型:</span>
+                          <span class="ml-2"><%= @warranty_pdf.file.content_type %></span>
+                        </div>
+                      </li>
+                      <li class="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
+                        <div class="w-0 flex-1 flex items-center">
+                          <span class="text-gray-500">上传时间:</span>
+                          <span class="ml-2"><%= l @warranty_pdf.file.created_at, format: :long rescue @warranty_pdf.file.created_at.strftime("%Y-%m-%d %H:%M:%S") %></span>
+                        </div>
+                      </li>
+                    </ul>
+                    
+                    <% if @warranty_pdf.pdf_type.in?(%w[refrigeration cooking stainless]) %>
+                      <div class="mt-4 p-4 bg-blue-50 rounded-md">
+                        <p class="text-sm text-blue-800">
+                          <strong>提示:</strong> 此 PDF 将在保修页面的 "View Details" 部分显示
+                        </p>
+                      </div>
+                    <% elsif @warranty_pdf.pdf_type == 'claim_form' %>
+                      <div class="mt-4 p-4 bg-green-50 rounded-md">
+                        <p class="text-sm text-green-800">
+                          <strong>提示:</strong> 此 PDF 将在保修页面的 "How Warranty Service Works" 部分显示
+                        </p>
+                      </div>
+                    <% end %>
+                    
+                  <% else %>
+                    <span class="text-red-500">未上传文件</span>
+                  <% end %>
+                </dd>
+              </div>
+              <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt class="text-sm font-medium text-gray-500">创建时间</dt>
+                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                  <%= l @warranty_pdf.created_at, format: :long rescue @warranty_pdf.created_at.strftime("%Y-%m-%d %H:%M:%S") %>
+                </dd>
+              </div>
+              <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt class="text-sm font-medium text-gray-500">最后更新</dt>
+                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                  <%= l @warranty_pdf.updated_at, format: :long rescue @warranty_pdf.updated_at.strftime("%Y-%m-%d %H:%M:%S") %>
+                </dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+
+        <div class="mt-6 flex items-center justify-between">
+          <%= link_to "返回列表", admin_warranty_pdfs_path, class: "bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50" %>
+          <%= link_to "删除", admin_warranty_pdf_path(@warranty_pdf), 
+              method: :delete,
+              data: { confirm: "确定要删除这个 PDF 吗？此操作不可撤销。" },
+              class: "inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_03_18_015409) do
+ActiveRecord::Schema[8.0].define(version: 2026_03_28_000000) do
   create_table "a_sku_details", force: :cascade do |t|
     t.string "net_capacity"
     t.string "unit_dimensions"
@@ -299,6 +299,16 @@ ActiveRecord::Schema[8.0].define(version: 2026_03_18_015409) do
     t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "warranty_pdfs", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "pdf_type", null: false
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_warranty_pdfs_on_name"
+    t.index ["pdf_type"], name: "index_warranty_pdfs_on_pdf_type", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
