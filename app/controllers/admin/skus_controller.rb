@@ -105,9 +105,13 @@ class Admin::SkusController < Admin::BaseController
   end
 
   def delete_image
+    return redirect_to admin_skus_path, alert: "SKU 未找到。" unless @sku
+    
     image = @sku.images.find(params[:image_id])
     image.purge
     redirect_back fallback_location: edit_admin_sku_path(@sku), notice: "图片已删除。"
+  rescue ActiveRecord::RecordNotFound
+    redirect_back fallback_location: edit_admin_sku_path(@sku), alert: "图片未找到。"
   end
 
   private
