@@ -23,7 +23,7 @@ railway:
 google:
   service: GCS
   project: <%= ENV.fetch("GCP_PROJECT_ID", "project-65512c35-afe2-4056-acc") %>
-  credentials: <%= ENV["GCP_CREDENTIALS_JSON"] %>
+  credentials: "<%= ENV['GCP_CREDENTIALS_JSON'] %>"
   bucket: <%= ENV.fetch("GCS_BUCKET", "sinowerbucket-production") %>
 
 # Use bin/rails credentials:edit to set the Azure Storage secret (as azure_storage:storage_access_key)
