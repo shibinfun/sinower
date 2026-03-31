@@ -1,4 +1,6 @@
 class HomeController < ApplicationController
+  include Trackable
+  
   def index
   end
 

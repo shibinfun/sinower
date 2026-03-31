@@ -505,6 +505,7 @@ DEPENDENCIES
   debug
   devise
   google-cloud-storage (~> 1.31)
+  httparty (~> 0.21)
   image_processing (~> 1.2)
   importmap-rails
   jbuilder

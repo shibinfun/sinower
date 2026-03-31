@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_03_31_224511) do
+ActiveRecord::Schema[8.0].define(version: 2026_03_31_234329) do
   create_table "a_sku_details", force: :cascade do |t|
     t.string "net_capacity"
     t.string "unit_dimensions"
@@ -115,6 +115,28 @@ ActiveRecord::Schema[8.0].define(version: 2026_03_31_224511) do
     t.text "message"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "page_views", force: :cascade do |t|
+    t.integer "page_type", null: false
+    t.integer "page_id"
+    t.string "page_name"
+    t.string "ip", null: false
+    t.string "city"
+    t.string "province"
+    t.string "country"
+    t.text "user_agent"
+    t.string "referer"
+    t.string "session_id"
+    t.datetime "visited_at", null: false
+    t.integer "duration", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ip"], name: "index_page_views_on_ip"
+    t.index ["page_id"], name: "index_page_views_on_page_id"
+    t.index ["page_type"], name: "index_page_views_on_page_type"
+    t.index ["session_id"], name: "index_page_views_on_session_id"
+    t.index ["visited_at"], name: "index_page_views_on_visited_at"
   end
 
   create_table "skus", force: :cascade do |t|
