@@ -112,6 +112,8 @@ class Admin::SkusController < Admin::BaseController
     redirect_back fallback_location: edit_admin_sku_path(@sku), notice: "图片已删除。"
   rescue ActiveRecord::RecordNotFound
     redirect_back fallback_location: edit_admin_sku_path(@sku), alert: "图片未找到。"
+  rescue ActiveStorage::InvariableError
+    redirect_back fallback_location: edit_admin_sku_path(@sku), alert: "文件格式错误，无法处理。"
   end
 
   private
@@ -136,7 +138,7 @@ class Admin::SkusController < Admin::BaseController
         spec_sheet_url = sku.spec_sheet.attached? ? Rails.application.routes.url_helpers.url_for(sku.spec_sheet) : ""
         
         row = [
-          sku.id, sku.name, sku.category.category_kind, category_path, sku.price, sku.stock, sku.status, sku.visible, 
+          sku.id, sku.name, sku.category.category_kind, category_path, sku.price, sku.stock, sku.status,
           image_urls, manual_url, spec_sheet_url
         ]
         
@@ -167,7 +169,7 @@ class Admin::SkusController < Admin::BaseController
 
   def sku_params
     params.require(:sku).permit(
-      :name, :category_id, :price, :stock, :status, :visible, :manual, :spec_sheet, :skuable_type, images: [],
+      :name, :category_id, :price, :stock, :status, :manual, :spec_sheet, :skuable_type, images: [],
       skuable_attributes: [
         :id, :net_capacity, :unit_dimensions, :packaging_dimensions,
         :voltage_frequency, :temp_range, :standard_features, :standard_features_zh,

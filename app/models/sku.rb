@@ -10,10 +10,32 @@ class Sku < ApplicationRecord
   validates :name, presence: true
   validate :category_must_be_leaf
   validate :skuable_type_matches_category_kind
+  validate :images_must_be_bmp_or_png_jpg_images
+  validate :manual_and_spec_sheet_must_be_pdf
 
   before_validation :build_default_skuable, on: :create
 
   private
+
+  def images_must_be_bmp_or_png_jpg_images
+    return unless images.attached?
+
+    images.each do |image|
+      unless image.content_type.in?(%w[image/jpeg image/jpg image/png image/gif image/webp image/bmp])
+        errors.add(:images, "只能上传图片文件 (JPEG, PNG, GIF, WebP, BMP)，但 '#{image.filename}' 的类型是 #{image.content_type}")
+      end
+    end
+  end
+
+  def manual_and_spec_sheet_must_be_pdf
+    if manual.attached? && !manual.content_type.start_with?('application/pdf')
+      errors.add(:manual, "说明书必须是 PDF 格式")
+    end
+
+    if spec_sheet.attached? && !spec_sheet.content_type.start_with?('application/pdf')
+      errors.add(:spec_sheet, "规格表必须是 PDF 格式")
+    end
+  end
 
   def category_must_be_leaf
     return if category.nil?

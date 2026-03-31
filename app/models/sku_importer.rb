@@ -17,7 +17,6 @@ class SkuImporter
           sku.price = row["价格"]
           sku.stock = row["库存"]
           sku.status = row["状态"] || "draft"
-          sku.visible = row["可见性"].to_s.downcase == "true"
           
           # 3. 设置 Skuable Type (如果新建)
           if sku.new_record?

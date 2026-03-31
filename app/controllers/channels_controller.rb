@@ -7,9 +7,9 @@ class ChannelsController < ApplicationController
       @current_category = Category.find(params[:category_id])
       # Security check
       redirect_to root_path if @current_category.category_kind != @kind
-      @skus = @current_category.all_descendant_skus.where(visible: true).includes(:category).page(params[:page]).per(20)
+      @skus = @current_category.all_descendant_skus.where(status: 'active').includes(:category).page(params[:page]).per(20)
     else
-      @skus = Sku.joins(:category).where(categories: { category_kind: @kind }, visible: true).includes(:category).page(params[:page]).per(20)
+      @skus = Sku.joins(:category).where(categories: { category_kind: @kind }, status: 'active').includes(:category).page(params[:page]).per(20)
     end
     
     render "categories/index"

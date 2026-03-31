@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_03_28_000000) do
+ActiveRecord::Schema[8.0].define(version: 2026_03_31_224511) do
   create_table "a_sku_details", force: :cascade do |t|
     t.string "net_capacity"
     t.string "unit_dimensions"
@@ -125,7 +125,6 @@ ActiveRecord::Schema[8.0].define(version: 2026_03_28_000000) do
     t.decimal "price", precision: 10, scale: 2
     t.integer "stock", default: 0
     t.string "status", default: "draft"
-    t.boolean "visible", default: true
     t.string "skuable_type"
     t.integer "skuable_id"
     t.integer "views", default: 0

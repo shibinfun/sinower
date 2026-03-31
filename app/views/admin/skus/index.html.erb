@@ -49,7 +49,7 @@
               <% if sku.images.attached? %>
                 <% begin %>
                   <%= image_tag sku.images.first.variant(resize_to_limit: [50, 50]), class: "rounded-md shadow-sm" %>
-                <% rescue ActiveStorage::FileNotFoundError, ActiveStorage::InvariableError %>
+                <% rescue ArgumentError, ActiveStorage::FileNotFoundError, ActiveStorage::InvariableError %>
                   <div class="w-10 h-10 bg-red-50 rounded-md flex items-center justify-center text-red-400 text-[10px] text-center" title="文件无效或非图片，请重新上传">无效</div>
                 <% end %>
               <% else %>

@@ -68,7 +68,7 @@
                             </h5>
                             
                             <ul class="grid grid-cols-1 gap-1.5">
-                              <% sub3.all_descendant_skus.each do |sku| %>
+                              <% sub3.all_descendant_skus.where(status: 'active').each do |sku| %>
                                 <li>
                                   <%= link_to sku_path(sku), class: "text-sm text-slate-500 hover:text-blue-600 flex items-center group/sku py-0.5" do %>
                                     <span class="w-1 h-1 bg-slate-200 group-hover/sku:bg-blue-400 rounded-full mr-2 transition-colors"></span>
@@ -83,7 +83,7 @@
                     <% else %>
                       <!-- Direct products under Level 3 if no Level 4 -->
                       <ul class="ml-3 grid grid-cols-1 gap-1.5">
-                        <% sub2.all_descendant_skus.each do |sku| %>
+                        <% sub2.all_descendant_skus.where(status: 'active').each do |sku| %>
                           <li>
                             <%= link_to sku_path(sku), class: "text-sm text-slate-500 hover:text-blue-600 flex items-center group/sku py-0.5" do %>
                               <span class="w-1 h-1 bg-slate-200 group-hover/sku:bg-blue-400 rounded-full mr-2 transition-colors"></span>
