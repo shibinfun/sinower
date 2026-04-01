@@ -43,8 +43,9 @@ module Admin
 
     def top_pages_query(scope)
       # Use a subquery to avoid GROUP BY issues with ORDER BY in PostgreSQL
+      # Reset ordering on the scope before grouping to prevent conflicts
       PageView.from(
-        scope.select('page_type, page_id, page_name, COUNT(*) as view_count')
+        scope.unscope(:order).select('page_type, page_id, page_name, COUNT(*) as view_count')
              .group('page_type, page_id, page_name'),
         'subquery'
       ).order('view_count DESC').limit(10)
@@ -52,8 +53,9 @@ module Admin
 
     def top_locations_query(scope)
       # Use a subquery to avoid GROUP BY issues with ORDER BY in PostgreSQL
+      # Reset ordering on the scope before grouping to prevent conflicts
       PageView.from(
-        scope.select('city, province, country, COUNT(*) as view_count')
+        scope.unscope(:order).select('city, province, country, COUNT(*) as view_count')
              .where.not(city: nil)
              .group('city, province, country'),
         'subquery'
