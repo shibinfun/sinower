@@ -11,7 +11,7 @@ module Trackable
 
   def track_page_view
     ip = extract_ip_from_request(request)
-    location = self.class.lookup_ip_location(ip)
+    location = lookup_ip_location(ip)
     
     @page_view = PageView.create!(
       page_type: determine_page_type,
