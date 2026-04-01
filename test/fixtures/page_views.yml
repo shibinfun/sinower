@@ -1,7 +1,8 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  page: 1
+  page_type: 0
+  page_id: 1
   ip: MyString
   city: MyString
   province: MyString
@@ -13,13 +14,27 @@ one:
   duration: 1
 
 two:
-  page: 1
-  ip: MyString
-  city: MyString
-  province: MyString
-  country: MyString
-  user_agent: MyText
-  referer: MyString
-  session_id: MyString
-  visited_at: 2026-04-01 07:43:29
-  duration: 1
+  page_type: 1
+  page_id: 2
+  ip: AnotherString
+  city: Beijing
+  province: Beijing
+  country: China
+  user_agent: Mozilla/5.0
+  referer: https://google.com
+  session_id: sess_abc123
+  visited_at: 2026-04-01 08:00:00
+  duration: 75
+
+three:
+  page_type: 0
+  page_id: 3
+  ip: 192.168.1.1
+  city: Shanghai
+  province: Shanghai
+  country: China
+  user_agent: Chrome/120.0
+  referer: https://bing.com
+  session_id: sess_xyz789
+  visited_at: <%= Time.current %>
+  duration: 120

@@ -1,7 +1,5 @@
 module Admin
-  class PageViewsController < ApplicationController
-    layout 'admin'
-
+  class PageViewsController < BaseController
     def index
       @filter_params = filter_params
       
