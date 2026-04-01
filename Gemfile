@@ -29,9 +29,6 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 # Google Cloud Storage for Active Storage (production)
 gem "google-cloud-storage", "~> 1.31", require: false
 
-# HTTP client for IP geolocation API
-gem "httparty", "~> 0.21"
-
 # Use the database-backed adapters for Rails.cache, Active Job, and Action Cable
 gem "solid_cache"
 gem "solid_queue"

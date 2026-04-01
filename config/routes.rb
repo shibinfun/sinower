@@ -32,7 +32,6 @@ Rails.application.routes.draw do
           get :download
         end
       end
-      resources :page_views, only: [:index, :show]
       resources :users, only: [:index, :show, :destroy]
     end
 

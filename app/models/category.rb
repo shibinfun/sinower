@@ -2,7 +2,6 @@ class Category < ApplicationRecord
   has_many :children, class_name: "Category", foreign_key: :parent_id, dependent: :destroy
   belongs_to :parent, class_name: "Category", optional: true
   has_many :skus, dependent: :destroy
-  has_many :page_views, as: :page, dependent: :destroy
 
   validates :name, presence: true
   validates :name_zh, presence: true

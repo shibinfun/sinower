@@ -3,7 +3,6 @@ class Sku < ApplicationRecord
   has_many_attached :images
   has_one_attached :manual
   has_one_attached :spec_sheet
-  has_many :page_views, as: :page, dependent: :destroy
 
   delegated_type :skuable, types: %w[ ASkuDetail BSkuDetail CSkuDetail ], dependent: :destroy
   accepts_nested_attributes_for :skuable
