@@ -1,6 +1,4 @@
 class SkusController < ApplicationController
-  include Trackable
-  
   def show
     @sku = Sku.find(params[:id])
     @sku.increment!(:views) unless current_user&.admin?

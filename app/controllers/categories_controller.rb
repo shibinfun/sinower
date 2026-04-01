@@ -1,6 +1,4 @@
 class CategoriesController < ApplicationController
-  include Trackable
-  
   def index
     @kind = params[:kind]
     @categories = Category.where(parent_id: nil).includes(:children)
