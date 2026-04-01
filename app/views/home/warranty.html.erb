@@ -261,6 +261,16 @@
       </div>
       
       <%= form_with model: @warranty_inquiry, url: warranty_inquiry_path, class: "p-8 space-y-6 max-h-[70vh] overflow-y-auto" do |f| %>
+        <% if @warranty_inquiry&.errors&.any? %>
+          <div class="p-4 bg-red-50 border border-red-100 rounded-xl text-red-600 text-sm font-medium">
+            <ul class="list-disc pl-5 space-y-1">
+              <% @warranty_inquiry.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
         <%= f.hidden_field :product_type, ":value": "productType" %>
         
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">

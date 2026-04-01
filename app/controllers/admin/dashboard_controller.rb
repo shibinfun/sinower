@@ -5,6 +5,8 @@ class Admin::DashboardController < Admin::BaseController
     @active_skus = Sku.where(status: 'active').count
     @messages_count = ContactMessage.count
     @warranty_inquiries_count = WarrantyInquiry.count
+    @today_visits = VisitRecord.where("visit_time >= ?", Time.current.beginning_of_day).count
+    @total_visits = VisitRecord.count
     
     # 诊断信息
     @storage_writable = File.writable?("/app/storage") rescue false

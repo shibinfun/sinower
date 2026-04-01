@@ -29,12 +29,11 @@ class HomeController < ApplicationController
 
   def warranty
     @warranty_inquiry = WarrantyInquiry.new
-    @warranty_pdfs = WarrantyPdf.all
-    @refrigeration_pdf = @warranty_pdfs.find_by(pdf_type: 'refrigeration')
-    @cooking_pdf = @warranty_pdfs.find_by(pdf_type: 'cooking')
-    @stainless_pdf = @warranty_pdfs.find_by(pdf_type: 'stainless')
-    @claim_form_pdf = @warranty_pdfs.find_by(pdf_type: 'claim_form')
-    @spare_parts_pdf = @warranty_pdfs.find_by(pdf_type: 'spare_parts')
+    @refrigeration_pdf = WarrantyPdf.refrigeration
+    @cooking_pdf = WarrantyPdf.cooking
+    @stainless_pdf = WarrantyPdf.stainless
+    @claim_form_pdf = WarrantyPdf.claim_form
+    @spare_parts_pdf = WarrantyPdf.spare_parts
   end
 
   def create_warranty_inquiry
@@ -47,8 +46,12 @@ class HomeController < ApplicationController
       end
       redirect_to warranty_path, notice: t('home.warranty.feedback_success', default: "Message sent successfully. We will contact you as soon as possible. / 消息已成功发送，我们会尽快与您联系。")
     else
-      # 简单起见，如果失败直接跳回 warranty 页面，通常这里应该处理错误信息
-      redirect_to warranty_path, alert: "提交失败，请检查填写内容"
+      @refrigeration_pdf = WarrantyPdf.refrigeration
+      @cooking_pdf = WarrantyPdf.cooking
+      @stainless_pdf = WarrantyPdf.stainless
+      @claim_form_pdf = WarrantyPdf.claim_form
+      @spare_parts_pdf = WarrantyPdf.spare_parts
+      render :warranty, status: :unprocessable_entity
     end
   end
 

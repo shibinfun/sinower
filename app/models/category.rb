@@ -26,9 +26,12 @@ class Category < ApplicationRecord
   end
 
   def all_descendant_ids
-    ids = children.pluck(:id)
-    children.each do |child|
-      ids += child.all_descendant_ids
+    ids = []
+    stack = children.to_a
+    while stack.any?
+      child = stack.pop
+      ids << child.id
+      stack.concat(child.children.to_a)
     end
     ids
   end

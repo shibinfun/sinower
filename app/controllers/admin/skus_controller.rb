@@ -3,16 +3,19 @@ class Admin::SkusController < Admin::BaseController
 
   def index
     @category_kind = params[:kind] || 'a'
-    @skus = Sku.joins(:category).where(categories: { category_kind: @category_kind }).includes(:category).all
+    @skus = Sku.joins(:category).where(categories: { category_kind: @category_kind })
+               .preload(:skuable)
+               .includes(:category, images_attachments: :blob)
+               .all
 
     respond_to do |format|
       format.html
-      format.csv { send_data generate_csv(Sku.all), filename: "skus-#{Date.today}.csv" }
+      format.csv { send_data generate_csv(Sku.joins(:category).where(categories: { category_kind: @category_kind }).preload(:skuable).includes(:category, images_attachments: :blob, manual_attachment: :blob, spec_sheet_attachment: :blob)), filename: "skus-#{Date.today}.csv" }
     end
   end
 
   def export
-    @skus = Sku.all.includes(:category, :skuable)
+    @skus = Sku.preload(:skuable).includes(:category, images_attachments: :blob, manual_attachment: :blob, spec_sheet_attachment: :blob)
     send_data generate_csv(@skus), filename: "all-skus-#{Date.today}.csv"
   end
 
@@ -122,7 +125,7 @@ class Admin::SkusController < Admin::BaseController
     require 'csv'
     CSV.generate(headers: true) do |csv|
       # 定义表头
-      base_headers = ["ID", "名称", "频道", "分类路径", "价格", "库存", "状态", "可见性", "图片URLs", "说明书URL", "规格书URL"]
+      base_headers = ["ID", "名称", "频道", "分类路径", "价格", "库存", "状态", "图片URLs", "说明书URL", "规格书URL"]
       detail_headers = [
         "net_capacity", "unit_dimensions", "packaging_dimensions", "voltage_frequency", "temp_range", 
         "burners_and_control_method", "gas_type", "intake_tube_pressure", "per_btu", "total_btu", 
@@ -133,7 +136,7 @@ class Admin::SkusController < Admin::BaseController
 
       skus.each do |sku|
         category_path = sku.category.ancestors_and_self.map(&:name).join(" > ")
-        image_urls = sku.images.map { |img| Rails.application.routes.url_helpers.url_for(img) if img.present? }.compact.join(",")
+        image_urls = sku.images.attached? ? sku.images.map { |img| Rails.application.routes.url_helpers.url_for(img) }.join(",") : ""
         manual_url = sku.manual.attached? ? Rails.application.routes.url_helpers.url_for(sku.manual) : ""
         spec_sheet_url = sku.spec_sheet.attached? ? Rails.application.routes.url_helpers.url_for(sku.spec_sheet) : ""
         

@@ -1,7 +1,7 @@
 class CategoriesController < ApplicationController
   def index
     @kind = params[:kind]
-    @categories = Category.where(parent_id: nil).includes(:children)
+    @categories = Category.where(parent_id: nil).includes(children: :children)
     
     if @kind.present?
       @categories = @categories.where(category_kind: @kind)
@@ -9,12 +9,12 @@ class CategoriesController < ApplicationController
     
     if params[:category_id].present?
       @current_category = Category.find(params[:category_id])
-      @skus = @current_category.all_descendant_skus.where(status: 'active').includes(:category).page(params[:page]).per(20)
+      @skus = @current_category.all_descendant_skus.where(status: 'active').includes(:category, images_attachments: :blob).page(params[:page]).per(20)
     else
       if @kind.present?
-        @skus = Sku.joins(:category).where(categories: { category_kind: @kind }, status: 'active').includes(:category).page(params[:page]).per(20)
+        @skus = Sku.joins(:category).where(categories: { category_kind: @kind }, status: 'active').includes(:category, images_attachments: :blob).page(params[:page]).per(20)
       else
-        @skus = Sku.where(status: 'active').includes(:category).page(params[:page]).per(20)
+        @skus = Sku.where(status: 'active').includes(:category, images_attachments: :blob).page(params[:page]).per(20)
       end
     end
   end

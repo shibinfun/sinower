@@ -13,7 +13,7 @@ class Sku < ApplicationRecord
   validate :images_must_be_bmp_or_png_jpg_images
   validate :manual_and_spec_sheet_must_be_pdf
 
-  before_validation :build_default_skuable, on: :create
+  before_validation :build_default_skuable
 
   private
 
@@ -55,7 +55,11 @@ class Sku < ApplicationRecord
   end
 
   def build_default_skuable
-    return if category.nil? || skuable.present? || skuable_type.present?
+    return if category.nil?
+    
+    # If category kind changed, we might need to clear or change skuable.
+    # But usually, it's safer to just build if missing.
+    return if skuable.present? || skuable_type.present?
 
     case category.category_kind
     when 'a'

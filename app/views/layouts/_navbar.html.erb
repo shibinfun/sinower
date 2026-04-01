@@ -8,7 +8,7 @@
       <div class="hidden lg:flex items-center space-x-2 mr-4 border-r border-slate-200 pr-4">
         <%= link_to "EN", url_for(locale: :en), class: "text-[10px] font-black tracking-tighter #{I18n.locale == :en ? 'text-blue-600' : 'text-slate-500 hover:text-blue-600'}" %>
         <span class="text-slate-300">|</span>
-        <%= link_to "中文", url_for(locale: 'zh-CN'), class: "text-[10px] font-black tracking-tighter #{I18n.locale == :"zh-CN" ? 'text-blue-600' : 'text-slate-500 hover:text-blue-600'}" %>
+        <%= link_to "中文", url_for(locale: 'zh-CN'), class: "text-[10px] font-black tracking-tighter #{I18n.locale.to_s.start_with?('zh') ? 'text-blue-600' : 'text-slate-500 hover:text-blue-600'}" %>
       </div>
 
       <div class="hidden md:flex">
@@ -132,17 +132,17 @@
                 <div class="flex items-center space-x-2">
                   <%= link_to "EN", url_for(locale: :en), class: "text-[10px] font-black tracking-tighter #{I18n.locale == :en ? 'text-blue-600' : 'text-slate-500'}" %>
                   <span class="text-slate-200">|</span>
-                  <%= link_to "中文", url_for(locale: 'zh-CN'), class: "text-[10px] font-black tracking-tighter #{I18n.locale == :"zh-CN" ? 'text-blue-600' : 'text-slate-500'}" %>
+                  <%= link_to "中文", url_for(locale: 'zh-CN'), class: "text-[10px] font-black tracking-tighter #{I18n.locale.to_s.start_with?('zh') ? 'text-blue-600' : 'text-slate-500'}" %>
                 </div>
                 <%= button_to t('navbar.logout'), destroy_user_session_path, method: :delete, class: "text-red-600 font-bold text-sm" %>
               </div>
             </div>
           <% else %>
             <div class="flex flex-col space-y-4 px-3">
-              <div class="flex items-center space-x-2">
+            <div class="flex items-center space-x-2">
                 <%= link_to "EN", url_for(locale: :en), class: "text-[10px] font-black tracking-tighter #{I18n.locale == :en ? 'text-blue-600' : 'text-slate-500'}" %>
                 <span class="text-slate-200">|</span>
-                <%= link_to "中文", url_for(locale: 'zh-CN'), class: "text-[10px] font-black tracking-tighter #{I18n.locale == :"zh-CN" ? 'text-blue-600' : 'text-slate-500'}" %>
+                <%= link_to "中文", url_for(locale: 'zh-CN'), class: "text-[10px] font-black tracking-tighter #{I18n.locale.to_s.start_with?('zh') ? 'text-blue-600' : 'text-slate-500'}" %>
               </div>
               <div class="flex flex-col space-y-1.5">
                 <%= link_to t('navbar.login'), new_user_session_path, class: "text-slate-600 hover:text-blue-600 py-1.5 text-xs font-medium border-b border-slate-100" %>

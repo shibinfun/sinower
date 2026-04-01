@@ -2,7 +2,7 @@ class VisitRecord < ApplicationRecord
   validates :session_id, presence: true
   
   before_validation :set_visit_time, on: :create
-  before_create :fill_geoinfo
+  after_create_commit :enqueue_geoinfo_job
 
   private
 
@@ -10,29 +10,9 @@ class VisitRecord < ApplicationRecord
     self.visit_time ||= Time.current
   end
 
-  def fill_geoinfo
-    return if ip.blank?
-    return if ip == '127.0.0.1' || ip == '::1'
-
-    begin
-      require 'net/http'
-      require 'json'
-      
-      # 使用 ip-api.com 免费 API (注意: 免费版每分钟限制 45 次请求)
-      url = URI("http://ip-api.com/json/#{ip}?fields=status,message,country,regionName,city,district,zip,lat,lon,timezone,isp,org,as,query")
-      response = Net::HTTP.get(url)
-      data = JSON.parse(response)
-
-      if data['status'] == 'success'
-        self.country = data['country']
-        self.state   = data['regionName']
-        self.city    = data['city']
-        self.district = data['district']
-        self.address = [data['country'], data['regionName'], data['city'], data['district']].compact.reject(&:empty?).join(", ")
-      end
-    rescue => e
-      Rails.logger.error "IP Geocode Error: #{e.message}"
-    end
+  def enqueue_geoinfo_job
+    return if ip.blank? || ip == '127.0.0.1' || ip == '::1'
+    GeocodeVisitRecordJob.perform_later(self)
   end
 
   public

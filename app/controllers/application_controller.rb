@@ -15,13 +15,16 @@ class ApplicationController < ActionController::Base
     # 忽略后台请求和健康检查
     return if request.path.start_with?("/admin") || request.path == "/up"
     
-    session_id = session.id.to_s rescue nil
+    # 确保 session 加载 (Rails 7/8 中 session 可能是惰性加载的)
+    session[:loaded] = true if session.id.nil?
+    session_id = session.id.to_s
     return if session_id.blank?
 
     # 尝试获取真实客户端 IP (处理代理服务器情况)
-    # X-Forwarded-For 可能包含多个 IP，第一个通常是真实的客户端 IP
+    # 优先获取 X-Forwarded-For，它是大多数反向代理使用的标准头
     forwarded_for = request.env['HTTP_X_FORWARDED_FOR']
     real_ip = if forwarded_for.present?
+                # 取第一个（原始客户端）并进行基本的格式检查
                 forwarded_for.split(',').first&.strip
               else
                 request.env['HTTP_X_REAL_IP'] || request.remote_ip

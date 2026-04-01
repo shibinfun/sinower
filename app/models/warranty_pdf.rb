@@ -20,6 +20,26 @@ class WarrantyPdf < ApplicationRecord
   # Helper methods to get PDFs by type
   scope :ordered, -> { order(:name) }
   
+  def self.refrigeration
+    find_by(pdf_type: 'refrigeration')
+  end
+
+  def self.cooking
+    find_by(pdf_type: 'cooking')
+  end
+
+  def self.stainless
+    find_by(pdf_type: 'stainless')
+  end
+
+  def self.claim_form
+    find_by(pdf_type: 'claim_form')
+  end
+
+  def self.spare_parts
+    find_by(pdf_type: 'spare_parts')
+  end
+
   def refrigeration?
     pdf_type == 'refrigeration'
   end
