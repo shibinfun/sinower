@@ -25,10 +25,6 @@ Rails.application.configure do
   config.active_storage.service = :google
   config.active_storage.track_variants = true
   config.active_storage.resolve_model_to_route = :rails_storage_redirect
-  config.active_storage.video_preview_arguments = "-ss 0:00:01 -vframes 1"
-  
-  # Handle missing files gracefully in production
-  config.active_storage.logger = Rails.logger
 
   # Assume all access to the app is happening through a SSL-terminating reverse proxy.
   config.assume_ssl = true

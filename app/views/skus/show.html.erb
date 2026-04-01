@@ -56,7 +56,7 @@
                     class="w-20 h-20 rounded-2xl border-2 bg-white overflow-hidden transition-all duration-300 group">
               <% begin %>
                 <%= image_tag image.variant(resize_to_limit: [160, 160]), class: "w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" %>
-              <% rescue ArgumentError, ActiveStorage::FileNotFoundError, ActiveStorage::InvariableError, ActiveStorage::VariantNotFoundError %>
+              <% rescue ArgumentError, ActiveStorage::InvariableError %>
                 <div class="w-full h-full bg-red-50 flex items-center justify-center text-red-400 text-xs">无法预览</div>
               <% end %>
             </button>

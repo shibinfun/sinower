@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_03_31_234329) do
+ActiveRecord::Schema[8.0].define(version: 2026_04_01_034929) do
   create_table "a_sku_details", force: :cascade do |t|
     t.string "net_capacity"
     t.string "unit_dimensions"
@@ -285,6 +285,25 @@ ActiveRecord::Schema[8.0].define(version: 2026_03_31_234329) do
     t.boolean "admin", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  create_table "visits", force: :cascade do |t|
+    t.string "page_name"
+    t.string "page_url"
+    t.string "ip_address"
+    t.text "user_agent"
+    t.string "referer"
+    t.string "country"
+    t.string "region"
+    t.string "city"
+    t.string "isp"
+    t.datetime "visited_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["country", "region", "city"], name: "index_visits_on_country_and_region_and_city"
+    t.index ["ip_address"], name: "index_visits_on_ip_address"
+    t.index ["page_url"], name: "index_visits_on_page_url"
+    t.index ["visited_at"], name: "index_visits_on_visited_at"
   end
 
   create_table "warranty_inquiries", force: :cascade do |t|
