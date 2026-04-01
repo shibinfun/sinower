@@ -39,4 +39,34 @@ module ApplicationHelper
     sizes = { small: '50x50', medium: '100x100', large: '200x200' }
     "https://via.placeholder.com/#{sizes[size] || '100x100'}?text=No+Image"
   end
+  
+  # Safe image_tag wrapper that rescues ActiveStorage errors
+  def safe_image_tag(source, options = {})
+    image_tag(source, options)
+  rescue ActiveStorage::FileNotFoundError, ActiveStorage::VariantNotFoundError => e
+    Rails.logger.warn "ActiveStorage file not found: #{e.message}"
+    # Return a placeholder or empty string
+    if options[:alt]
+      content_tag(:span, "[#{options[:alt]}]", class: "text-slate-400 italic")
+    else
+      ""
+    end
+  end
+  
+  # Override image_tag to automatically handle ActiveStorage errors
+  module ::ActionView
+    module Helpers
+      module AssetTagHelper
+        alias_method :original_image_tag, :image_tag
+        
+        def image_tag(source, options = {})
+          original_image_tag(source, options)
+        rescue ActiveStorage::FileNotFoundError, ActiveStorage::VariantNotFoundError => e
+          Rails.logger.warn "ActiveStorage file not found (auto-caught): #{e.message}"
+          alt_text = options[:alt] || "Image"
+          content_tag(:span, "[#{alt_text}]", class: "text-slate-400 italic inline-block", style: "min-width: 50px; min-height: 50px;")
+        end
+      end
+    end
+  end
 end
