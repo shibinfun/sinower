@@ -9,13 +9,7 @@ one:
   regulator: MyString
   work_area: MyString
   exterior_dimensions: MyString
-  unit_dimensions: MyString
-  product_dimensions: MyString
-  sink_bowl_dimensions: MyString
-  sink_depth: MyString
-  leg_bracing: MyString
-  faucet_and_drain: MyString
-  standard_features: MyText
+  key_features: MyText
 
 two:
   burners_and_control_method: MyString
@@ -26,10 +20,4 @@ two:
   regulator: MyString
   work_area: MyString
   exterior_dimensions: MyString
-  unit_dimensions: MyString
-  product_dimensions: MyString
-  sink_bowl_dimensions: MyString
-  sink_depth: MyString
-  leg_bracing: MyString
-  faucet_and_drain: MyString
-  standard_features: MyText
+  key_features: MyText

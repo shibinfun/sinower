@@ -2,8 +2,8 @@ source "https://rubygems.org"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 8.0.4"
-# Use Minitest 5.x for compatibility with Rails 8
-gem "minitest", "~> 5.25"
+# The modern asset pipeline for Rails [https://github.com/rails/propshaft]
+gem "propshaft"
 # Use PostgreSQL as the database for production
 gem "pg", "~> 1.1"
 
@@ -13,8 +13,6 @@ gem "sqlite3", ">= 2.1", groups: [:development, :test]
 gem "puma", ">= 5.0"
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
 gem "importmap-rails"
-# Use the asset pipeline [https://github.com/rails/sprockets-rails]
-gem "sprockets-rails"
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
 gem "turbo-rails"
 # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]

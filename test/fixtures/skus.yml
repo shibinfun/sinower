@@ -2,14 +2,20 @@
 
 one:
   name: MyString
+  net_capacity: MyString
+  unit_dimensions: MyString
+  packaging_dimensions: MyString
+  voltage_frequency: MyString
+  temp_range: MyString
+  standard_features: MyText
   category: one
-  price: 99.99
-  stock: 10
-  status: active
 
 two:
-  name: Another SKU
+  name: MyString
+  net_capacity: MyString
+  unit_dimensions: MyString
+  packaging_dimensions: MyString
+  voltage_frequency: MyString
+  temp_range: MyString
+  standard_features: MyText
   category: two
-  price: 149.99
-  stock: 5
-  status: active

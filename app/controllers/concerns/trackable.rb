@@ -1,5 +1,6 @@
 module Trackable
   extend ActiveSupport::Concern
+  include IpGeolocation
 
   included do
     before_action :track_page_view, if: -> { !current_user&.admin? }

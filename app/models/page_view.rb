@@ -15,21 +15,9 @@ class PageView < ApplicationRecord
     if duration < 60
       "#{duration}s"
     elsif duration < 3600
-      mins = duration / 60
-      secs = duration % 60
-      result = []
-      result << "#{mins}m" if mins > 0
-      result << "#{secs}s" if secs > 0
-      result.join(' ')
+      "#{duration / 60}m #{duration % 60}s"
     else
-      hours = duration / 3600
-      mins = (duration % 3600) / 60
-      secs = duration % 60
-      result = []
-      result << "#{hours}h" if hours > 0
-      result << "#{mins}m" if mins > 0
-      result << "#{secs}s" if secs > 0
-      result.join(' ')
+      "#{duration / 3600}h #{(duration % 3600) / 60}m"
     end
   end
 
