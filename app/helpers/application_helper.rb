@@ -21,4 +21,22 @@ module ApplicationHelper
     
     rails_blob_path(pdf.file, disposition: "attachment")
   end
+  
+  # Safely render image variant with fallback for missing files
+  def safe_image_variant(image_attachment, transformations, options = {})
+    return nil unless image_attachment&.attached?
+    
+    begin
+      image_attachment.variant(transformations)
+    rescue ActiveStorage::FileNotFoundError, ActiveStorage::VariantNotFoundError => e
+      Rails.logger.warn "Image variant not found: #{e.message}"
+      nil
+    end
+  end
+  
+  # Get default placeholder image path
+  def placeholder_image_path(size = :medium)
+    sizes = { small: '50x50', medium: '100x100', large: '200x200' }
+    "https://via.placeholder.com/#{sizes[size] || '100x100'}?text=No+Image"
+  end
 end
