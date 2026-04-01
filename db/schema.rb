@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_04_01_034929) do
+ActiveRecord::Schema[8.0].define(version: 2026_04_01_044116) do
   create_table "a_sku_details", force: :cascade do |t|
     t.string "net_capacity"
     t.string "unit_dimensions"
@@ -285,6 +285,18 @@ ActiveRecord::Schema[8.0].define(version: 2026_04_01_034929) do
     t.boolean "admin", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  create_table "visit_logs", force: :cascade do |t|
+    t.string "ip"
+    t.string "remote_ip"
+    t.string "path"
+    t.string "controller_name"
+    t.string "action_name"
+    t.string "user_agent"
+    t.string "referrer"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "visits", force: :cascade do |t|
