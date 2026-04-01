@@ -14,8 +14,8 @@ module Admin
       
       @page_views = @page_views.page(params[:page]).per(50)
       
-      # 统计数据
-      @stats = calculate_stats
+      # 统计数据（基于筛选条件）
+      @stats = calculate_stats(@page_views)
     end
 
     def show
@@ -28,42 +28,50 @@ module Admin
       params.permit(:page_type, :ip, :city, :date_from, :date_to)
     end
 
-    def calculate_stats
+    def calculate_stats(scope = PageView.all)
       {
-        total_views: PageView.count,
+        total_views: scope.count,
         today_views: PageView.today.count,
         unique_ips_today: PageView.today.distinct.pluck(:ip).count,
-        avg_duration: PageView.today.average(:duration)&.round || 0,
-        top_pages: top_pages_query,
-        top_locations: top_locations_query,
-        device_breakdown: device_breakdown_query,
-        browser_breakdown: browser_breakdown_query
+        avg_duration: (scope.average(:duration)&.round || 0),
+        top_pages: top_pages_query(scope),
+        top_locations: top_locations_query(scope),
+        device_breakdown: device_breakdown_query(scope),
+        browser_breakdown: browser_breakdown_query(scope)
       }
     end
 
-    def top_pages_query
-      PageView.select('page_type, page_id, page_name, COUNT(*) as view_count')
-              .group(:page_type, :page_id, :page_name)
-              .order('view_count DESC')
-              .limit(10)
+    def top_pages_query(scope)
+      scope.select('page_type, page_id, page_name, COUNT(*) as view_count')
+           .group(:page_type, :page_id, :page_name)
+           .order('view_count DESC')
+           .limit(10)
     end
 
-    def top_locations_query
-      PageView.select('city, province, country, COUNT(*) as view_count')
-              .where.not(city: nil)
-              .group(:city, :province, :country)
-              .order('view_count DESC')
-              .limit(10)
+    def top_locations_query(scope)
+      scope.select('city, province, country, COUNT(*) as view_count')
+           .where.not(city: nil)
+           .group(:city, :province, :country)
+           .order('view_count DESC')
+           .limit(10)
     end
 
-    def device_breakdown_query
-      # 需要在视图中计算
-      {}
+    def device_breakdown_query(scope)
+      # 简单统计，可以在视图中展示
+      all_records = scope.to_a
+      devices = all_records.map { |pv| pv.device_type }.tally
+      {
+        desktop: devices['desktop'] || 0,
+        mobile: devices['mobile'] || 0,
+        tablet: devices['tablet'] || 0
+      }
     end
 
-    def browser_breakdown_query
-      # 需要在视图中计算
-      {}
+    def browser_breakdown_query(scope)
+      # 简单统计，可以在视图中展示
+      all_records = scope.to_a
+      browsers = all_records.map { |pv| pv.browser_name }.tally
+      browsers
     end
   end
 end
