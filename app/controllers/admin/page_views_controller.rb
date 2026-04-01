@@ -47,7 +47,7 @@ module Admin
       PageView.from(
         scope.unscope(:order).select('page_type, page_id, page_name, COUNT(*) as view_count')
              .group('page_type, page_id, page_name'),
-        'subquery'
+        'pv'
       ).order('view_count DESC').limit(10)
     end
 
@@ -58,7 +58,7 @@ module Admin
         scope.unscope(:order).select('city, province, country, COUNT(*) as view_count')
              .where.not(city: nil)
              .group('city, province, country'),
-        'subquery'
+        'pv'
       ).order('view_count DESC').limit(10)
     end
 
