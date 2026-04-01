@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_04_01_044116) do
+ActiveRecord::Schema[8.0].define(version: 2026_04_01_064129) do
   create_table "a_sku_details", force: :cascade do |t|
     t.string "net_capacity"
     t.string "unit_dimensions"
@@ -127,7 +127,6 @@ ActiveRecord::Schema[8.0].define(version: 2026_04_01_044116) do
     t.string "status", default: "draft"
     t.string "skuable_type"
     t.integer "skuable_id"
-    t.integer "views", default: 0
     t.index ["category_id"], name: "index_skus_on_category_id"
     t.index ["skuable_type", "skuable_id"], name: "index_skus_on_skuable_type_and_skuable_id"
   end
@@ -287,16 +286,20 @@ ActiveRecord::Schema[8.0].define(version: 2026_04_01_044116) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  create_table "visit_logs", force: :cascade do |t|
+  create_table "visit_records", force: :cascade do |t|
+    t.string "session_id"
     t.string "ip"
-    t.string "remote_ip"
-    t.string "path"
-    t.string "controller_name"
-    t.string "action_name"
-    t.string "user_agent"
-    t.string "referrer"
+    t.string "country"
+    t.string "state"
+    t.string "city"
+    t.string "district"
+    t.string "address"
+    t.datetime "visit_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "user_agent"
+    t.index ["session_id", "visit_time"], name: "index_visit_records_on_session_id_and_visit_time"
+    t.index ["session_id"], name: "index_visit_records_on_session_id"
   end
 
   create_table "visits", force: :cascade do |t|

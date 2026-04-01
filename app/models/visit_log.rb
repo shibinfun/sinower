@@ -1,2 +1,0 @@
-class VisitLog < ApplicationRecord
-end

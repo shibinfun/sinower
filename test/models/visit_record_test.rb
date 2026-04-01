@@ -1,6 +1,6 @@
 require "test_helper"
 
-class VisitLogTest < ActiveSupport::TestCase
+class VisitRecordTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

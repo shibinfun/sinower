@@ -33,7 +33,7 @@ Rails.application.routes.draw do
         end
       end
       resources :users, only: [:index, :show, :destroy]
-      resources :visit_logs, only: [:index]
+      resources :visit_records, only: [:index]
     end
 
     %w[a b c].each do |kind|
