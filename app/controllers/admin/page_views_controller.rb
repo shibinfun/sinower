@@ -42,18 +42,22 @@ module Admin
     end
 
     def top_pages_query(scope)
-      scope.select('page_type, page_id, page_name, COUNT(*) as view_count')
-           .group(:page_type, :page_id, :page_name)
-           .order('view_count DESC')
-           .limit(10)
+      # Use a subquery to avoid GROUP BY issues with ORDER BY in PostgreSQL
+      PageView.from(
+        scope.select('page_type, page_id, page_name, COUNT(*) as view_count')
+             .group('page_type, page_id, page_name'),
+        'subquery'
+      ).order('view_count DESC').limit(10)
     end
 
     def top_locations_query(scope)
-      scope.select('city, province, country, COUNT(*) as view_count')
-           .where.not(city: nil)
-           .group(:city, :province, :country)
-           .order('view_count DESC')
-           .limit(10)
+      # Use a subquery to avoid GROUP BY issues with ORDER BY in PostgreSQL
+      PageView.from(
+        scope.select('city, province, country, COUNT(*) as view_count')
+             .where.not(city: nil)
+             .group('city, province, country'),
+        'subquery'
+      ).order('view_count DESC').limit(10)
     end
 
     def device_breakdown_query(scope)
