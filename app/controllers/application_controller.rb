@@ -18,6 +18,15 @@ class ApplicationController < ActionController::Base
     session_id = session.id.to_s rescue nil
     return if session_id.blank?
 
+    # 尝试获取真实客户端 IP (处理代理服务器情况)
+    # X-Forwarded-For 可能包含多个 IP，第一个通常是真实的客户端 IP
+    forwarded_for = request.env['HTTP_X_FORWARDED_FOR']
+    real_ip = if forwarded_for.present?
+                forwarded_for.split(',').first&.strip
+              else
+                request.env['HTTP_X_REAL_IP'] || request.remote_ip
+              end
+
     last_visit = VisitRecord.where(session_id: session_id)
                             .where("visit_time > ?", 3.hours.ago)
                             .order(visit_time: :desc)
@@ -26,7 +35,7 @@ class ApplicationController < ActionController::Base
     if last_visit.nil?
       VisitRecord.create(
         session_id: session_id,
-        ip: request.remote_ip,
+        ip: real_ip,
         user_agent: request.user_agent,
         visit_time: Time.current
       )
