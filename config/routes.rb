@@ -28,15 +28,11 @@ Rails.application.routes.draw do
       resources :contact_messages, only: [:index, :show, :destroy]
       resources :warranty_inquiries, only: [:index, :show, :destroy]
       resources :warranty_pdfs do
-        
-      end
-      resources :page_views, only: [:index, :show]
-      resources :users
-    end
         member do
           get :download
         end
       end
+      resources :page_views, only: [:index, :show]
       resources :users, only: [:index, :show, :destroy]
     end
 

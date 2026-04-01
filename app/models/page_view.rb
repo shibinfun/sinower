@@ -1,15 +1,8 @@
 class PageView < ApplicationRecord
   include IpGeolocation
 
-  belongs_to :page, polymorphic: true, optional: true
-
-  enum page_type: {
-    other: 0,
-    sku: 1,
-    category: 2,
-    home: 3,
-    product_list: 4
-  }
+  # Store page type as enum (0=other, 1=sku, 2=category, 3=home, 4=product_list)
+  enum :page_type, [:other, :sku, :category, :home, :product_list]
 
   scope :recent, -> { order(visited_at: :desc) }
   scope :today, -> { where('visited_at >= ?', Time.current.beginning_of_day) }

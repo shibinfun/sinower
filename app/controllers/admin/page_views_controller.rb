@@ -5,7 +5,7 @@ module Admin
     def index
       @filter_params = filter_params
       
-      @page_views = PageView.includes(:page).recent
+      @page_views = PageView.recent
       @page_views = @page_views.where(page_type: @filter_params[:page_type]) if @filter_params[:page_type].present?
       @page_views = @page_views.where(ip: @filter_params[:ip]) if @filter_params[:ip].present?
       @page_views = @page_views.where(city: @filter_params[:city]) if @filter_params[:city].present?

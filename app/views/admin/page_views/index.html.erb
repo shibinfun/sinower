@@ -78,7 +78,7 @@
           <tr class="hover:bg-slate-50">
             <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-slate-900">#<%= index + 1 %></td>
             <td class="px-6 py-4 text-sm text-slate-700"><%= page.page_name || 'Unknown' %></td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-500"><%= PageView.page_types[page.page_type] %></td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-500"><%= page.page_type.humanize %></td>
             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-bold text-blue-600"><%= page.view_count %></td>
           </tr>
         <% end %>
@@ -137,7 +137,7 @@
               </td>
               <td class="px-6 py-4 text-sm">
                 <div class="font-medium text-slate-900"><%= pv.page_name %></div>
-                <div class="text-xs text-slate-500"><%= PageView.page_types[pv.page_type] %></div>
+                <div class="text-xs text-slate-500"><%= pv.page_type.humanize %></div>
               </td>
               <td class="px-6 py-4 text-sm">
                 <div class="font-mono text-xs text-slate-700"><%= pv.ip %></div>
