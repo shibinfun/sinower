@@ -23,6 +23,8 @@ Rails.application.routes.draw do
         end
         member do
           delete :delete_image
+          delete :delete_manual
+          delete :delete_spec_sheet
         end
       end
       resources :contact_messages, only: [:index, :show, :destroy]

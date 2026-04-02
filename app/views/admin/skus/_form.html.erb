@@ -71,7 +71,17 @@
         <%= f.file_field :manual, accept: "application/pdf", class: "w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" %>
         <p class="mt-1 text-xs text-slate-500 italic">只接受 PDF 格式文件。</p>
         <% if @sku.manual.attached? %>
-          <p class="mt-1 text-xs text-blue-600">已上传：<%= @sku.manual.filename %></p>
+          <div class="mt-1 flex items-center justify-between">
+            <p class="text-xs text-blue-600">已上传：<%= @sku.manual.filename %></p>
+            <%= link_to delete_manual_admin_sku_path(@sku), 
+                        data: { turbo_method: :delete, turbo_confirm: "确定要删除该手册吗？" },
+                        class: "text-red-500 hover:text-red-700 text-xs flex items-center gap-1" do %>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
+              </svg>
+              删除
+            <% end %>
+          </div>
         <% end %>
       </div>
 
@@ -80,7 +90,17 @@
         <%= f.file_field :spec_sheet, accept: "application/pdf", class: "w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" %>
         <p class="mt-1 text-xs text-slate-500 italic">只接受 PDF 格式文件。</p>
         <% if @sku.spec_sheet.attached? %>
-          <p class="mt-1 text-xs text-blue-600">已上传: <%= @sku.spec_sheet.filename %></p>
+          <div class="mt-1 flex items-center justify-between">
+            <p class="text-xs text-blue-600">已上传: <%= @sku.spec_sheet.filename %></p>
+            <%= link_to delete_spec_sheet_admin_sku_path(@sku), 
+                        data: { turbo_method: :delete, turbo_confirm: "确定要删除该规格表吗？" },
+                        class: "text-red-500 hover:text-red-700 text-xs flex items-center gap-1" do %>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
+              </svg>
+              删除
+            <% end %>
+          </div>
         <% end %>
       </div>
     </div>

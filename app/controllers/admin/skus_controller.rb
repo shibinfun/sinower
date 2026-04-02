@@ -1,5 +1,5 @@
 class Admin::SkusController < Admin::BaseController
-  before_action :set_sku, only: [:show, :edit, :update, :destroy, :delete_image]
+  before_action :set_sku, only: [:show, :edit, :update, :destroy, :delete_image, :delete_manual, :delete_spec_sheet]
 
   def index
     @category_kind = params[:kind] || 'a'
@@ -70,8 +70,16 @@ class Admin::SkusController < Admin::BaseController
   end
 
   def create
-    @sku = Sku.new(sku_params)
     begin
+      filtered_params = sku_params
+      # 过滤空的图片/文件占位符，防止保存时出现空附件
+      [:images, :manual, :spec_sheet].each do |key|
+        if filtered_params[key].blank? || (filtered_params[key].is_a?(Array) && filtered_params[key].all?(&:blank?))
+          filtered_params.delete(key)
+        end
+      end
+
+      @sku = Sku.new(filtered_params)
       if @sku.save
         redirect_to admin_skus_path, notice: "SKU 创建成功。"
       else
@@ -88,7 +96,15 @@ class Admin::SkusController < Admin::BaseController
 
   def update
     begin
-      if @sku.update(sku_params)
+      filtered_params = sku_params
+      # 如果用户在编辑时没有上传新文件，从 params 中剔除对应键，防止覆盖旧文件
+      [:images, :manual, :spec_sheet].each do |key|
+        if filtered_params[key].blank? || (filtered_params[key].is_a?(Array) && filtered_params[key].all?(&:blank?))
+          filtered_params.delete(key)
+        end
+      end
+
+      if @sku.update(filtered_params)
         redirect_to admin_skus_path, notice: "SKU 更新成功。"
       else
         Rails.logger.error "SKU Update Failed: #{@sku.errors.full_messages.join(', ')}"
@@ -117,6 +133,18 @@ class Admin::SkusController < Admin::BaseController
     redirect_back fallback_location: edit_admin_sku_path(@sku), alert: "图片未找到。"
   rescue ActiveStorage::InvariableError
     redirect_back fallback_location: edit_admin_sku_path(@sku), alert: "文件格式错误，无法处理。"
+  end
+
+  def delete_manual
+    return redirect_to admin_skus_path, alert: "SKU 未找到。" unless @sku
+    @sku.manual.purge if @sku.manual.attached?
+    redirect_back fallback_location: edit_admin_sku_path(@sku), notice: "技术手册已删除。"
+  end
+
+  def delete_spec_sheet
+    return redirect_to admin_skus_path, alert: "SKU 未找到。" unless @sku
+    @sku.spec_sheet.purge if @sku.spec_sheet.attached?
+    redirect_back fallback_location: edit_admin_sku_path(@sku), notice: "规格表已删除。"
   end
 
   private

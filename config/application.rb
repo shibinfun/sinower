@@ -35,7 +35,7 @@ module Sinower
     # These settings can be overridden in specific environments using the files
     # in config/environments, which are processed later.
     #
-    # config.time_zone = "Central Time (US & Canada)"
+    config.time_zone = "Eastern Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
     config.active_storage.replace_on_assign_to_many = false
     config.active_job.queue_adapter = :solid_queue
