@@ -7,19 +7,43 @@
   </div>
 </div>
 
-<div class="mb-6 border-b border-slate-200">
-  <nav class="-mb-px flex space-x-8" aria-label="Tabs">
-    <% [
-      ['a', '商用制冷设备', 'Commercial Refrigeration'],
-      ['b', '烹饪设备', 'Cooking Equipment'],
-      ['c', '不锈钢餐饮用品', 'Stainless Steel Food Service']
-    ].each do |kind, zh, en| %>
-      <%= link_to admin_skus_path(kind: kind), 
-          class: "whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm #{@category_kind == kind ? 'border-blue-500 text-blue-600' : 'border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300'}" do %>
-        <%= zh %> <span class="text-xs text-slate-400 font-normal ml-1"><%= en %></span>
+<div class="mb-6 flex flex-col md:flex-row md:items-center md:justify-between space-y-4 md:space-y-0 bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+  <form action="<%= admin_skus_path %>" method="get" class="flex flex-col md:flex-row items-stretch md:items-center space-y-3 md:space-y-0 md:space-x-4 flex-grow">
+    <div class="relative flex-grow max-w-md">
+      <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+        <svg class="h-5 w-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+        </svg>
+      </div>
+      <input type="text" name="q" value="<%= @q %>" placeholder="搜索产品名称或型号..." 
+             class="block w-full pl-10 pr-3 py-2 border border-slate-300 rounded-lg bg-slate-50 text-slate-900 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm transition-all">
+    </div>
+
+    <div class="flex items-center space-x-2 min-w-[200px]">
+      <select name="category_id" onchange="this.form.submit()" 
+              class="block w-full px-3 py-2 border border-slate-300 rounded-lg bg-slate-50 text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all">
+        <option value="">所有叶子分类</option>
+        <% @categories.each do |cat| %>
+          <option value="<%= cat.id %>" <%= 'selected' if @category_id.to_s == cat.id.to_s %>>
+            <%= cat.localized_name %>
+          </option>
+        <% end %>
+      </select>
+    </div>
+
+    <div class="flex items-center space-x-2">
+      <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors whitespace-nowrap">
+        搜索
+      </button>
+      <% if @q.present? || @category_id.present? %>
+        <%= link_to "重置", admin_skus_path, class: "text-slate-500 hover:text-slate-700 text-sm font-medium px-2" %>
       <% end %>
-    <% end %>
-  </nav>
+    </div>
+  </form>
+
+  <div class="flex items-center justify-end space-x-3 md:ml-4">
+    <%= link_to "导出 CSV", admin_skus_path(format: :csv, q: @q, category_id: @category_id), class: "text-slate-600 hover:text-slate-800 bg-slate-100 hover:bg-slate-200 px-4 py-2 rounded-lg text-sm font-medium transition-colors" %>
+  </div>
 </div>
 
 <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
@@ -39,7 +63,11 @@
         <% if @skus.empty? %>
           <tr>
             <td colspan="6" class="px-6 py-12 text-center text-slate-500 text-sm">
-              该分类下暂无 SKU。
+              <% if @q.present? || @category_id.present? %>
+                未找到匹配的 SKU，请尝试其他关键词或分类。
+              <% else %>
+                暂无 SKU。
+              <% end %>
             </td>
           </tr>
         <% end %>

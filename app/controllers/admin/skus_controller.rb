@@ -2,15 +2,27 @@ class Admin::SkusController < Admin::BaseController
   before_action :set_sku, only: [:show, :edit, :update, :destroy, :delete_image, :delete_manual, :delete_spec_sheet]
 
   def index
-    @category_kind = params[:kind] || 'a'
-    @skus = Sku.joins(:category).where(categories: { category_kind: @category_kind })
-               .preload(:skuable)
-               .includes(:category, images_attachments: :blob)
-               .all
+    @q = params[:q]
+    @category_id = params[:category_id]
+
+    @skus = Sku.all.preload(:skuable).includes(:category, images_attachments: :blob)
+
+    if @q.present?
+      @skus = @skus.where("LOWER(name) LIKE ?", "%#{@q.downcase}%")
+    end
+
+    if @category_id.present?
+      @skus = @skus.where(category_id: @category_id)
+    end
+
+    @categories = Category.where(id: Category.joins(:skus).distinct.pluck(:id)).order(:name)
 
     respond_to do |format|
       format.html
-      format.csv { send_data generate_csv(Sku.joins(:category).where(categories: { category_kind: @category_kind }).preload(:skuable).includes(:category, images_attachments: :blob, manual_attachment: :blob, spec_sheet_attachment: :blob)), filename: "skus-#{Date.today}.csv" }
+      format.csv do
+        @export_skus = @skus
+        send_data generate_csv(@export_skus), filename: "skus-#{Date.today}.csv"
+      end
     end
   end
 
