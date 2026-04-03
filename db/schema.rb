@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_04_01_064129) do
+ActiveRecord::Schema[8.0].define(version: 2026_04_03_024858) do
   create_table "a_sku_details", force: :cascade do |t|
     t.string "net_capacity"
     t.string "unit_dimensions"
@@ -127,6 +127,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_04_01_064129) do
     t.string "status", default: "draft"
     t.string "skuable_type"
     t.integer "skuable_id"
+    t.integer "position", default: 0, null: false
     t.index ["category_id"], name: "index_skus_on_category_id"
     t.index ["skuable_type", "skuable_id"], name: "index_skus_on_skuable_type_and_skuable_id"
   end

@@ -8,6 +8,7 @@ class Sku < ApplicationRecord
   accepts_nested_attributes_for :skuable
 
   validates :name, presence: true
+  validates :position, numericality: { only_integer: true }
   validate :category_must_be_leaf
   validate :skuable_type_matches_category_kind
   validate :images_must_be_bmp_or_png_jpg_images

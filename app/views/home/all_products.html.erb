@@ -99,7 +99,7 @@
                 <!-- Direct products under Level 2 if no Level 3 -->
                 <% if sub1.children.empty? %>
                   <ul class="grid grid-cols-1 gap-1.5">
-                    <% sub1.skus.each do |sku| %>
+                    <% sub1.skus.where(status: 'active').order(position: :desc, created_at: :desc).each do |sku| %>
                       <li>
                         <%= link_to sku_path(sku), class: "text-sm text-slate-500 hover:text-blue-600 flex items-center group/sku py-0.5" do %>
                           <span class="w-1 h-1 bg-slate-200 group-hover/sku:bg-blue-400 rounded-full mr-2 transition-colors"></span>

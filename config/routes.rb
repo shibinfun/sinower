@@ -20,6 +20,7 @@ Rails.application.routes.draw do
           get :export
           get :import_page
           post :import
+          patch :update_positions
         end
         member do
           delete :delete_image

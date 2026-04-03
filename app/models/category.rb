@@ -19,9 +19,9 @@ class Category < ApplicationRecord
 
   def all_descendant_skus
     if leaf?
-      skus
+      skus.order(position: :desc, created_at: :desc)
     else
-      Sku.where(category_id: all_descendant_ids + [ id ])
+      Sku.where(category_id: all_descendant_ids + [ id ]).order(position: :desc, created_at: :desc)
     end
   end
 

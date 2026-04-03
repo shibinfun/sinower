@@ -12,9 +12,9 @@ class CategoriesController < ApplicationController
       @skus = @current_category.all_descendant_skus.where(status: 'active').includes(:category, images_attachments: :blob).page(params[:page]).per(20)
     else
       if @kind.present?
-        @skus = Sku.joins(:category).where(categories: { category_kind: @kind }, status: 'active').includes(:category, images_attachments: :blob).page(params[:page]).per(20)
+        @skus = Sku.joins(:category).where(categories: { category_kind: @kind }, status: 'active').includes(:category, images_attachments: :blob).order(position: :desc, created_at: :desc).page(params[:page]).per(20)
       else
-        @skus = Sku.where(status: 'active').includes(:category, images_attachments: :blob).page(params[:page]).per(20)
+        @skus = Sku.where(status: 'active').includes(:category, images_attachments: :blob).order(position: :desc, created_at: :desc).page(params[:page]).per(20)
       end
     end
   end

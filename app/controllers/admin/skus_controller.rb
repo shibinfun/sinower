@@ -5,7 +5,7 @@ class Admin::SkusController < Admin::BaseController
     @q = params[:q]
     @category_id = params[:category_id]
 
-    @skus = Sku.all.preload(:skuable).includes(:category, images_attachments: :blob)
+    @skus = Sku.all.preload(:skuable).includes(:category, images_attachments: :blob).order(position: :desc, created_at: :desc)
 
     if @q.present?
       @skus = @skus.where("LOWER(name) LIKE ?", "%#{@q.downcase}%")
@@ -27,7 +27,7 @@ class Admin::SkusController < Admin::BaseController
   end
 
   def export
-    @skus = Sku.preload(:skuable).includes(:category, images_attachments: :blob, manual_attachment: :blob, spec_sheet_attachment: :blob)
+    @skus = Sku.preload(:skuable).includes(:category, images_attachments: :blob, manual_attachment: :blob, spec_sheet_attachment: :blob).order(position: :desc, created_at: :desc)
     send_data generate_csv(@skus), filename: "all-skus-#{Date.today}.csv"
   end
 
@@ -40,6 +40,17 @@ class Admin::SkusController < Admin::BaseController
       redirect_to admin_skus_path, notice: "导入完成：成功 #{result[:success]}，失败 #{result[:failed]}"
     else
       redirect_to import_page_admin_skus_path, alert: "请上传 CSV 文件。"
+    end
+  end
+
+  def update_positions
+    if params[:positions].present?
+      params[:positions].each do |sku_id, position|
+        Sku.find(sku_id).update(position: position)
+      end
+      redirect_back fallback_location: admin_skus_path, notice: "排序权重已更新。"
+    else
+      redirect_back fallback_location: admin_skus_path, alert: "未提供有效的排序数据。"
     end
   end
 
@@ -85,9 +96,12 @@ class Admin::SkusController < Admin::BaseController
     begin
       filtered_params = sku_params
       # 过滤空的图片/文件占位符，防止保存时出现空附件
+      # 注意：不要过滤 position 字段，因为 0.blank? 是 true
       [:images, :manual, :spec_sheet].each do |key|
-        if filtered_params[key].blank? || (filtered_params[key].is_a?(Array) && filtered_params[key].all?(&:blank?))
-          filtered_params.delete(key)
+        if filtered_params[key].is_a?(Array)
+          filtered_params.delete(key) if filtered_params[key].all?(&:blank?)
+        else
+          filtered_params.delete(key) if filtered_params[key].blank?
         end
       end
 
@@ -110,9 +124,12 @@ class Admin::SkusController < Admin::BaseController
     begin
       filtered_params = sku_params
       # 如果用户在编辑时没有上传新文件，从 params 中剔除对应键，防止覆盖旧文件
+      # 注意：不要过滤 position 字段，因为 0.blank? 是 true
       [:images, :manual, :spec_sheet].each do |key|
-        if filtered_params[key].blank? || (filtered_params[key].is_a?(Array) && filtered_params[key].all?(&:blank?))
-          filtered_params.delete(key)
+        if filtered_params[key].is_a?(Array)
+          filtered_params.delete(key) if filtered_params[key].all?(&:blank?)
+        else
+          filtered_params.delete(key) if filtered_params[key].blank?
         end
       end
 
@@ -165,7 +182,7 @@ class Admin::SkusController < Admin::BaseController
     require 'csv'
     CSV.generate(headers: true) do |csv|
       # 定义表头
-      base_headers = ["ID", "名称", "频道", "分类路径", "价格", "库存", "状态", "图片URLs", "说明书URL", "规格书URL"]
+      base_headers = ["ID", "排序权重", "名称", "频道", "分类路径", "价格", "库存", "状态", "图片URLs", "说明书URL", "规格书URL"]
       detail_headers = [
         "net_capacity", "unit_dimensions", "packaging_dimensions", "voltage_frequency", "temp_range", 
         "burners_and_control_method", "gas_type", "intake_tube_pressure", "per_btu", "total_btu", 
@@ -181,7 +198,7 @@ class Admin::SkusController < Admin::BaseController
         spec_sheet_url = sku.spec_sheet.attached? ? Rails.application.routes.url_helpers.url_for(sku.spec_sheet) : ""
         
         row = [
-          sku.id, sku.name, sku.category.category_kind, category_path, sku.price, sku.stock, sku.status,
+          sku.id, sku.position, sku.name, sku.category.category_kind, category_path, sku.price, sku.stock, sku.status,
           image_urls, manual_url, spec_sheet_url
         ]
         
@@ -212,7 +229,7 @@ class Admin::SkusController < Admin::BaseController
 
   def sku_params
     params.require(:sku).permit(
-      :name, :category_id, :price, :stock, :status, :manual, :spec_sheet, :skuable_type, images: [],
+      :name, :category_id, :price, :stock, :status, :position, :manual, :spec_sheet, :skuable_type, images: [],
       skuable_attributes: [
         :id, :net_capacity, :unit_dimensions, :packaging_dimensions,
         :voltage_frequency, :temp_range, :standard_features, :standard_features_zh,
