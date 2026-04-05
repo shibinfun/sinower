@@ -12,8 +12,14 @@ class WarrantyPdf < ApplicationRecord
   validate :validate_file_attachment
   
   def validate_file_attachment
-    if file.attached? && !file.blob.content_type.in?(%w[application/pdf])
-      errors.add(:file, "must be a PDF file")
+    if file.attached?
+      if !file.blob.content_type.in?(%w[application/pdf])
+        errors.add(:file, "must be a PDF file")
+      end
+
+      if file.blob.byte_size > 3.megabytes
+        errors.add(:file, "文件太大 (最大 3MB)，当前大小为 #{(file.blob.byte_size / 1.0.megabyte).round(2)}MB")
+      end
     end
   end
   

@@ -11,6 +11,16 @@
     <div class="flex items-center space-x-4">
       <span class="text-xs bg-blue-100 text-blue-700 px-3 py-1 rounded-full font-medium">今日 24h: <%= @today_count %></span>
       <span class="text-xs bg-slate-100 text-slate-700 px-3 py-1 rounded-full font-medium">累计总量: <%= @total_count %></span>
+      <% if @records_older_than_30_days > 0 %>
+        <span class="text-xs bg-orange-100 text-orange-700 px-3 py-1 rounded-full font-medium">30天前: <%= @records_older_than_30_days %></span>
+      <% end %>
+      <%= button_to clean_admin_visit_records_path, 
+                    method: :delete, 
+                    params: { days: 30 },
+                    data: { confirm: "确定要清理30天以前的所有访客记录吗？此操作不可恢复！" },
+                    class: "text-xs bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-full font-medium cursor-pointer transition-colors" do %>
+        🗑️ 清理30天前数据
+      <% end %>
     </div>
   </div>
 

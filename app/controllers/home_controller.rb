@@ -1,9 +1,12 @@
 class HomeController < ApplicationController
+  before_action :check_submission_rate_limit, only: [:create_contact, :create_warranty_inquiry]
+
   def index
   end
 
   def all_products
-    @root_categories = Category.where(parent_id: nil).includes(children: { children: { children: :skus } })
+    @skus_by_category = Sku.where(status: 'active').includes(:category).order(position: :desc, created_at: :desc).group_by(&:category_id)
+    @root_categories = Category.where(parent_id: nil).includes(children: { children: :children })
   end
 
   def contact
@@ -56,6 +59,16 @@ class HomeController < ApplicationController
   end
 
   private
+
+  def check_submission_rate_limit
+    last_submission = session[:last_submission_time]
+    if last_submission.present? && Time.parse(last_submission) > 1.minute.ago
+      redirect_to (action_name == 'create_contact' ? contact_path : warranty_path), 
+                  alert: t('home.submission_limit', default: "You are submitting too frequently. Please try again in 1 minute. / 您提交得太频繁了，请在 1 分钟后再试。")
+      return
+    end
+    session[:last_submission_time] = Time.current.to_s
+  end
 
   def contact_params
     params.require(:contact_message).permit(:name, :email, :subject, :message)

@@ -5,7 +5,7 @@ class Admin::SkusController < Admin::BaseController
     @q = params[:q]
     @category_id = params[:category_id]
 
-    @skus = Sku.all.preload(:skuable).includes(:category, images_attachments: :blob).order(position: :desc, created_at: :desc)
+    @skus = Sku.all.preload(:skuable).includes(category: :parent, images_attachments: :blob).order(position: :desc, created_at: :desc)
 
     if @q.present?
       @skus = @skus.where("LOWER(name) LIKE ?", "%#{@q.downcase}%")
@@ -27,7 +27,7 @@ class Admin::SkusController < Admin::BaseController
   end
 
   def export
-    @skus = Sku.preload(:skuable).includes(:category, images_attachments: :blob, manual_attachment: :blob, spec_sheet_attachment: :blob).order(position: :desc, created_at: :desc)
+    @skus = Sku.preload(:skuable).includes(category: :parent, images_attachments: :blob, manual_attachment: :blob, spec_sheet_attachment: :blob).order(position: :desc, created_at: :desc)
     send_data generate_csv(@skus), filename: "all-skus-#{Date.today}.csv"
   end
 
@@ -191,8 +191,19 @@ class Admin::SkusController < Admin::BaseController
       ]
       csv << base_headers + detail_headers
 
+      # 一次性加载所有分类并按 ID 索引，减少循环内的数据库查询
+      categories_cache = Category.all.includes(:parent).index_by(&:id)
+
       skus.each do |sku|
-        category_path = sku.category.ancestors_and_self.map(&:name).join(" > ")
+        # 使用缓存构建路径
+        cat = categories_cache[sku.category_id]
+        path_segments = []
+        while cat
+          path_segments.unshift(cat.name)
+          cat = categories_cache[cat.parent_id]
+        end
+        category_path = path_segments.join(" > ")
+
         image_urls = sku.images.attached? ? sku.images.map { |img| Rails.application.routes.url_helpers.url_for(img) }.join(",") : ""
         manual_url = sku.manual.attached? ? Rails.application.routes.url_helpers.url_for(sku.manual) : ""
         spec_sheet_url = sku.spec_sheet.attached? ? Rails.application.routes.url_helpers.url_for(sku.spec_sheet) : ""

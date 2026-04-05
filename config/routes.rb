@@ -36,7 +36,11 @@ Rails.application.routes.draw do
         end
       end
       resources :users, only: [:index, :show, :destroy]
-      resources :visit_records, only: [:index]
+      resources :visit_records, only: [:index] do
+        collection do
+          delete :clean
+        end
+      end
     end
 
     %w[a b c].each do |kind|
