@@ -26,8 +26,8 @@ class Sku < ApplicationRecord
         errors.add(:images, "只能上传图片文件 (JPEG, PNG, GIF, WebP, BMP)，但 '#{image.filename}' 的类型是 #{image.content_type}")
       end
 
-      if image.byte_size > 3.megabytes
-        errors.add(:images, "文件 '#{image.filename}' 太大 (最大 3MB)，当前大小为 #{(image.byte_size / 1.0.megabyte).round(2)}MB")
+      if image.byte_size > 30.megabytes
+        errors.add(:images, "文件 '#{image.filename}' 太大 (最大 30MB)，当前大小为 #{(image.byte_size / 1.0.megabyte).round(2)}MB")
       end
     end
   end
@@ -37,8 +37,8 @@ class Sku < ApplicationRecord
       if !manual.content_type.start_with?('application/pdf')
         errors.add(:manual, "说明书必须是 PDF 格式")
       end
-      if manual.byte_size > 3.megabytes
-        errors.add(:manual, "说明书文件太大 (最大 3MB)，当前大小为 #{(manual.byte_size / 1.0.megabyte).round(2)}MB")
+      if manual.byte_size > 30.megabytes
+        errors.add(:manual, "说明书文件太大 (最大 30MB)，当前大小为 #{(manual.byte_size / 1.0.megabyte).round(2)}MB")
       end
     end
 
@@ -46,8 +46,8 @@ class Sku < ApplicationRecord
       if !spec_sheet.content_type.start_with?('application/pdf')
         errors.add(:spec_sheet, "规格表必须是 PDF 格式")
       end
-      if spec_sheet.byte_size > 3.megabytes
-        errors.add(:spec_sheet, "规格表文件太大 (最大 3MB)，当前大小为 #{(spec_sheet.byte_size / 1.0.megabyte).round(2)}MB")
+      if spec_sheet.byte_size > 30.megabytes
+        errors.add(:spec_sheet, "规格表文件太大 (最大 30MB)，当前大小为 #{(spec_sheet.byte_size / 1.0.megabyte).round(2)}MB")
       end
     end
   end
