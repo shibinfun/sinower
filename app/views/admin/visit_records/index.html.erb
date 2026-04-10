@@ -29,6 +29,7 @@
       <thead>
         <tr class="bg-slate-50 border-b border-slate-200">
           <th class="px-6 py-4 text-xs font-semibold text-slate-600 uppercase tracking-wider">访问时间</th>
+          <th class="px-6 py-4 text-xs font-semibold text-slate-600 uppercase tracking-wider">访问路径</th>
           <th class="px-6 py-4 text-xs font-semibold text-slate-600 uppercase tracking-wider">IP 地址</th>
           <th class="px-6 py-4 text-xs font-semibold text-slate-600 uppercase tracking-wider">设备</th>
           <th class="px-6 py-4 text-xs font-semibold text-slate-600 uppercase tracking-wider">地理位置</th>
@@ -39,8 +40,11 @@
         <% if @visit_records.any? %>
           <% @visit_records.each do |record| %>
             <tr class="hover:bg-slate-50 transition-colors">
-              <td class="px-6 py-4 text-sm text-slate-600">
+              <td class="px-6 py-4 text-sm text-slate-600 whitespace-nowrap">
                 <%= record.visit_time&.strftime("%Y-%m-%d %H:%M:%S") || "未知" %>
+              </td>
+              <td class="px-6 py-4 text-sm text-blue-600 font-mono break-all" style="max-width: 200px;">
+                <%= record.path %>
               </td>
               <td class="px-6 py-4 text-sm font-medium text-slate-900">
                 <%= record.ip %>

@@ -204,9 +204,9 @@ class Admin::SkusController < Admin::BaseController
         end
         category_path = path_segments.join(" > ")
 
-        image_urls = sku.images.attached? ? sku.images.map { |img| Rails.application.routes.url_helpers.url_for(img) }.join(",") : ""
-        manual_url = sku.manual.attached? ? Rails.application.routes.url_helpers.url_for(sku.manual) : ""
-        spec_sheet_url = sku.spec_sheet.attached? ? Rails.application.routes.url_helpers.url_for(sku.spec_sheet) : ""
+        image_urls = sku.images.attached? ? sku.images.map { |img| url_for(img) }.join(",") : ""
+        manual_url = sku.manual.attached? ? url_for(sku.manual) : ""
+        spec_sheet_url = sku.spec_sheet.attached? ? url_for(sku.spec_sheet) : ""
         
         row = [
           sku.id, sku.position, sku.name, sku.category.category_kind, category_path, sku.price, sku.stock, sku.status,

@@ -12,8 +12,9 @@ class ApplicationController < ActionController::Base
   private
 
   def track_visitor
-    # 忽略后台请求和健康检查
-    return if request.path.start_with?("/admin") || request.path == "/up"
+    # 忽略健康检查
+    path = request.path
+    return if path == "/up"
     
     # 确保 session 加载 (Rails 7/8 中 session 可能是惰性加载的)
     session[:loaded] = true if session.id.nil?
@@ -40,7 +41,8 @@ class ApplicationController < ActionController::Base
         session_id: session_id,
         ip: real_ip,
         user_agent: request.user_agent,
-        visit_time: Time.current
+        visit_time: Time.current,
+        path: path
       )
     end
   end

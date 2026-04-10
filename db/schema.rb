@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_04_03_024858) do
+ActiveRecord::Schema[8.0].define(version: 2026_04_10_134202) do
   create_table "a_sku_details", force: :cascade do |t|
     t.string "net_capacity"
     t.string "unit_dimensions"
@@ -299,6 +299,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_04_03_024858) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "user_agent"
+    t.string "path"
     t.index ["session_id", "visit_time"], name: "index_visit_records_on_session_id_and_visit_time"
     t.index ["session_id"], name: "index_visit_records_on_session_id"
   end

@@ -63,6 +63,7 @@ Rails.application.configure do
 
   # Set host to be used by links generated in mailer templates.
   config.action_mailer.default_url_options = { host: ENV.fetch("APP_HOST", "sinowerus.com") }
+  Rails.application.routes.default_url_options = config.action_mailer.default_url_options
 
   # Use Resend HTTP API for email delivery (more reliable than SMTP)
   config.action_mailer.delivery_method = :resend

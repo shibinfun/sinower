@@ -9,7 +9,8 @@ one:
   regulator: MyString
   work_area: MyString
   exterior_dimensions: MyString
-  key_features: MyText
+  standard_features: MyText
+  standard_features_zh: MyText
 
 two:
   burners_and_control_method: MyString
@@ -20,4 +21,5 @@ two:
   regulator: MyString
   work_area: MyString
   exterior_dimensions: MyString
-  key_features: MyText
+  standard_features: MyText
+  standard_features_zh: MyText
