@@ -39,5 +39,6 @@ module Sinower
     # config.eager_load_paths << Rails.root.join("extras")
     config.active_storage.replace_on_assign_to_many = false
     config.active_job.queue_adapter = :solid_queue
+    config.middleware.use Rack::Attack
   end
 end
