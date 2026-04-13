@@ -44,10 +44,14 @@ class Admin::WarrantyPdfsController < Admin::BaseController
   end
   
   def download
-    send_file @warranty_pdf.file.download, 
-              filename: @warranty_pdf.file.filename.to_s,
-              type: 'application/pdf',
-              disposition: 'attachment'
+    if @warranty_pdf.file.attached?
+      send_data @warranty_pdf.file.download, 
+                filename: @warranty_pdf.file.filename.to_s,
+                type: 'application/pdf',
+                disposition: 'attachment'
+    else
+      redirect_to admin_warranty_pdfs_path, alert: "该记录没有关联的文件。"
+    end
   end
   
   private

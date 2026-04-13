@@ -1,9 +1,34 @@
+<% 
+  title = if @current_category 
+            "#{@current_category.localized_name} - #{t('home.index.hero_title_2')}"
+          elsif @kind
+            case @kind
+            when 'a' then "#{t('navbar.cooling')} - #{t('home.index.hero_title_2')}"
+            when 'b' then "#{t('navbar.cooking')} - #{t('home.index.hero_title_2')}"
+            when 'c' then "#{t('navbar.stainless')} - #{t('home.index.hero_title_2')}"
+            end
+          else
+            "#{t('categories.explore_all')} - #{t('home.index.hero_title_2')}"
+          end
+  content_for :title, title
+  
+  description = if @kind
+                  case @kind
+                  when 'a' then t('home.about.product_lines.refrigeration_desc')
+                  when 'b' then t('home.about.product_lines.cooking_desc')
+                  when 'c' then t('home.about.product_lines.stainless_desc')
+                  end
+                else
+                  t('categories.company_desc')
+                end
+  content_for :meta_description, description
+%>
 <div class="max-w-screen-xl mx-auto px-4 py-8">
   <!-- 顶部面包屑导航 (取代分类树) -->
   <div class="mb-10 sticky top-20 z-10">
     <nav class="flex items-center overflow-x-auto whitespace-nowrap py-4 px-6 bg-white/80 backdrop-blur-md rounded-2xl border border-slate-200/50 shadow-sm transition-all duration-300">
       <div class="flex items-center space-x-2 text-sm font-bold">
-        <%= link_to (@kind ? send("#{@kind}_channel_path") : categories_path), class: "flex items-center text-slate-400 hover:text-blue-600 transition-all group" do %>
+        <%= link_to channel_path(@kind), class: "flex items-center text-slate-400 hover:text-blue-600 transition-all group" do %>
           <span class="p-1.5 rounded-lg bg-slate-100 group-hover:bg-blue-50 transition-colors mr-2">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
           </span>
@@ -14,7 +39,7 @@
           <% @current_category.ancestors_and_self.each do |cat| %>
             <div class="flex items-center space-x-2">
               <svg class="w-4 h-4 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-              <%= link_to (@kind ? send("#{@kind}_channel_path", category_id: cat.id) : categories_path(category_id: cat.id)), class: "px-3 py-1.5 rounded-xl transition-all #{cat == @current_category ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/30' : 'text-slate-500 hover:bg-slate-100 hover:text-slate-900'}" do %>
+              <%= link_to channel_path(@kind, category_id: cat.id), class: "px-3 py-1.5 rounded-xl transition-all #{cat == @current_category ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/30' : 'text-slate-500 hover:bg-slate-100 hover:text-slate-900'}" do %>
                 <span class="text-xs tracking-wide"><%= cat.localized_name %></span>
               <% end %>
             </div>
@@ -27,13 +52,13 @@
           <div class="flex items-center space-x-2">
             <% if @current_category && @current_category.children.any? %>
               <% @current_category.children.each do |child| %>
-                <%= link_to (@kind ? send("#{@kind}_channel_path", category_id: child.id) : categories_path(category_id: child.id)), class: "px-3 py-1.5 bg-slate-50 border border-slate-100 rounded-xl text-[11px] font-bold text-slate-600 hover:border-blue-400 hover:text-blue-600 hover:bg-white hover:shadow-sm transition-all" do %>
+                <%= link_to channel_path(@kind, category_id: child.id), class: "px-3 py-1.5 bg-slate-50 border border-slate-100 rounded-xl text-[11px] font-bold text-slate-600 hover:border-blue-400 hover:text-blue-600 hover:bg-white hover:shadow-sm transition-all" do %>
                   <%= child.localized_name %>
                 <% end %>
               <% end %>
             <% elsif @current_category.nil? %>
               <% @categories.each do |cat| %>
-                <%= link_to (@kind ? send("#{@kind}_channel_path", category_id: cat.id) : categories_path(category_id: cat.id)), class: "px-3 py-1.5 bg-slate-50 border border-slate-100 rounded-xl text-[11px] font-bold text-slate-600 hover:border-blue-400 hover:text-blue-600 hover:bg-white hover:shadow-sm transition-all" do %>
+                <%= link_to channel_path(@kind, category_id: cat.id), class: "px-3 py-1.5 bg-slate-50 border border-slate-100 rounded-xl text-[11px] font-bold text-slate-600 hover:border-blue-400 hover:text-blue-600 hover:bg-white hover:shadow-sm transition-all" do %>
                   <%= cat.localized_name %>
                 <% end %>
               <% end %>

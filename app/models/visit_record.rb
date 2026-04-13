@@ -4,6 +4,10 @@ class VisitRecord < ApplicationRecord
   before_validation :set_visit_time, on: :create
   after_create_commit :enqueue_geoinfo_job
 
+  def self.cleanup_old_records(days = 7)
+    where("visit_time < ?", days.days.ago).delete_all
+  end
+
   private
 
   def set_visit_time

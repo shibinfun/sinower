@@ -3,7 +3,7 @@ class Admin::VisitRecordsController < Admin::BaseController
     @visit_records = VisitRecord.order(visit_time: :desc).page(params[:page]).per(20)
     @total_count = VisitRecord.count
     @today_count = VisitRecord.where("visit_time >= ?", 24.hours.ago).count
-    @records_older_than_30_days = VisitRecord.where("visit_time < ?", 30.days.ago).count
+    @records_older_than_7_days = VisitRecord.where("visit_time < ?", 7.days.ago).count
   end
 
   def clean
@@ -15,8 +15,7 @@ class Admin::VisitRecordsController < Admin::BaseController
       return
     end
 
-    cutoff_time = days.days.ago
-    deleted_count = VisitRecord.where("visit_time < ?", cutoff_time).delete_all
+    deleted_count = VisitRecord.cleanup_old_records(days)
     
     redirect_to admin_visit_records_path, notice: "成功清理 #{deleted_count} 条 #{days} 天以前的访客记录"
   end

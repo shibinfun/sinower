@@ -15,10 +15,12 @@ module ApplicationHelper
   end
   
   # Get download URL for warranty PDF
-  def warranty_pdf_url(type)
-    pdf = get_warranty_pdf(type)
-    return nil unless pdf&.file&.attached?
-    
-    rails_blob_path(pdf.file, disposition: "attachment")
+  def channel_path(kind, options = {})
+    case kind.to_s
+    when 'a' then a_channel_path(options)
+    when 'b' then b_channel_path(options)
+    when 'c' then c_channel_path(options)
+    else categories_path(options)
+    end
   end
 end

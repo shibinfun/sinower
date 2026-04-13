@@ -1,3 +1,8 @@
+<% 
+  content_for :title, "#{@sku.name} - #{t('home.index.hero_title_2')}"
+  content_for :meta_description, "#{@sku.name} (#{@sku.category.localized_name}): #{t('home.about.product_lines.refrigeration_desc') if @sku.category.category_kind == 'a'} #{t('home.about.product_lines.cooking_desc') if @sku.category.category_kind == 'b'} #{t('home.about.product_lines.stainless_desc') if @sku.category.category_kind == 'c'}"
+  content_for :meta_keywords, "#{@sku.name}, #{@sku.category.localized_name}, Sinower, commercial kitchen equipment"
+%>
 <div class="max-w-screen-xl mx-auto px-4 py-12">
   <!-- 顶部面包屑导航 -->
   <nav class="flex mb-10 items-center space-x-2 text-sm font-bold bg-white/50 backdrop-blur-sm p-3 rounded-xl border border-slate-200/50 w-fit sticky top-20 z-10">
