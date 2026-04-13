@@ -34,7 +34,11 @@
                    x-transition:enter-start="opacity-0 transform scale-95"
                    x-transition:enter-end="opacity-100 transform scale-100"
                    class="w-full h-full absolute inset-0">
-                <%= image_tag image, class: "w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-1000 ease-in-out", style: "background-color: transparent;" %>
+                <% begin %>
+                  <%= image_tag image.variant(resize_to_limit: [1200, 1200], saver: { quality: 90 }), class: "w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-1000 ease-in-out", style: "background-color: transparent;" %>
+                <% rescue ArgumentError, ActiveStorage::InvariableError %>
+                  <%= image_tag image, class: "w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-1000 ease-in-out", style: "background-color: transparent;" %>
+                <% end %>
               </div>
             <% end %>
           <% else %>
@@ -60,7 +64,7 @@
                     :class="activeImage === <%= index %> ? 'ring-2 ring-blue-600 border-transparent shadow-lg' : 'border-slate-100 hover:border-blue-300'"
                     class="w-20 h-20 rounded-2xl border-2 bg-white overflow-hidden transition-all duration-300 group">
               <% begin %>
-                <%= image_tag image.variant(resize_to_limit: [160, 160]), class: "w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" %>
+                <%= image_tag image.variant(resize_to_limit: [200, 200], saver: { quality: 80 }), class: "w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" %>
               <% rescue ArgumentError, ActiveStorage::InvariableError %>
                 <div class="w-full h-full bg-red-50 flex items-center justify-center text-red-400 text-xs">无法预览</div>
               <% end %>

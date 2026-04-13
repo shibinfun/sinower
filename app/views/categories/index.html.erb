@@ -112,6 +112,8 @@
           <div class="aspect-square bg-slate-50 relative overflow-hidden flex-shrink-0">
             <% if sku.images.attached? %>
               <% begin %>
+                <%= image_tag sku.images.first.variant(resize_to_limit: [600, 600], saver: { quality: 85 }), class: "w-full h-full object-contain p-2 group-hover:scale-105 transition-transform duration-700 ease-out", style: "background-color: transparent;" %>
+              <% rescue ArgumentError, ActiveStorage::InvariableError %>
                 <%= image_tag sku.images.first, class: "w-full h-full object-contain p-2 group-hover:scale-105 transition-transform duration-700 ease-out", style: "background-color: transparent;" %>
               <% rescue ActiveStorage::FileNotFoundError %>
                 <div class="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100">
