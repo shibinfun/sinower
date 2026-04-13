@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = [ "menu", "dropdown", "rootDropdown" ]
+  static targets = [ "menu", "dropdown", "rootDropdown", "mobileLogo" ]
 
   connect() {
     this.boundHandleClickOutside = this.handleClickOutside.bind(this)
@@ -28,10 +28,25 @@ export default class extends Controller {
     this.element.querySelectorAll('svg.rotate-180, svg.rotate-90').forEach(svg => {
       svg.classList.remove("rotate-180", "rotate-90")
     })
+
+    // 确保在点击外部关闭所有菜单时，手机端 Logo 恢复显示
+    if (window.innerWidth < 768 && this.hasMobileLogoTarget) {
+      this.mobileLogoTarget.classList.remove("hidden")
+      if (this.hasMenuTarget) {
+        this.menuTarget.classList.add("hidden")
+      }
+    }
   }
 
   toggle() {
-    this.menuTarget.classList.toggle("hidden")
+    const isHidden = this.menuTarget.classList.toggle("hidden")
+    if (this.hasMobileLogoTarget) {
+      if (isHidden) {
+        this.mobileLogoTarget.classList.remove("hidden")
+      } else {
+        this.mobileLogoTarget.classList.add("hidden")
+      }
+    }
   }
 
   toggleMobileRoot(event) {
