@@ -23,9 +23,32 @@
     <div class="absolute -top-24 -right-24 w-96 h-96 bg-blue-50 rounded-full blur-3xl opacity-50 -z-0"></div>
     
     <!-- 左侧：媒体展示 (占 5/12) -->
-    <div class="lg:col-span-5 relative z-10 space-y-8" x-data="{ activeImage: 0 }">
-      <div class="bg-white rounded-[2.5rem] border border-slate-100 shadow-2xl overflow-hidden group">
-        <div class="aspect-square relative overflow-hidden bg-slate-50">
+    <div class="lg:col-span-5 relative z-10 space-y-8" x-data="{ 
+      activeImage: 0, 
+      isZoomed: false, 
+      bgPosX: 0, 
+      bgPosY: 0,
+      handleZoom(e) {
+        const container = e.currentTarget;
+        const { left, top, width, height } = container.getBoundingClientRect();
+        const x = e.clientX - left;
+        const y = e.clientY - top;
+        
+        if (x < 0 || y < 0 || x > width || y > height) {
+          this.isZoomed = false;
+          return;
+        }
+
+        this.isZoomed = true;
+        this.bgPosX = (x / width) * 100;
+        this.bgPosY = (y / height) * 100;
+      }
+    }">
+      <div class="bg-white rounded-[2.5rem] border border-slate-100 shadow-2xl overflow-hidden group relative">
+        <div class="aspect-square relative overflow-hidden bg-slate-50 cursor-zoom-in"
+             @mousemove="handleZoom"
+             @mouseleave="isZoomed = false"
+             @touchstart="isZoomed = false">
           <% if @sku.images.attached? %>
             <% @sku.images.each_with_index do |image, index| %>
               <div x-show="activeImage === <%= index %>" 
@@ -35,7 +58,11 @@
                    x-transition:enter-end="opacity-100 transform scale-100"
                    class="w-full h-full absolute inset-0">
                 <% begin %>
-                  <%= image_tag image.variant(resize_to_limit: [1200, 1200], saver: { quality: 90 }), class: "w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-1000 ease-in-out", style: "background-color: transparent;" %>
+                  <% variant_url = url_for(image.variant(resize_to_limit: [1200, 1200], saver: { quality: 90 })) %>
+                  <%= image_tag variant_url, 
+                                class: "w-full h-full object-contain p-4 transition-transform duration-200 ease-out origin-center", 
+                                style: "background-color: transparent;",
+                                ":style": "isZoomed ? `transform: scale(2.5); transform-origin: ${bgPosX}% ${bgPosY}%` : 'transform: scale(1); transform-origin: center;'" %>
                 <% rescue ArgumentError, ActiveStorage::InvariableError %>
                   <%= image_tag image, class: "w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-1000 ease-in-out", style: "background-color: transparent;" %>
                 <% end %>

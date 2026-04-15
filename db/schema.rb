@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_04_10_134202) do
+ActiveRecord::Schema[8.0].define(version: 2026_04_15_031837) do
   create_table "a_sku_details", force: :cascade do |t|
     t.string "net_capacity"
     t.string "unit_dimensions"
@@ -105,6 +105,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_04_10_134202) do
     t.datetime "updated_at", null: false
     t.string "category_kind"
     t.string "name_zh"
+    t.boolean "hidden", default: false, null: false
     t.index ["parent_id"], name: "index_categories_on_parent_id"
   end
 

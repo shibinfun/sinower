@@ -23,7 +23,7 @@
       <%= category.localized_name %>
     <% end %>
     
-    <% if category.children.any? %>
+    <% if category.children.visible.any? %>
       <button type="button" 
               data-action="click->navbar#toggleDropdown" 
               class="md:hidden px-4 py-3 text-slate-400 hover:text-blue-600 hover:bg-slate-50 transition-all focus:outline-none">
@@ -41,10 +41,10 @@
     <% end %>
   </div>
 
-  <% if category.children.any? %>
+  <% if category.children.visible.any? %>
     <div class="hidden <%= hover_class %> md:absolute md:left-full md:top-0 w-64 z-50 dropdown-container pointer-events-auto">
       <div class="bg-white border border-slate-200 rounded-2xl shadow-2xl overflow-visible backdrop-blur-xl bg-opacity-95 py-2 ring-1 ring-slate-900/5 ml-0.5 md:animate-fade-in-right">
-        <% category.children.each do |sub_cat| %>
+        <% category.children.visible.each do |sub_cat| %>
           <%= render 'layouts/navbar_category', category: sub_cat, kind: kind, depth: depth + 1 %>
         <% end %>
       </div>

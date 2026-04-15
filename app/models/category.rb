@@ -6,6 +6,8 @@ class Category < ApplicationRecord
   validates :name, presence: true
   validates :name_zh, presence: true
   validates :category_kind, presence: true, inclusion: { in: %w[a b c d] }
+  
+  scope :visible, -> { where(hidden: false) }
   validate :leaf_category_constraint_for_parent
   validate :consistent_category_kind
 
@@ -27,11 +29,11 @@ class Category < ApplicationRecord
 
   def all_descendant_ids
     ids = []
-    stack = children.to_a
+    stack = children.visible.to_a
     while stack.any?
       child = stack.pop
       ids << child.id
-      stack.concat(child.children.to_a)
+      stack.concat(child.children.visible.to_a)
     end
     ids
   end

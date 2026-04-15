@@ -84,18 +84,18 @@
             <li class="relative group/cat-0" data-navbar-target="rootDropdown">
               <div class="flex items-center">
                 <%= link_to category.localized_name, category_path(category), class: "block py-2 px-3 #{params[:id].to_i == category.id ? 'text-blue-600 font-bold border-b-2 border-blue-600' : 'text-slate-600 hover:text-blue-600'} transition-all duration-300 rounded-sm md:bg-transparent md:p-0 flex-grow" %>
-                <% if category.children.any? %>
+                <% if category.children.visible.any? %>
                   <button type="button" data-action="click->navbar#toggleMobileRoot" class="md:hidden ml-auto text-slate-400 p-2 focus:outline-none">
                     <svg class="w-4 h-4 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                   </button>
                 <% end %>
               </div>
               
-              <% if category.children.any? %>
+              <% if category.children.visible.any? %>
                 <!-- Desktop/Mobile Dropdown -->
                 <div class="hidden md:group-hover/cat-0:block md:absolute md:left-0 md:top-full w-full md:w-64 z-50 pt-2 dropdown-container pointer-events-auto">
                   <div class="bg-white border border-slate-200 rounded-2xl shadow-2xl overflow-visible backdrop-blur-xl bg-opacity-95 py-2 ring-1 ring-slate-900/5 md:animate-fade-in-up">
-                    <% category.children.each do |child| %>
+                    <% category.children.visible.each do |child| %>
                       <%= render 'layouts/navbar_category', category: child, kind: kind, depth: 1 %>
                     <% end %>
                   </div>

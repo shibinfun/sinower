@@ -2,12 +2,23 @@
   <div class="flex items-center justify-between group">
     <div class="flex items-center space-x-2">
       <span class="font-medium text-slate-800"><%= category.name %></span>
+      <% if category.hidden? %>
+        <span class="bg-red-50 text-red-600 text-[10px] px-1.5 py-0.5 rounded-full border border-red-100">已隐藏</span>
+      <% end %>
       <% if category.skus.exists? %>
         <span class="bg-blue-50 text-blue-600 text-xs px-2 py-0.5 rounded-full border border-blue-100"><%= category.skus.count %> SKUs</span>
       <% end %>
     </div>
     
     <div class="flex items-center space-x-3 opacity-0 group-hover:opacity-100 transition-opacity">
+      <% if category.leaf? %>
+        <% if category.hidden? %>
+          <%= button_to "显示", admin_category_path(category, category: { hidden: false }), method: :patch, class: "text-xs text-green-600 hover:text-green-800" %>
+        <% else %>
+          <%= button_to "隐藏", admin_category_path(category, category: { hidden: true }), method: :patch, class: "text-xs text-orange-600 hover:text-orange-800" %>
+        <% end %>
+      <% end %>
+
       <% unless category.skus.exists? %>
         <%= link_to "添加子分类", new_admin_category_path(parent_id: category.id), class: "text-xs text-blue-600 hover:text-blue-800" %>
       <% end %>
