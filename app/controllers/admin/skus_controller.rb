@@ -95,22 +95,27 @@ class Admin::SkusController < Admin::BaseController
   def create
     begin
       filtered_params = sku_params
+      # 提取图片位置信息，并从 filtered_params 中删除，防止 UnknownAttributeError
+      image_positions = filtered_params.delete(:image_positions)
+      
       # 过滤空的图片/文件占位符，防止保存时出现空附件
       # 注意：不要过滤 position 字段，因为 0.blank? 是 true
-      [:images, :manual, :spec_sheet].each do |key|
-        if filtered_params[key].is_a?(Array)
-          filtered_params.delete(key) if filtered_params[key].all?(&:blank?)
-        else
-          filtered_params.delete(key) if filtered_params[key].blank?
-        end
-      end
+      # 提取图片/文件参数，用于后续单独处理，避免 Sku.new(params) 可能引起的自动分配
+      images = filtered_params.delete(:images)
+      manual = filtered_params.delete(:manual)
+      spec_sheet = filtered_params.delete(:spec_sheet)
 
       @sku = Sku.new(filtered_params)
       if @sku.save
+        # 显式使用 attach 附加图片/文件
+        @sku.images.attach(images) if images.present?
+        @sku.manual.attach(manual) if manual.present?
+        @sku.spec_sheet.attach(spec_sheet) if spec_sheet.present?
+
         # 更新图片顺序
-        if params[:sku][:image_positions].present?
-          params[:sku][:image_positions].each do |id, pos|
-            @sku.images.find_by(id: id)&.update_column(:position, pos.to_i)
+        if image_positions.present?
+          image_positions.each do |id, pos|
+            @sku.images_attachments.find_by(id: id)&.update_column(:position, pos.to_i)
           end
         end
         redirect_to admin_skus_path, notice: "SKU 创建成功。"
@@ -129,21 +134,28 @@ class Admin::SkusController < Admin::BaseController
   def update
     begin
       filtered_params = sku_params
+      # 提取图片位置信息，并从 filtered_params 中删除，防止 UnknownAttributeError
+      image_positions = filtered_params.delete(:image_positions)
+
       # 如果用户在编辑时没有上传新文件，从 params 中剔除对应键，防止覆盖旧文件
       # 注意：不要过滤 position 字段，因为 0.blank? 是 true
-      [:images, :manual, :spec_sheet].each do |key|
-        if filtered_params[key].is_a?(Array)
-          filtered_params.delete(key) if filtered_params[key].all?(&:blank?)
-        else
-          filtered_params.delete(key) if filtered_params[key].blank?
-        end
-      end
+      # 注意：对于 images，如果使用了 config.active_storage.replace_on_assign_to_many = false
+      # 那么上传新图片会附加到旧图片。如果上传的是空数组，则不进行任何操作。
+      # 提取图片/文件参数，用于后续单独处理，避免 update 方法的全量替换行为
+      images = filtered_params.delete(:images)
+      manual = filtered_params.delete(:manual)
+      spec_sheet = filtered_params.delete(:spec_sheet)
 
       if @sku.update(filtered_params)
+        # 显式使用 attach 附加图片，确保不替换旧图片
+        @sku.images.attach(images) if images.present?
+        @sku.manual.attach(manual) if manual.present?
+        @sku.spec_sheet.attach(spec_sheet) if spec_sheet.present?
+
         # 更新图片顺序
-        if params[:sku][:image_positions].present?
-          params[:sku][:image_positions].each do |id, pos|
-            @sku.images.find_by(id: id)&.update_column(:position, pos.to_i)
+        if image_positions.present?
+          image_positions.each do |id, pos|
+            @sku.images_attachments.find_by(id: id)&.update_column(:position, pos.to_i)
           end
         end
         redirect_to admin_skus_path, notice: "SKU 更新成功。"

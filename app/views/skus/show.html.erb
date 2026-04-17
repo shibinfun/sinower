@@ -26,29 +26,42 @@
     <div class="lg:col-span-5 relative z-10 space-y-8" x-data="{ 
       activeImage: 0, 
       isZoomed: false, 
-      bgPosX: 0, 
-      bgPosY: 0,
+      zoomX: 50, 
+      zoomY: 50,
+      containerWidth: 0,
+      containerHeight: 0,
+      init() {
+        this.$nextTick(() => {
+          this.updateDimensions();
+        });
+        window.addEventListener('resize', () => this.updateDimensions());
+      },
+      updateDimensions() {
+        const rect = this.$refs.zoomContainer.getBoundingClientRect();
+        this.containerWidth = rect.width;
+        this.containerHeight = rect.height;
+      },
       handleZoom(e) {
-        const container = e.currentTarget;
-        const { left, top, width, height } = container.getBoundingClientRect();
-        const x = e.clientX - left;
-        const y = e.clientY - top;
+        const rect = this.$refs.zoomContainer.getBoundingClientRect();
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+        const x = clientX - rect.left;
+        const y = clientY - rect.top;
         
-        if (x < 0 || y < 0 || x > width || y > height) {
-          this.isZoomed = false;
-          return;
-        }
-
+        // 限制在边界内
+        this.zoomX = Math.max(0, Math.min(100, (x / rect.width) * 100));
+        this.zoomY = Math.max(0, Math.min(100, (y / rect.height) * 100));
         this.isZoomed = true;
-        this.bgPosX = (x / width) * 100;
-        this.bgPosY = (y / height) * 100;
       }
     }">
       <div class="bg-white rounded-[2.5rem] border border-slate-100 shadow-2xl overflow-hidden group relative">
         <div class="aspect-square relative overflow-hidden bg-slate-50 cursor-zoom-in"
+             x-ref="zoomContainer"
              @mousemove="handleZoom"
              @mouseleave="isZoomed = false"
-             @touchstart="isZoomed = false">
+             @touchstart="handleZoom"
+             @touchmove="handleZoom"
+             @touchend="isZoomed = false">
           <% if @sku.images.attached? %>
             <% @sku.sorted_images.each_with_index do |image, index| %>
               <div x-show="activeImage === <%= index %>" 
@@ -59,12 +72,26 @@
                    class="w-full h-full absolute inset-0">
                 <% begin %>
                   <% variant_url = url_for(image.variant(resize_to_limit: [1200, 1200], saver: { quality: 90 })) %>
+                  <!-- 基础图 -->
                   <%= image_tag variant_url, 
-                                class: "w-full h-full object-contain p-4 transition-transform duration-200 ease-out origin-center", 
-                                style: "background-color: transparent;",
-                                ":style": "isZoomed ? `transform: scale(2.5); transform-origin: ${bgPosX}% ${bgPosY}%` : 'transform: scale(1); transform-origin: center;'" %>
+                                class: "w-full h-full object-contain p-4 transition-opacity", 
+                                ":class": "{ 'opacity-0 duration-200': isZoomed, 'opacity-100 duration-0': !isZoomed }",
+                                style: "background-color: transparent;" %>
+                  
+                  <!-- 放大图 (仅在缩放时显示) -->
+                  <div x-show="isZoomed"
+                       x-transition:enter="transition opacity duration-200"
+                       class="absolute inset-0 z-20 pointer-events-none"
+                       :style="`
+                         background-image: url('<%= variant_url %>');
+                         background-size: 250%;
+                         background-position: ${zoomX}% ${zoomY}%;
+                         background-repeat: no-repeat;
+                         background-color: white;
+                       `">
+                  </div>
                 <% rescue ArgumentError, ActiveStorage::InvariableError %>
-                  <%= image_tag image, class: "w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-1000 ease-in-out", style: "background-color: transparent;" %>
+                  <%= image_tag image, class: "w-full h-full object-contain p-4 transition-transform duration-1000 ease-in-out", style: "background-color: transparent;" %>
                 <% end %>
               </div>
             <% end %>

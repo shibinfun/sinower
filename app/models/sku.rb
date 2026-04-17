@@ -5,7 +5,7 @@ class Sku < ApplicationRecord
   end
   
   def sorted_images
-    images.order(:position, :created_at)
+    images_attachments.includes(:blob).order(:position, :created_at)
   end
   has_one_attached :manual
   has_one_attached :spec_sheet

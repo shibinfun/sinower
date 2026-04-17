@@ -10,33 +10,14 @@
 #   bin/rails db:seed
 #
 
-puts "Seeding warranty PDFs..."
+puts "Seeding users..."
+User.destroy_all
+admin = User.create!(
+  email: '123456@qq.com',
+  password: '123456',
+  password_confirmation: '123456',
+  admin: true
+)
+puts "✓ Created admin user: #{admin.email}"
 
-# Create default warranty PDF records
-WarrantyPdf.find_or_create_by!(pdf_type: 'refrigeration') do |pdf|
-  pdf.name = "Commercial Refrigeration Warranty PDF"
-  pdf.description = "保修文件 - 商业制冷设备"
-end
 
-WarrantyPdf.find_or_create_by!(pdf_type: 'cooking') do |pdf|
-  pdf.name = "Cooking Equipment Warranty PDF"
-  pdf.description = "保修文件 - 烹饪设备"
-end
-
-WarrantyPdf.find_or_create_by!(pdf_type: 'stainless') do |pdf|
-  pdf.name = "Stainless Steel Equipment Warranty PDF"
-  pdf.description = "保修文件 - 不锈钢设备"
-end
-
-WarrantyPdf.find_or_create_by!(pdf_type: 'claim_form') do |pdf|
-  pdf.name = "Submit Warranty Claim Form"
-  pdf.description = "保修索赔申请表"
-end
-
-WarrantyPdf.find_or_create_by!(pdf_type: 'spare_parts') do |pdf|
-  pdf.name = "Request Spare Parts Form"
-  pdf.description = "备件申请表"
-end
-
-puts "✓ Created 5 warranty PDF records"
-puts "Done seeding!"
