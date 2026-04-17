@@ -18,8 +18,6 @@ Rails.application.routes.draw do
       resources :skus do
         collection do
           get :export
-          get :import_page
-          post :import
           patch :update_positions
         end
         member do

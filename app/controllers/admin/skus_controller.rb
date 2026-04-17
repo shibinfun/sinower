@@ -31,17 +31,6 @@ class Admin::SkusController < Admin::BaseController
     send_data generate_csv(@skus), filename: "all-skus-#{Date.today}.csv"
   end
 
-  def import_page
-  end
-
-  def import
-    if params[:file].present?
-      result = SkuImporter.import(params[:file])
-      redirect_to admin_skus_path, notice: "导入完成：成功 #{result[:success]}，失败 #{result[:failed]}"
-    else
-      redirect_to import_page_admin_skus_path, alert: "请上传 CSV 文件。"
-    end
-  end
 
   def update_positions
     if params[:positions].present?
