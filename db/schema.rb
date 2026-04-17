@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_04_15_031837) do
+ActiveRecord::Schema[8.0].define(version: 2026_04_17_001117) do
   create_table "a_sku_details", force: :cascade do |t|
     t.string "net_capacity"
     t.string "unit_dimensions"
@@ -39,7 +39,9 @@ ActiveRecord::Schema[8.0].define(version: 2026_04_15_031837) do
     t.bigint "record_id", null: false
     t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
+    t.integer "position", default: 0
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
+    t.index ["position"], name: "index_active_storage_attachments_on_position"
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
   end
 

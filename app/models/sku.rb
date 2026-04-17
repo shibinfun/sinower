@@ -1,6 +1,12 @@
 class Sku < ApplicationRecord
   belongs_to :category
-  has_many_attached :images
+  has_many_attached :images do |attachable|
+    attachable.variant :thumb, resize_to_limit: [100, 100]
+  end
+  
+  def sorted_images
+    images.order(:position, :created_at)
+  end
   has_one_attached :manual
   has_one_attached :spec_sheet
 

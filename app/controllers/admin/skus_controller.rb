@@ -107,6 +107,12 @@ class Admin::SkusController < Admin::BaseController
 
       @sku = Sku.new(filtered_params)
       if @sku.save
+        # 更新图片顺序
+        if params[:sku][:image_positions].present?
+          params[:sku][:image_positions].each do |id, pos|
+            @sku.images.find_by(id: id)&.update_column(:position, pos.to_i)
+          end
+        end
         redirect_to admin_skus_path, notice: "SKU 创建成功。"
       else
         Rails.logger.error "SKU Create Failed: #{@sku.errors.full_messages.join(', ')}"
@@ -134,6 +140,12 @@ class Admin::SkusController < Admin::BaseController
       end
 
       if @sku.update(filtered_params)
+        # 更新图片顺序
+        if params[:sku][:image_positions].present?
+          params[:sku][:image_positions].each do |id, pos|
+            @sku.images.find_by(id: id)&.update_column(:position, pos.to_i)
+          end
+        end
         redirect_to admin_skus_path, notice: "SKU 更新成功。"
       else
         Rails.logger.error "SKU Update Failed: #{@sku.errors.full_messages.join(', ')}"
@@ -241,6 +253,7 @@ class Admin::SkusController < Admin::BaseController
   def sku_params
     params.require(:sku).permit(
       :name, :category_id, :price, :stock, :status, :position, :manual, :spec_sheet, :skuable_type, images: [],
+      image_positions: {},
       skuable_attributes: [
         :id, :net_capacity, :unit_dimensions, :packaging_dimensions,
         :voltage_frequency, :temp_range, :standard_features, :standard_features_zh,

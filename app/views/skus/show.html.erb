@@ -50,7 +50,7 @@
              @mouseleave="isZoomed = false"
              @touchstart="isZoomed = false">
           <% if @sku.images.attached? %>
-            <% @sku.images.each_with_index do |image, index| %>
+            <% @sku.sorted_images.each_with_index do |image, index| %>
               <div x-show="activeImage === <%= index %>" 
                    x-cloak
                    x-transition:enter="transition ease-out duration-500"
@@ -86,7 +86,7 @@
       <!-- 缩略图列表 -->
       <% if @sku.images.attached? && @sku.images.count > 1 %>
         <div class="flex flex-wrap gap-4 px-2">
-          <% @sku.images.each_with_index do |image, index| %>
+          <% @sku.sorted_images.each_with_index do |image, index| %>
             <button @click="activeImage = <%= index %>" 
                     :class="activeImage === <%= index %> ? 'ring-2 ring-blue-600 border-transparent shadow-lg' : 'border-slate-100 hover:border-blue-300'"
                     class="w-20 h-20 rounded-2xl border-2 bg-white overflow-hidden transition-all duration-300 group">
