@@ -33,14 +33,20 @@ class Admin::SkusController < Admin::BaseController
 
 
   def update_positions
-    if params[:positions].present?
-      params[:positions].each do |sku_id, position|
-        Sku.find(sku_id).update(position: position)
-      end
-      redirect_back fallback_location: admin_skus_path, notice: "排序权重已更新。"
-    else
-      redirect_back fallback_location: admin_skus_path, alert: "未提供有效的排序数据。"
+    unless params[:positions].present?
+      return redirect_back fallback_location: admin_skus_path, alert: "未提供有效的排序数据。"
     end
+
+    positions = params[:positions].to_unsafe_h
+                                  .transform_keys { |k| Integer(k) rescue nil }
+                                  .transform_values { |v| Integer(v) rescue nil }
+                                  .reject { |k, v| k.nil? || v.nil? || v < 0 || v > 999_999 }
+
+    positions.each do |sku_id, position|
+      Sku.where(id: sku_id).update_all(position: position)
+    end
+
+    redirect_back fallback_location: admin_skus_path, notice: "排序权重已更新。"
   end
 
   def show
@@ -101,12 +107,7 @@ class Admin::SkusController < Admin::BaseController
         @sku.manual.attach(manual) if manual.present?
         @sku.spec_sheet.attach(spec_sheet) if spec_sheet.present?
 
-        # 更新图片顺序
-        if image_positions.present?
-          image_positions.each do |id, pos|
-            @sku.images_attachments.find_by(id: id)&.update_column(:position, pos.to_i)
-          end
-        end
+        update_image_positions(@sku, image_positions)
         redirect_to admin_skus_path, notice: "SKU 创建成功。"
       else
         Rails.logger.error "SKU Create Failed: #{@sku.errors.full_messages.join(', ')}"
@@ -141,12 +142,7 @@ class Admin::SkusController < Admin::BaseController
         @sku.manual.attach(manual) if manual.present?
         @sku.spec_sheet.attach(spec_sheet) if spec_sheet.present?
 
-        # 更新图片顺序
-        if image_positions.present?
-          image_positions.each do |id, pos|
-            @sku.images_attachments.find_by(id: id)&.update_column(:position, pos.to_i)
-          end
-        end
+        update_image_positions(@sku, image_positions)
         redirect_to admin_skus_path, notice: "SKU 更新成功。"
       else
         Rails.logger.error "SKU Update Failed: #{@sku.errors.full_messages.join(', ')}"
@@ -244,6 +240,18 @@ class Admin::SkusController < Admin::BaseController
         
         csv << row + detail_row
       end
+    end
+  end
+
+  def update_image_positions(sku, image_positions)
+    return unless image_positions.present?
+
+    valid_ids = sku.images_attachments.pluck(:id)
+    image_positions.each do |id, pos|
+      parsed_id = Integer(id) rescue nil
+      next unless parsed_id && valid_ids.include?(parsed_id)
+      parsed_pos = (Integer(pos) rescue 0).clamp(0, 999_999)
+      ActiveStorage::Attachment.where(id: parsed_id).update_all(position: parsed_pos)
     end
   end
 
