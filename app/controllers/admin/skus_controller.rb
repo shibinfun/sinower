@@ -4,6 +4,7 @@ class Admin::SkusController < Admin::BaseController
   def index
     @q = params[:q]
     @category_id = params[:category_id]
+    session[:sku_list_category_id] = @category_id
 
     @skus = Sku.all.preload(:skuable).includes(category: :parent, images_attachments: :blob).order(position: :desc, created_at: :desc)
 
@@ -108,7 +109,7 @@ class Admin::SkusController < Admin::BaseController
         @sku.spec_sheet.attach(spec_sheet) if spec_sheet.present?
 
         update_image_positions(@sku, image_positions)
-        redirect_to admin_skus_path, notice: "SKU 创建成功。"
+        redirect_to sku_list_path, notice: "SKU 创建成功。"
       else
         Rails.logger.error "SKU Create Failed: #{@sku.errors.full_messages.join(', ')}"
         render :new, status: :unprocessable_entity
@@ -143,7 +144,7 @@ class Admin::SkusController < Admin::BaseController
         @sku.spec_sheet.attach(spec_sheet) if spec_sheet.present?
 
         update_image_positions(@sku, image_positions)
-        redirect_to admin_skus_path, notice: "SKU 更新成功。"
+        redirect_to sku_list_path, notice: "SKU 更新成功。"
       else
         Rails.logger.error "SKU Update Failed: #{@sku.errors.full_messages.join(', ')}"
         render :edit, status: :unprocessable_entity
@@ -158,11 +159,11 @@ class Admin::SkusController < Admin::BaseController
 
   def destroy
     @sku.destroy
-    redirect_to admin_skus_path, notice: "SKU 已删除。"
+    redirect_to sku_list_path, notice: "SKU 已删除。"
   end
 
   def delete_image
-    return redirect_to admin_skus_path, alert: "SKU 未找到。" unless @sku
+    return redirect_to sku_list_path, alert: "SKU 未找到。" unless @sku
     
     image = @sku.images.find(params[:image_id])
     image.purge
@@ -174,13 +175,13 @@ class Admin::SkusController < Admin::BaseController
   end
 
   def delete_manual
-    return redirect_to admin_skus_path, alert: "SKU 未找到。" unless @sku
+    return redirect_to sku_list_path, alert: "SKU 未找到。" unless @sku
     @sku.manual.purge if @sku.manual.attached?
     redirect_back fallback_location: edit_admin_sku_path(@sku), notice: "技术手册已删除。"
   end
 
   def delete_spec_sheet
-    return redirect_to admin_skus_path, alert: "SKU 未找到。" unless @sku
+    return redirect_to sku_list_path, alert: "SKU 未找到。" unless @sku
     @sku.spec_sheet.purge if @sku.spec_sheet.attached?
     redirect_back fallback_location: edit_admin_sku_path(@sku), notice: "规格表已删除。"
   end
@@ -241,6 +242,11 @@ class Admin::SkusController < Admin::BaseController
         csv << row + detail_row
       end
     end
+  end
+
+  def sku_list_path
+    category_id = session[:sku_list_category_id]
+    category_id.present? ? admin_skus_path(category_id: category_id) : admin_skus_path
   end
 
   def update_image_positions(sku, image_positions)
