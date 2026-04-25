@@ -1,0 +1,35 @@
+<div x-data="{ 
+       show: false,
+       accept() {
+         localStorage.setItem('cookie_accepted', 'true');
+         this.show = false;
+       }
+     }" 
+     x-init="show = !localStorage.getItem('cookie_accepted')"
+     x-show="show"
+     x-transition:enter="transition ease-out duration-300"
+     x-transition:enter-start="translate-y-full opacity-0"
+     x-transition:enter-end="translate-y-0 opacity-100"
+     x-transition:leave="transition ease-in duration-300"
+     x-transition:leave-start="translate-y-0 opacity-100"
+     x-transition:leave-end="translate-y-full opacity-0"
+     class="fixed bottom-0 left-0 right-0 z-[90] p-4 sm:p-6"
+     x-cloak>
+  <div class="max-w-screen-xl mx-auto">
+    <div class="bg-slate-900 text-white rounded-3xl shadow-2xl border border-white/10 p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6 backdrop-blur-md bg-slate-900/95">
+      <div class="flex-1 text-center sm:text-left">
+        <p class="text-slate-300 font-medium leading-relaxed">
+          <%= t('cookie_banner.message') %>
+          <button @click="$dispatch('open-privacy')" class="text-white hover:text-blue-400 underline underline-offset-4 transition-colors font-bold ml-1">
+            <%= t('cookie_banner.privacy_policy') %>
+          </button>
+        </p>
+      </div>
+      <div class="flex items-center gap-4">
+        <button @click="accept()" class="px-8 py-3 bg-white hover:bg-slate-100 text-slate-900 rounded-2xl font-black transition-all shadow-lg active:scale-95 whitespace-nowrap">
+          <%= t('cookie_banner.accept') %>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

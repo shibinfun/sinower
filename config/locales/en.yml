@@ -320,7 +320,7 @@ en:
     introduction: "Your privacy is important to us. This Privacy Policy explains how we collect, use, and protect your information."
     data_collection:
       title: "What Information We Collect"
-      content: "We collect information you provide through our contact and warranty forms, including your name, email address, phone number, and equipment details."
+      content: "We collect information you provide through our contact and warranty forms, including your name, email address, phone number, and equipment details. We also collect IP addresses for analysis and security purposes."
     usage:
       title: "How We Use Your Information"
       content: "The information we collect is used to respond to your inquiries, provide technical support, process warranty claims, and improve our services."
@@ -334,3 +334,8 @@ en:
       title: "Contact Us to Delete"
       content: "To request data deletion or if you have questions about our privacy practices, please contact us at support@sinowerus.com."
     close: "Close"
+
+  cookie_banner:
+    message: "We collect IP addresses for analysis and security purposes."
+    accept: "Accept"
+    privacy_policy: "Privacy Policy"
