@@ -173,6 +173,9 @@ zh-CN:
         message: "详细内容"
         message_placeholder: "请描述您的需求或问题..."
         submit: "立即发送消息"
+        privacy_policy_agree: "我已阅读并同意"
+        privacy_policy_link: "隐私政策"
+        privacy_error: "请同意隐私政策以继续。"
       address_title: "办公地址"
       phone_title: "服务电话"
       email_title: "官方邮箱"
@@ -268,6 +271,9 @@ zh-CN:
         phone: "手机号"
         email: "邮箱"
         submit: "提交反馈"
+        privacy_policy_agree: "我已阅读并同意"
+        privacy_policy_link: "隐私政策"
+        privacy_error: "请同意隐私政策以继续。"
         placeholder:
           subject: "请输入主题"
           model_number: "请输入产品型号"
@@ -314,3 +320,23 @@ zh-CN:
     phone: "1 (470) 392-7672"
     email: "info@sinowerus.com"
     support_email: "support@sinowerus.com"
+
+  privacy_policy:
+    title: "隐私政策"
+    introduction: "您的隐私对我们非常重要。本隐私政策解释了我们如何收集、使用和保护您的信息。"
+    data_collection:
+      title: "我们收集什么信息"
+      content: "我们收集您通过联系和保修表单提供的信息，包括您的姓名、电子邮件地址、电话号码和设备详细信息。"
+    usage:
+      title: "我们如何使用您的信息"
+      content: "我们收集的信息用于回复您的咨询、提供技术支持、处理保修索赔以及改进我们的服务。"
+    sharing:
+      title: "信息共享"
+      content: "我们不会出售您的个人信息。我们可能仅为了完成您的服务请求而与授权服务提供商共享信息。"
+    deletion:
+      title: "如何删除您的数据"
+      content: "您有权要求删除您的个人数据。"
+    contact_us:
+      title: "联系我们删除"
+      content: "要请求删除数据或如果您对我们的隐私做法有任何疑问，请通过 support@sinowerus.com 与我们联系。"
+    close: "关闭"

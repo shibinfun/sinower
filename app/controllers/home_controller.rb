@@ -17,6 +17,11 @@ class HomeController < ApplicationController
   end
 
   def create_contact
+    if params[:privacy_agreement] != "1"
+      redirect_to contact_path, alert: t('home.contact.form.privacy_error')
+      return
+    end
+
     @contact_message = ContactMessage.new(contact_params)
     if @contact_message.save
       begin
@@ -40,6 +45,11 @@ class HomeController < ApplicationController
   end
 
   def create_warranty_inquiry
+    if params[:privacy_agreement_warranty] != "1"
+      redirect_to warranty_path, alert: t('home.warranty.form.privacy_error')
+      return
+    end
+
     @warranty_inquiry = WarrantyInquiry.new(warranty_inquiry_params)
     if @warranty_inquiry.save
       begin

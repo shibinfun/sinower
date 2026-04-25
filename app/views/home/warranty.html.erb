@@ -47,7 +47,7 @@
   </div>
 </div>
 
-<div class="bg-white py-24" x-data="{ openModal: false, productType: '' }">
+<div class="bg-white py-24" x-data="{ openModal: false, productType: '', agreed: false }">
   <div class="max-w-screen-xl mx-auto px-6">
     <!-- 保修覆盖范围表格 -->
     <div class="mb-32">
@@ -260,7 +260,7 @@
         </button>
       </div>
       
-      <%= form_with model: @warranty_inquiry, url: warranty_inquiry_path, class: "p-8 space-y-6 max-h-[70vh] overflow-y-auto" do |f| %>
+      <%= form_with model: @warranty_inquiry, url: warranty_inquiry_path, class: "p-8 space-y-6 max-h-[70vh] overflow-y-auto", "@submit.prevent": "if(agreed) $el.submit(); else alert('#{t('home.warranty.form.privacy_error')}')" do |f| %>
         <% if @warranty_inquiry&.errors&.any? %>
           <div class="p-4 bg-red-50 border border-red-100 rounded-xl text-red-600 text-sm font-medium">
             <ul class="list-disc pl-5 space-y-1">
@@ -304,8 +304,22 @@
           </div>
         </div>
 
+        <div class="flex items-start space-x-3 pt-2">
+          <div class="flex items-center h-5">
+            <%= check_box_tag :privacy_agreement_warranty, "1", false, x_model: "agreed", class: "w-5 h-5 text-blue-600 border-slate-300 rounded focus:ring-blue-500 cursor-pointer" %>
+          </div>
+          <div class="text-sm">
+            <label for="privacy_agreement_warranty" class="font-medium text-slate-600">
+              <%= t('home.warranty.form.privacy_policy_agree') %>
+              <button type="button" @click="$dispatch('open-privacy')" class="text-blue-600 hover:text-blue-700 font-bold underline underline-offset-4">
+                <%= t('home.warranty.form.privacy_policy_link') %>
+              </button>
+            </label>
+          </div>
+        </div>
+
         <div class="pt-4">
-          <%= f.submit t('home.warranty.form.submit'), class: "w-full py-4 bg-slate-900 hover:bg-slate-800 text-white rounded-2xl font-black tracking-tight transition-all shadow-xl shadow-slate-200" %>
+          <%= f.submit t('home.warranty.form.submit'), class: "w-full py-4 bg-slate-900 hover:bg-slate-800 text-white rounded-2xl font-black tracking-tight transition-all shadow-xl shadow-slate-200 disabled:opacity-50 disabled:cursor-not-allowed", ":disabled": "!agreed" %>
         </div>
       <% end %>
     </div>
