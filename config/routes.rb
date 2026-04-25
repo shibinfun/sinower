@@ -47,9 +47,17 @@ Rails.application.routes.draw do
 
     resources :categories, only: [:index, :show]
     resources :skus, only: [:show]
+    
+    devise_scope :user do
+      get 'otp_verification', to: 'users/sessions#otp_verification'
+      post 'verify_otp', to: 'users/sessions#verify_otp'
+      post 'resend_otp', to: 'users/sessions#resend_otp'
+    end
   end
 
-  devise_for :users
+  devise_for :users, controllers: {
+    sessions: 'users/sessions'
+  }
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check
 
