@@ -105,14 +105,16 @@ class Rack::Attack
     match_data = env["rack.attack.match_data"]
     match_data = {} unless match_data.is_a?(Hash)
 
-    limit = match_data[:limit] || 0
-    period = match_data[:period] || 60
+    limit      = (match_data[:limit] || 0).to_i
+    period_secs = (match_data[:period] || 60).to_i
+    count      = (match_data[:count] || limit).to_i
+    epoch_time = now.to_i
 
     headers = {
-      "RateLimit-Limit" => limit.to_s,
-      "RateLimit-Remaining" => "0",
-      "RateLimit-Reset" => (now + (period - now.to_i % period)).to_s,
-      "Content-Type" => "text/html",
+      "RateLimit-Limit"     => limit.to_s,
+      "RateLimit-Remaining" => [limit - count, 0].max.to_s,
+      "RateLimit-Reset"     => (epoch_time + (period_secs - epoch_time % period_secs)).to_s,
+      "Content-Type"        => "text/html",
     }
     # 根据路径返回不同的提示消息
     path = env['PATH_INFO']
