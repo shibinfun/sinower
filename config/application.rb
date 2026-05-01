@@ -40,6 +40,6 @@ module Sinower
     config.active_storage.replace_on_assign_to_many = false
     config.active_storage.variant_processor = :vips
     config.active_job.queue_adapter = :solid_queue
-    config.middleware.use Rack::Attack
+    config.middleware.use Rack::Attack unless Rails.env.test?
   end
 end

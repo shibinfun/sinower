@@ -22,7 +22,10 @@ class Rack::Attack
     '/wp/wp-includes', '/news/wp-includes', '/2018/wp-includes',
     '/2019/wp-includes', '/shop/wp-includes', '/wp1/wp-includes',
     '/test/wp-includes', '/media/wp-includes', '/wp2/wp-includes',
-    '/site/wp-includes', '/cms/wp-includes', '/sito/wp-includes'
+    '/site/wp-includes', '/cms/wp-includes', '/sito/wp-includes',
+    '/apple-touch-icon.png', '/apple-touch-icon-precomposed.png',
+    '/apple-app-site-association', '/.well-known/apple-app-site-association',
+    '/product-page/', '/category/', '/_api/public-csm-server'
   ]
 
   blocklist('fail2ban scanners') do |req|

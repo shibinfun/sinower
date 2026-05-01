@@ -72,4 +72,23 @@ Rails.application.routes.draw do
   get "/favicon.ico", to: ->(env) { [204, {}, [""]] }
   get "/sitemap.xml", to: ->(env) { [404, {}, ["Not Found"]] }
   get "/.well-known/traffic-advice", to: ->(env) { [404, {}, ["Not Found"]] }
+  
+  # New routes to handle common bot/crawler requests
+  get "/apple-touch-icon.png", to: ->(env) { [404, {}, [""]] }
+  get "/apple-touch-icon-precomposed.png", to: ->(env) { [404, {}, [""]] }
+  get "/apple-app-site-association", to: ->(env) { [404, {}, [""]] }
+  get "/.well-known/apple-app-site-association", to: ->(env) { [404, {}, [""]] }
+  get "/atom.xml", to: ->(env) { [404, {}, [""]] }
+  get "/.git/config", to: ->(env) { [404, {}, [""]] }
+  get "/xmlrpc.php", to: ->(env) { [404, {}, [""]] }
+  match "/wp-includes/*path", to: ->(env) { [404, {}, [""]] }, via: :all
+  match "/wp-json/*path", to: ->(env) { [404, {}, [""]] }, via: :all
+  match "/blog/wp-includes/*path", to: ->(env) { [404, {}, [""]] }, via: :all
+  match "/test/wp-includes/*path", to: ->(env) { [404, {}, [""]] }, via: :all
+  match "/wp2/wp-includes/*path", to: ->(env) { [404, {}, [""]] }, via: :all
+  
+  # Handle legacy paths
+  match "/product-page/*path", to: ->(env) { [404, {}, [""]] }, via: :all
+  match "/category/*path", to: ->(env) { [404, {}, [""]] }, via: :all
+  match "/_api/*path", to: ->(env) { [404, {}, [""]] }, via: :all
 end

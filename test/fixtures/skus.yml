@@ -2,20 +2,10 @@
 
 one:
   name: MyString
-  net_capacity: MyString
-  unit_dimensions: MyString
-  packaging_dimensions: MyString
-  voltage_frequency: MyString
-  temp_range: MyString
-  standard_features: MyText
   category: one
+  skuable: one (ASkuDetail)
 
 two:
   name: MyString
-  net_capacity: MyString
-  unit_dimensions: MyString
-  packaging_dimensions: MyString
-  voltage_frequency: MyString
-  temp_range: MyString
-  standard_features: MyText
   category: two
+  skuable: two (ASkuDetail)
