@@ -103,16 +103,23 @@ class Rack::Attack
   self.throttled_responder = lambda do |env|
     now = Time.now.utc
     match_data = env["rack.attack.match_data"]
-    match_data = {} unless match_data.is_a?(Hash)
+    match_data = match_data.is_a?(Hash) ? match_data : {}
 
-    limit = match_data[:limit] || 0
-    period = match_data[:period] || 60
+    limit       = match_data[:limit].to_i
+    period_secs = match_data[:period].to_i.nonzero? || 60
+    count       = match_data[:count].to_i
+    epoch_time  = match_data[:epoch_time].to_i.nonzero? || now.to_i
+
+    # Calculate the timestamp when the current window resets
+    window_start = epoch_time - (epoch_time % period_secs)
+    reset_at     = window_start + period_secs
+    remaining    = [ limit - count, 0 ].max
 
     headers = {
-      "RateLimit-Limit" => limit.to_s,
-      "RateLimit-Remaining" => "0",
-      "RateLimit-Reset" => (now + (period - now.to_i % period)).to_s,
-      "Content-Type" => "text/html",
+      "RateLimit-Limit"     => limit.to_s,
+      "RateLimit-Remaining" => remaining.to_s,
+      "RateLimit-Reset"     => reset_at.to_s,
+      "Content-Type"        => "text/html",
     }
     # 根据路径返回不同的提示消息
     path = env['PATH_INFO']
