@@ -101,18 +101,22 @@ class Rack::Attack
   ### 自定义响应 ###
   # 当被限流时返回429状态码
   self.throttled_responder = lambda do |env|
-    now = Time.now.utc
-    match_data = env["rack.attack.match_data"]
-    match_data = {} unless match_data.is_a?(Hash)
+    matched_rule = env["rack.attack.matched"]
+    throttle_data = env["rack.attack.throttle_data"]
+    match_data = (throttle_data.is_a?(Hash) && throttle_data[matched_rule]) || {}
 
-    limit = match_data[:limit] || 0
-    period = match_data[:period] || 60
+    limit      = match_data[:limit] || 0
+    period     = (match_data[:period] || 60).to_i
+    count      = match_data[:count] || 0
+    epoch_time = match_data[:epoch_time] || Time.now.to_i
+
+    reset_at = epoch_time + period - (epoch_time % period)
 
     headers = {
-      "RateLimit-Limit" => limit.to_s,
-      "RateLimit-Remaining" => "0",
-      "RateLimit-Reset" => (now + (period - now.to_i % period)).to_s,
-      "Content-Type" => "text/html",
+      "RateLimit-Limit"     => limit.to_s,
+      "RateLimit-Remaining" => [limit - count, 0].max.to_s,
+      "RateLimit-Reset"     => reset_at.to_s,
+      "Content-Type"        => "text/html",
     }
     # 根据路径返回不同的提示消息
     path = env['PATH_INFO']
