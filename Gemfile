@@ -1,7 +1,9 @@
 source "https://rubygems.org"
 
+ruby "3.4.9"
+
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 8.0.4"
+gem "rails", "8.1.3"
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
 gem "propshaft"
 # Use PostgreSQL as the database for production
@@ -52,6 +54,7 @@ gem "devise"
 gem "tailwindcss-rails"
 gem "kaminari"
 gem "rack-attack"
+gem "sitemap_generator"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
