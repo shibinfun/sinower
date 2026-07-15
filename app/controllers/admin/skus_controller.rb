@@ -262,12 +262,14 @@ class Admin::SkusController < Admin::BaseController
   end
 
   def set_sku
-    @sku = Sku.find(params[:id])
+    @sku = Sku.find_by(slug: params[:id]) || Sku.find(params[:id])
   end
 
   def sku_params
     params.require(:sku).permit(
-      :name, :category_id, :price, :stock, :status, :position, :manual, :spec_sheet, :skuable_type, images: [],
+      :name, :category_id, :price, :stock, :status, :position, :manual, :spec_sheet, :skuable_type, :slug,
+      :seo_title, :seo_title_zh, :seo_keywords, :seo_keywords_zh, :seo_description, :seo_description_zh,
+      images: [],
       image_positions: {},
       skuable_attributes: [
         :id, :net_capacity, :unit_dimensions, :packaging_dimensions,

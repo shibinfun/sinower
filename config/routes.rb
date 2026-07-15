@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
   scope "(:locale)", locale: /en|zh-CN/ do
-    get "skus/show"
-    get "categories/index"
-    get "categories/show"
+    get "robots.txt", to: "home#robots"
+    get "Robots.txt", to: "home#robots"
+    get "sitemap.xml", to: "home#sitemap"
+    get "Sitemap.xml", to: "home#sitemap"
     root "home#index"
     get "about", to: "home#about"
     get "all_products", to: "home#all_products"
@@ -14,8 +15,9 @@ Rails.application.routes.draw do
     namespace :admin do
       root to: "dashboard#index"
       get "dashboard", to: "dashboard#index"
-      resources :categories
-      resources :skus do
+      resource :settings, only: [:show, :update]
+      resources :categories, param: :id
+      resources :skus, param: :id do
         collection do
           get :export
           patch :update_positions
@@ -45,8 +47,8 @@ Rails.application.routes.draw do
       get kind, to: "channels#index", defaults: { kind: kind }, as: "#{kind}_channel"
     end
 
-    resources :categories, only: [:index, :show]
-    resources :skus, only: [:show]
+    resources :categories, only: [:index, :show], param: :slug
+    resources :skus, only: [:show], param: :slug
     
   end
 

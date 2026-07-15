@@ -1,0 +1,62 @@
+<% content_for :admin_title, "系统配置" %>
+
+<div class="mb-6">
+  <p class="text-slate-600">在此配置网站的 SEO TDK、Robots.txt 和 Sitemap。</p>
+</div>
+
+<%= form_with url: admin_settings_path, method: :patch, local: true do |f| %>
+  <div class="space-y-6">
+    <!-- SEO TDK Section -->
+    <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+      <div class="border-b border-slate-100 bg-slate-50/50 px-6 py-4">
+        <h2 class="font-semibold text-slate-800">首页 SEO 配置 (TDK)</h2>
+      </div>
+      <div class="p-6 space-y-4">
+        <div>
+          <%= f.label "settings[seo_title]", "首页标题 (Title)", class: "block text-sm font-medium text-slate-700 mb-1" %>
+          <%= f.text_field "settings[seo_title]", value: @settings[:seo_title], class: "block w-full rounded-lg border-slate-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm" %>
+        </div>
+        <div>
+          <%= f.label "settings[seo_keywords]", "首页关键词 (Keywords)", class: "block text-sm font-medium text-slate-700 mb-1" %>
+          <%= f.text_field "settings[seo_keywords]", value: @settings[:seo_keywords], class: "block w-full rounded-lg border-slate-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm" %>
+        </div>
+        <div>
+          <%= f.label "settings[seo_description]", "首页描述 (Description)", class: "block text-sm font-medium text-slate-700 mb-1" %>
+          <%= f.text_area "settings[seo_description]", value: @settings[:seo_description], rows: 3, class: "block w-full rounded-lg border-slate-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm" %>
+        </div>
+      </div>
+    </div>
+
+    <!-- Robots.txt Section -->
+    <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+      <div class="border-b border-slate-100 bg-slate-50/50 px-6 py-4">
+        <h2 class="font-semibold text-slate-800">Robots.txt 配置</h2>
+      </div>
+      <div class="p-6">
+        <div>
+          <%= f.label "settings[robots_txt]", "Robots.txt 内容", class: "block text-sm font-medium text-slate-700 mb-1" %>
+          <%= f.text_area "settings[robots_txt]", value: @settings[:robots_txt], rows: 5, class: "font-mono block w-full rounded-lg border-slate-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm" %>
+          <p class="mt-2 text-xs text-slate-500">此配置将应用于 /robots.txt 接口。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sitemap Section -->
+    <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+      <div class="border-b border-slate-100 bg-slate-50/50 px-6 py-4">
+        <h2 class="font-semibold text-slate-800">Sitemap.xml 配置</h2>
+      </div>
+      <div class="p-6">
+        <div>
+          <%= f.label "settings[sitemap]", "Sitemap XML 内容", class: "block text-sm font-medium text-slate-700 mb-1" %>
+          <%= f.text_area "settings[sitemap]", value: @settings[:sitemap], rows: 10, class: "font-mono block w-full rounded-lg border-slate-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm", placeholder: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n  ...\n</urlset>" %>
+          <p class="mt-2 text-xs text-slate-500">此配置将应用于 /sitemap.xml 接口。如果为空，将返回 404。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex justify-end">
+      <%= f.submit "保存配置", class: "bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium transition-colors cursor-pointer" %>
+    </div>
+  </div>
+<% end %>

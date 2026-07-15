@@ -45,10 +45,10 @@ class Admin::CategoriesController < Admin::BaseController
   private
 
   def set_category
-    @category = Category.find(params[:id])
+    @category = Category.find_by(slug: params[:id]) || Category.find(params[:id])
   end
 
   def category_params
-    params.require(:category).permit(:name, :name_zh, :parent_id, :category_kind, :hidden)
+    params.require(:category).permit(:name, :name_zh, :parent_id, :category_kind, :hidden, :slug)
   end
 end

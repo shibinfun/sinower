@@ -95,13 +95,13 @@
               <td class="px-6 py-4 text-sm text-slate-600">
                 <% case sku.category.category_kind %>
                 <% when 'a' %>
-                  <span class="block">容积: <%= sku.skuable&.net_capacity %></span>
-                  <span class="block text-xs">温度: <%= sku.skuable&.temp_range %></span>
+                  <span class="block">容积: <%= sku.skuable.try(:net_capacity) %></span>
+                  <span class="block text-xs">温度: <%= sku.skuable.try(:temp_range) %></span>
                 <% when 'b' %>
-                  <span class="block">燃气: <%= sku.skuable&.gas_type %></span>
-                  <span class="block text-xs">热值: <%= sku.skuable&.total_btu %></span>
+                  <span class="block">燃气: <%= sku.skuable.try(:gas_type) %></span>
+                  <span class="block text-xs">热值: <%= sku.skuable.try(:total_btu) %></span>
                 <% when 'c' %>
-                  <span class="block">尺寸: <%= sku.skuable&.product_dimensions %></span>
+                  <span class="block">尺寸: <%= sku.skuable.try(:product_dimensions) %></span>
                 <% end %>
               </td>
               <td class="px-6 py-4 text-sm text-center">

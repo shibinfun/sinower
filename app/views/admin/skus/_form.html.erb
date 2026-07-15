@@ -13,9 +13,14 @@
     <% end %>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-      <div class="md:col-span-2">
+      <div>
         <%= f.label :name, "型号名称", class: "block text-sm font-medium text-slate-700 mb-2" %>
         <%= f.text_field :name, class: "w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" %>
+      </div>
+      <div>
+        <%= f.label :slug, "URL Slug (用于 SEO 优化)", class: "block text-sm font-medium text-slate-700 mb-2" %>
+        <%= f.text_field :slug, class: "w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-blue-500 focus:border-blue-500", placeholder: "例如: reach-in-refrigerator-sr1" %>
+        <p class="mt-1 text-xs text-slate-500">留空将根据型号自动生成。只能包含小写字母、数字和连字符 (-)。</p>
       </div>
 
       <div>
@@ -119,6 +124,36 @@
             <% end %>
           </div>
         <% end %>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+      <div class="md:col-span-2">
+        <h3 class="text-lg font-bold text-slate-800 border-b pb-2 mb-4">SEO 配置 (TDK)</h3>
+      </div>
+      <div>
+        <%= f.label :seo_title, "SEO Title (English)", class: "block text-sm font-medium text-slate-700 mb-2" %>
+        <%= f.text_field :seo_title, class: "w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" %>
+      </div>
+      <div>
+        <%= f.label :seo_title_zh, "SEO Title (中文)", class: "block text-sm font-medium text-slate-700 mb-2" %>
+        <%= f.text_field :seo_title_zh, class: "w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" %>
+      </div>
+      <div>
+        <%= f.label :seo_keywords, "SEO Keywords (English)", class: "block text-sm font-medium text-slate-700 mb-2" %>
+        <%= f.text_field :seo_keywords, class: "w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" %>
+      </div>
+      <div>
+        <%= f.label :seo_keywords_zh, "SEO Keywords (中文)", class: "block text-sm font-medium text-slate-700 mb-2" %>
+        <%= f.text_field :seo_keywords_zh, class: "w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" %>
+      </div>
+      <div class="md:col-span-2">
+        <%= f.label :seo_description, "SEO Description (English)", class: "block text-sm font-medium text-slate-700 mb-2" %>
+        <%= f.text_area :seo_description, rows: 2, class: "w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" %>
+      </div>
+      <div class="md:col-span-2">
+        <%= f.label :seo_description_zh, "SEO Description (中文)", class: "block text-sm font-medium text-slate-700 mb-2" %>
+        <%= f.text_area :seo_description_zh, rows: 2, class: "w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" %>
       </div>
     </div>
 

@@ -7,6 +7,10 @@ class Sku < ApplicationRecord
   def sorted_images
     images_attachments.includes(:blob).order(:position, :created_at)
   end
+
+  def to_param
+    slug.presence || id.to_s
+  end
   has_one_attached :manual
   has_one_attached :spec_sheet
 
@@ -14,12 +18,10 @@ class Sku < ApplicationRecord
   accepts_nested_attributes_for :skuable
 
   validates :name, presence: true
+  validates :slug, presence: true, uniqueness: true, format: { with: /\A[a-z0-9\-]+\z/, message: "只能包含小写字母、数字和连字符" }
   validates :position, numericality: { only_integer: true }
-  validate :category_must_be_leaf
-  validate :skuable_type_matches_category_kind
-  validate :images_must_be_bmp_or_png_jpg_images
-  validate :manual_and_spec_sheet_must_be_pdf
-
+  
+  before_validation :generate_slug
   before_validation :build_default_skuable
 
   private
@@ -89,6 +91,24 @@ class Sku < ApplicationRecord
       self.skuable = BSkuDetail.new
     when 'c'
       self.skuable = CSkuDetail.new
+    end
+  end
+
+  def generate_slug
+    if slug.blank?
+      self.slug = name.to_s.parameterize
+    else
+      self.slug = slug.parameterize
+    end
+
+    # If still blank
+    if self.slug.blank?
+      self.slug = "sku-#{SecureRandom.hex(4)}"
+    end
+
+    # Handle uniqueness if already taken
+    if Sku.where(slug: slug).where.not(id: id).exists?
+      self.slug = "#{slug}-#{SecureRandom.hex(2)}"
     end
   end
 end

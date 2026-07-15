@@ -1,9 +1,15 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
   <head>
-    <title><%= content_for(:title) || "Sinower" %></title>
-    <meta name="description" content="<%= content_for(:meta_description) || "Sinower provides high-quality commercial refrigeration, cooking equipment, and stainless steel solutions for your business." %>">
-    <meta name="keywords" content="<%= content_for(:meta_keywords) || "commercial refrigeration, cooking equipment, stainless steel, Sinower, kitchen solutions" %>">
+    <% 
+      is_home = current_page?(root_path) || current_page?("/")
+      default_title = is_home ? Setting.get('seo_title', 'Sinower') : "Sinower"
+      default_description = is_home ? Setting.get('seo_description', 'Sinower provides high-quality commercial refrigeration, cooking equipment, and stainless steel solutions for your business.') : "Sinower provides high-quality commercial refrigeration, cooking equipment, and stainless steel solutions for your business."
+      default_keywords = is_home ? Setting.get('seo_keywords', 'commercial refrigeration, cooking equipment, stainless steel, Sinower, kitchen solutions') : "commercial refrigeration, cooking equipment, stainless steel, Sinower, kitchen solutions"
+    %>
+    <title><%= content_for(:title) || default_title %></title>
+    <meta name="description" content="<%= content_for(:meta_description) || default_description %>">
+    <meta name="keywords" content="<%= content_for(:meta_keywords) || default_keywords %>">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">

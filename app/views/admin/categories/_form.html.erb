@@ -21,6 +21,12 @@
       <%= f.label :name_zh, "中文名称 (Chinese Name)", class: "block text-sm font-medium text-slate-700 mb-2" %>
       <%= f.text_field :name_zh, class: "w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" %>
     </div>
+    
+    <div class="mb-6">
+      <%= f.label :slug, "URL Slug (用于 SEO 优化)", class: "block text-sm font-medium text-slate-700 mb-2" %>
+      <%= f.text_field :slug, class: "w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-blue-500 focus:border-blue-500", placeholder: "例如: reach-in-refrigerators" %>
+      <p class="mt-1 text-xs text-slate-500">留空将根据英文名称自动生成。只能包含小写字母、数字和连字符 (-)。</p>
+    </div>
 
     <div class="mb-6">
       <%= f.label :category_kind, "所属频道 (a: Refrigeration, b: Cooking, c: Foodservice)", class: "block text-sm font-medium text-slate-700 mb-2" %>

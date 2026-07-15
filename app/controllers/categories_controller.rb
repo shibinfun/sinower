@@ -16,7 +16,15 @@ class CategoriesController < ApplicationController
     
     if params[:category_id].present?
       begin
-        @current_category = Category.visible.includes(parent: { parent: :parent }).find(params[:category_id])
+        # 兼容 slug 和 ID
+        @current_category = Category.visible.includes(parent: { parent: :parent }).find_by(slug: params[:category_id]) || Category.visible.find(params[:category_id])
+        
+        # SEO 优化: 如果是用 ID 访问的，或者 Slug 不匹配，301 重定向到 Slug URL
+        if @current_category.slug.present? && params[:category_id] != @current_category.slug
+          redirect_to category_path(slug: @current_category.slug, kind: @kind), status: :moved_permanently
+          return
+        end
+
         @skus = @current_category.all_descendant_skus.where(status: 'active').includes(:category, images_attachments: :blob).preload(:skuable).page(params[:page]).per(20)
       rescue ActiveRecord::RecordNotFound
         redirect_to categories_path, alert: "未找到指定的分类"
@@ -32,7 +40,19 @@ class CategoriesController < ApplicationController
   end
 
   def show
-    @category = Category.find(params[:id])
-    redirect_to categories_path(category_id: @category.id)
+    @category = Category.find_by(slug: params[:slug]) || Category.find(params[:slug])
+    
+    # 如果是用 ID 访问的，301 重定向到 slug 链接
+    if @category.slug.present? && params[:slug] != @category.slug
+      redirect_to category_path(slug: @category.slug), status: :moved_permanently
+      return
+    end
+
+    @kind = @category.category_kind
+    @categories = Category.visible.where(parent_id: nil, category_kind: @kind).includes(children: { children: :children })
+    @current_category = @category
+    @skus = @current_category.all_descendant_skus.where(status: 'active').includes(:category, images_attachments: :blob).preload(:skuable).page(params[:page]).per(20)
+    
+    render :index
   end
 end

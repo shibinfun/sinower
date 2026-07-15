@@ -1,9 +1,13 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
-  parent_id: 1
+  name: Category EN
+  name_zh: 分类 CN
+  category_kind: a
+  slug: category-en
 
 two:
-  name: MyString
-  parent_id: 1
+  name: Category 2 EN
+  name_zh: 分类 2 CN
+  category_kind: b
+  slug: category-2-en

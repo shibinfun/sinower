@@ -1,7 +1,17 @@
 <% 
-  content_for :title, "#{@sku.name} - #{t('home.index.hero_title_2')}"
-  content_for :meta_description, "#{@sku.name} (#{@sku.category.localized_name}): #{t('home.about.product_lines.refrigeration_desc') if @sku.category.category_kind == 'a'} #{t('home.about.product_lines.cooking_desc') if @sku.category.category_kind == 'b'} #{t('home.about.product_lines.stainless_desc') if @sku.category.category_kind == 'c'}"
-  content_for :meta_keywords, "#{@sku.name}, #{@sku.category.localized_name}, Sinower, commercial kitchen equipment"
+  is_zh = I18n.locale == :"zh-CN"
+  
+  default_title = "#{@sku.name} - #{t('home.index.hero_title_2')}"
+  sku_title = is_zh ? (@sku.seo_title_zh.presence || @sku.seo_title.presence || default_title) : (@sku.seo_title.presence || default_title)
+  content_for :title, sku_title
+
+  default_desc = "#{@sku.name} (#{@sku.category.localized_name}): #{t('home.about.product_lines.refrigeration_desc') if @sku.category.category_kind == 'a'} #{t('home.about.product_lines.cooking_desc') if @sku.category.category_kind == 'b'} #{t('home.about.product_lines.stainless_desc') if @sku.category.category_kind == 'c'}"
+  sku_desc = is_zh ? (@sku.seo_description_zh.presence || @sku.seo_description.presence || default_desc) : (@sku.seo_description.presence || default_desc)
+  content_for :meta_description, sku_desc
+
+  default_keywords = "#{@sku.name}, #{@sku.category.localized_name}, Sinower, commercial kitchen equipment"
+  sku_keywords = is_zh ? (@sku.seo_keywords_zh.presence || @sku.seo_keywords.presence || default_keywords) : (@sku.seo_keywords.presence || default_keywords)
+  content_for :meta_keywords, sku_keywords
 %>
 <div class="max-w-screen-xl mx-auto px-4 py-12">
   <!-- 顶部面包屑导航 -->
@@ -11,7 +21,7 @@
     <% end %>
     <svg class="w-4 h-4 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
     <% @sku.category.ancestors_and_self.each do |cat| %>
-      <%= link_to cat.localized_name, categories_path(category_id: cat.id), class: "text-slate-400 hover:text-blue-600 transition-colors" %>
+      <%= link_to cat.localized_name, category_path(slug: cat), class: "text-slate-400 hover:text-blue-600 transition-colors" %>
       <svg class="w-4 h-4 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
     <% end %>
     <span class="text-slate-900 truncate max-w-[200px]"><%= @sku.name %></span>

@@ -13,12 +13,12 @@ SitemapGenerator::Sitemap.create do
 
     # 分类页面
     Category.visible.find_each do |category|
-      add category_path(category, locale: locale), lastmod: category.updated_at, priority: 0.7, changefreq: 'weekly'
+      add category_path(slug: category, locale: locale), lastmod: category.updated_at, priority: 0.7, changefreq: 'weekly'
     end
 
     # SKU 详情页面
     Sku.find_each do |sku|
-      add sku_path(sku, locale: locale), lastmod: sku.updated_at, priority: 0.6, changefreq: 'weekly'
+      add sku_path(slug: sku, locale: locale), lastmod: sku.updated_at, priority: 0.6, changefreq: 'weekly'
     end
 
     # 频道页面 (a, b, c)

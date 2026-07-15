@@ -4,6 +4,20 @@ class HomeController < ApplicationController
   def index
   end
 
+  def robots
+    robots_content = Setting.get('robots_txt', "User-agent: *\nAllow: /")
+    render plain: robots_content
+  end
+
+  def sitemap
+    sitemap_content = Setting.get('sitemap', '')
+    if sitemap_content.present?
+      render xml: sitemap_content
+    else
+      render plain: "Sitemap not found", status: :not_found
+    end
+  end
+
   def all_products
     @skus_by_category = Sku.where(status: 'active').includes(:category).order(position: :desc, created_at: :desc).group_by(&:category_id)
     @root_categories = Category.where(parent_id: nil).includes(children: { children: :children })

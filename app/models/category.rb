@@ -6,6 +6,9 @@ class Category < ApplicationRecord
   validates :name, presence: true
   validates :name_zh, presence: true
   validates :category_kind, presence: true, inclusion: { in: %w[a b c d] }
+  validates :slug, presence: true, uniqueness: true, format: { with: /\A[a-z0-9\-]+\z/, message: "只能包含小写字母、数字和连字符" }
+  
+  before_validation :generate_slug
   
   scope :visible, -> { where(hidden: false) }
   validate :leaf_category_constraint_for_parent
@@ -52,7 +55,29 @@ class Category < ApplicationRecord
     I18n.locale == :"zh-CN" ? name_zh : name
   end
 
+  def to_param
+    slug.presence || id.to_s
+  end
+
   private
+
+  def generate_slug
+    if slug.blank?
+      self.slug = name.to_s.parameterize
+    else
+      self.slug = slug.parameterize
+    end
+
+    # If still blank (e.g. name only contains non-slug characters)
+    if self.slug.blank?
+      self.slug = "cat-#{SecureRandom.hex(4)}"
+    end
+
+    # Handle uniqueness if already taken
+    if Category.where(slug: slug).where.not(id: id).exists?
+      self.slug = "#{slug}-#{SecureRandom.hex(2)}"
+    end
+  end
 
   def leaf_category_constraint_for_parent
     return if parent_id.nil?
