@@ -14,7 +14,10 @@ class HomeController < ApplicationController
     if sitemap_content.present?
       render xml: sitemap_content
     else
-      render plain: "Sitemap not found", status: :not_found
+      respond_to do |format|
+        format.xml { render template: 'home/sitemap' }
+        format.any { render template: 'home/sitemap', content_type: 'application/xml' }
+      end
     end
   end
 

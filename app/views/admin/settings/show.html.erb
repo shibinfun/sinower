@@ -48,9 +48,14 @@
       </div>
       <div class="p-6">
         <div>
-          <%= f.label "settings[sitemap]", "Sitemap XML 内容", class: "block text-sm font-medium text-slate-700 mb-1" %>
+          <%= f.label "settings[sitemap]", "Sitemap XML 内容 (覆盖自动生成)", class: "block text-sm font-medium text-slate-700 mb-1" %>
           <%= f.text_area "settings[sitemap]", value: @settings[:sitemap], rows: 10, class: "font-mono block w-full rounded-lg border-slate-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm", placeholder: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n  ...\n</urlset>" %>
-          <p class="mt-2 text-xs text-slate-500">此配置将应用于 /sitemap.xml 接口。如果为空，将返回 404。</p>
+          <p class="mt-2 text-xs text-slate-500">
+            <strong>注意：</strong> 如果此项留空，系统将自动根据数据库中的产品和分类生成最新的 Sitemap。建议仅在有特殊需求时才手动填写内容。
+          </p>
+          <p class="mt-2 text-xs text-blue-600">
+            当前自动生成的地址为: <a href="/sitemap.xml" target="_blank" class="underline">/sitemap.xml</a>
+          </p>
         </div>
       </div>
     </div>
