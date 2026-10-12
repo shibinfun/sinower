@@ -9,6 +9,8 @@ Rails.application.routes.draw do
     get "all_products", to: "home#all_products"
     get "contact", to: "home#contact"
     post "contact", to: "home#create_contact"
+    get "dealer", to: "home#dealer"
+    post "dealer_application", to: "home#create_dealer_application"
     get "warranty", to: "home#warranty"
     post "warranty_inquiry", to: "home#create_warranty_inquiry"
 
@@ -29,6 +31,7 @@ Rails.application.routes.draw do
         end
       end
       resources :contact_messages, only: [:index, :show, :destroy]
+      resources :dealer_applications, only: [:index, :show, :destroy]
       resources :warranty_inquiries, only: [:index, :show, :destroy]
       resources :warranty_pdfs do
         member do

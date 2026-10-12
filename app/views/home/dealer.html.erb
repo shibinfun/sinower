@@ -1,0 +1,219 @@
+<div class="relative bg-slate-900 py-24 overflow-hidden">
+  <div class="absolute inset-0 overflow-hidden pointer-events-none">
+    <div class="absolute -top-[10%] -left-[10%] w-[40%] h-[40%] bg-blue-600/20 rounded-full blur-[120px]"></div>
+    <div class="absolute top-[20%] -right-[10%] w-[30%] h-[50%] bg-indigo-600/10 rounded-full blur-[100px]"></div>
+  </div>
+
+  <div class="relative max-w-screen-xl mx-auto px-6 text-center">
+    <div class="inline-flex items-center px-4 py-2 bg-blue-500/10 border border-blue-500/20 rounded-full text-blue-400 text-xs font-bold tracking-widest uppercase mb-8 backdrop-blur-sm">
+      <span class="w-2 h-2 bg-blue-400 rounded-full mr-3"></span>
+      <%= t('home.dealer.badge', default: 'SINOWER USA — DEALER APPLICATION FORM') %>
+    </div>
+    <h1 class="text-4xl md:text-6xl font-black text-white tracking-tight mb-8">
+      <%= t('home.dealer.hero_title', default: 'BECOME A SINOWER DEALER') %>
+    </h1>
+    <p class="max-w-3xl mx-auto text-slate-400 text-lg md:text-xl font-medium leading-relaxed">
+      <%= t('home.dealer.hero_desc', default: 'Join our dealer network and grow your business with factory-direct commercial kitchen equipment.') %>
+    </p>
+  </div>
+</div>
+
+<div class="bg-white py-20">
+  <div class="max-w-4xl mx-auto px-6">
+    <!-- Application Form Card -->
+    <div class="bg-slate-50 p-8 md:p-14 rounded-[2.5rem] border border-slate-100 shadow-2xl shadow-blue-500/5" x-data="{ agreed: false, businessType: '<%= @dealer_application.business_type || "" %>', otherCategory: <%= @dealer_application.product_categories_list.include?('Other') ? 'true' : 'false' %> }">
+      <div class="mb-10 text-center md:text-left border-b border-slate-200 pb-8">
+        <h2 class="text-2xl md:text-3xl font-black text-slate-900 mb-3"><%= t('home.dealer.form_title', default: 'Dealer Application Form') %></h2>
+        <p class="text-slate-500 font-medium text-sm md:text-base">
+          <%= t('home.dealer.form_subtitle', default: 'Please fill out the form below to apply for our authorized dealer network.') %>
+        </p>
+      </div>
+
+      <%= form_with(model: @dealer_application, url: dealer_application_path, local: true, class: "space-y-10") do |f| %>
+        <% if @dealer_application.errors.any? %>
+          <div class="p-6 bg-red-50 border border-red-100 rounded-2xl text-red-800 text-sm">
+            <div class="font-bold mb-2 flex items-center">
+              <svg class="w-5 h-5 mr-2 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+              <span><%= t('home.dealer.form.error_heading', default: 'Please correct the following errors:') %></span>
+            </div>
+            <ul class="list-disc pl-5 space-y-1">
+              <% @dealer_application.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <!-- Section 1: Company Information -->
+        <div class="space-y-6">
+          <div class="flex items-center space-x-3 pb-2 border-b border-slate-200">
+            <span class="w-8 h-8 rounded-full bg-blue-600 text-white font-black text-sm flex items-center justify-center shadow-md shadow-blue-500/20">1</span>
+            <h3 class="text-lg font-black text-slate-900 tracking-tight uppercase"><%= t('home.dealer.sections.company_info', default: 'Company Information') %></h3>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <%= f.label :company_name, class: "block text-xs font-black text-slate-600 uppercase tracking-widest mb-2" do %>
+                <%= t('home.dealer.fields.company_name', default: 'Company Legal Name') %> <span class="text-red-500">*</span>
+              <% end %>
+              <%= f.text_field :company_name, required: true, class: "w-full px-5 py-4 bg-white border border-slate-200 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all font-medium text-slate-900 placeholder-slate-300", placeholder: t('home.dealer.placeholders.company_name', default: 'e.g. Acme Restaurant Supply LLC') %>
+            </div>
+
+            <div>
+              <%= f.label :contact_person, class: "block text-xs font-black text-slate-600 uppercase tracking-widest mb-2" do %>
+                <%= t('home.dealer.fields.contact_person', default: 'Contact Person') %> <span class="text-red-500">*</span>
+              <% end %>
+              <%= f.text_field :contact_person, required: true, class: "w-full px-5 py-4 bg-white border border-slate-200 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all font-medium text-slate-900 placeholder-slate-300", placeholder: t('home.dealer.placeholders.contact_person', default: 'Full Name') %>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <%= f.label :email, class: "block text-xs font-black text-slate-600 uppercase tracking-widest mb-2" do %>
+                <%= t('home.dealer.fields.email', default: 'Email Address') %> <span class="text-red-500">*</span>
+              <% end %>
+              <%= f.email_field :email, required: true, class: "w-full px-5 py-4 bg-white border border-slate-200 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all font-medium text-slate-900 placeholder-slate-300", placeholder: t('home.dealer.placeholders.email', default: 'purchasing@company.com') %>
+            </div>
+
+            <div>
+              <%= f.label :phone, class: "block text-xs font-black text-slate-600 uppercase tracking-widest mb-2" do %>
+                <%= t('home.dealer.fields.phone', default: 'Phone Number') %> <span class="text-red-500">*</span>
+              <% end %>
+              <%= f.telephone_field :phone, required: true, class: "w-full px-5 py-4 bg-white border border-slate-200 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all font-medium text-slate-900 placeholder-slate-300", placeholder: t('home.dealer.placeholders.phone', default: '+1 (555) 000-0000') %>
+            </div>
+          </div>
+
+          <div>
+            <%= f.label :address, class: "block text-xs font-black text-slate-600 uppercase tracking-widest mb-2" do %>
+              <%= t('home.dealer.fields.address', default: 'Business Address') %> <span class="text-red-500">*</span>
+            <% end %>
+            <%= f.text_area :address, required: true, rows: 3, class: "w-full px-5 py-4 bg-white border border-slate-200 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all font-medium text-slate-900 placeholder-slate-300", placeholder: t('home.dealer.placeholders.address', default: 'Street Address, City, State, ZIP Code') %>
+          </div>
+
+          <div>
+            <%= f.label :website, class: "block text-xs font-black text-slate-600 uppercase tracking-widest mb-2" do %>
+              <%= t('home.dealer.fields.website', default: 'Company Website (Optional)') %>
+            <% end %>
+            <%= f.text_field :website, class: "w-full px-5 py-4 bg-white border border-slate-200 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all font-medium text-slate-900 placeholder-slate-300", placeholder: t('home.dealer.placeholders.website', default: 'https://www.yourcompany.com') %>
+          </div>
+        </div>
+
+        <!-- Section 2: Business Profile -->
+        <div class="space-y-6 pt-4">
+          <div class="flex items-center space-x-3 pb-2 border-b border-slate-200">
+            <span class="w-8 h-8 rounded-full bg-blue-600 text-white font-black text-sm flex items-center justify-center shadow-md shadow-blue-500/20">2</span>
+            <h3 class="text-lg font-black text-slate-900 tracking-tight uppercase"><%= t('home.dealer.sections.business_profile', default: 'Business Profile') %></h3>
+          </div>
+
+          <!-- Business Type -->
+          <div>
+            <label class="block text-xs font-black text-slate-600 uppercase tracking-widest mb-3">
+              <%= t('home.dealer.fields.business_type', default: 'Business Type') %> <span class="text-red-500">*</span>
+            </label>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <% DealerApplication::BUSINESS_TYPES.each do |btype| %>
+                <label class="relative flex items-center p-4 bg-white border border-slate-200 rounded-2xl cursor-pointer hover:border-blue-400 hover:bg-blue-50/30 transition-all group">
+                  <%= f.radio_button :business_type, btype, required: true, "x-model": "businessType", class: "w-4 h-4 text-blue-600 border-slate-300 focus:ring-blue-500 mr-3" %>
+                  <span class="text-sm font-bold text-slate-800 group-hover:text-blue-600">
+                    <%= t("home.dealer.options.business_types.#{btype.parameterize.underscore}", default: btype) %>
+                  </span>
+                </label>
+              <% end %>
+            </div>
+            
+            <div x-show="businessType === 'Other'" x-transition class="mt-3">
+              <%= f.text_field :business_type_other, class: "w-full px-5 py-3.5 bg-white border border-slate-200 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all font-medium text-slate-900 placeholder-slate-400 text-sm", placeholder: t('home.dealer.placeholders.business_type_other', default: 'Please specify your business type') %>
+            </div>
+          </div>
+
+          <!-- Estimated Annual Purchase Volume -->
+          <div>
+            <label class="block text-xs font-black text-slate-600 uppercase tracking-widest mb-3">
+              <%= t('home.dealer.fields.annual_volume', default: 'Estimated Annual Purchase Volume') %>
+            </label>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <% DealerApplication::ANNUAL_PURCHASE_VOLUMES.each do |volume| %>
+                <label class="relative flex items-center p-4 bg-white border border-slate-200 rounded-2xl cursor-pointer hover:border-blue-400 hover:bg-blue-50/30 transition-all group">
+                  <%= f.radio_button :annual_purchase_volume, volume, class: "w-4 h-4 text-blue-600 border-slate-300 focus:ring-blue-500 mr-3" %>
+                  <span class="text-sm font-bold text-slate-800 group-hover:text-blue-600">
+                    <%= volume %>
+                  </span>
+                </label>
+              <% end %>
+            </div>
+          </div>
+
+          <!-- Product Categories of Interest -->
+          <div>
+            <label class="block text-xs font-black text-slate-600 uppercase tracking-widest mb-3">
+              <%= t('home.dealer.fields.product_categories', default: 'Product Categories of Interest') %>
+            </label>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <% DealerApplication::PRODUCT_CATEGORIES.each do |cat| %>
+                <label class="relative flex items-center p-4 bg-white border border-slate-200 rounded-2xl cursor-pointer hover:border-blue-400 hover:bg-blue-50/30 transition-all group">
+                  <%= check_box_tag "dealer_application[product_categories][]", cat, @dealer_application.product_categories_list.include?(cat), "@change": (cat == 'Other' ? "otherCategory = $el.checked" : nil), class: "w-4 h-4 text-blue-600 border-slate-300 rounded focus:ring-blue-500 mr-3" %>
+                  <span class="text-sm font-bold text-slate-800 group-hover:text-blue-600">
+                    <%= t("home.dealer.options.product_categories.#{cat.parameterize.underscore}", default: cat) %>
+                  </span>
+                </label>
+              <% end %>
+            </div>
+
+            <div x-show="otherCategory" x-transition class="mt-3">
+              <%= f.text_field :product_categories_other, class: "w-full px-5 py-3.5 bg-white border border-slate-200 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all font-medium text-slate-900 placeholder-slate-400 text-sm", placeholder: t('home.dealer.placeholders.product_categories_other', default: 'Please specify other categories of interest') %>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 3: Additional Information -->
+        <div class="space-y-6 pt-4">
+          <div class="flex items-center space-x-3 pb-2 border-b border-slate-200">
+            <span class="w-8 h-8 rounded-full bg-blue-600 text-white font-black text-sm flex items-center justify-center shadow-md shadow-blue-500/20">3</span>
+            <h3 class="text-lg font-black text-slate-900 tracking-tight uppercase"><%= t('home.dealer.sections.additional_info', default: 'Additional Information') %></h3>
+          </div>
+
+          <div>
+            <%= f.label :comments, class: "block text-xs font-black text-slate-600 uppercase tracking-widest mb-2" do %>
+              <%= t('home.dealer.fields.comments', default: 'Comments or Questions') %>
+            <% end %>
+            <%= f.text_area :comments, rows: 4, class: "w-full px-5 py-4 bg-white border border-slate-200 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all font-medium text-slate-900 placeholder-slate-300", placeholder: t('home.dealer.placeholders.comments', default: 'Tell us more about your business or any specific requirements...') %>
+          </div>
+
+          <div>
+            <%= f.label :resale_certificate, class: "block text-xs font-black text-slate-600 uppercase tracking-widest mb-2" do %>
+              <%= t('home.dealer.fields.resale_certificate', default: 'Resale Certificate') %>
+            <% end %>
+            <div class="p-6 bg-white border-2 border-dashed border-slate-200 rounded-2xl hover:border-blue-400 transition-colors">
+              <div class="flex flex-col items-center justify-center text-center">
+                <svg class="w-10 h-10 text-slate-400 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                <p class="text-sm font-bold text-slate-700 mb-1"><%= t('home.dealer.fields.upload_certificate_help', default: 'Upload your Resale Certificate / Tax ID document') %></p>
+                <p class="text-xs text-slate-400 mb-4"><%= t('home.dealer.fields.upload_file_types', default: 'PDF, JPG, PNG up to 10MB') %></p>
+                <%= f.file_field :resale_certificate, accept: ".pdf,image/*", class: "text-xs text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 cursor-pointer" %>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Privacy & Terms -->
+        <div class="flex items-start space-x-3 pt-2">
+          <div class="flex items-center h-5">
+            <%= check_box_tag :privacy_agreement_dealer, "1", false, "x-model": "agreed", required: true, class: "w-5 h-5 text-blue-600 border-slate-300 rounded focus:ring-blue-500 cursor-pointer" %>
+          </div>
+          <div class="text-sm">
+            <label for="privacy_agreement_dealer" class="font-medium text-slate-600">
+              <%= t('home.dealer.form.privacy_policy_agree', default: 'I confirm that the information provided is accurate and agree to the') %>
+              <button type="button" @click="$dispatch('open-privacy')" class="text-blue-600 hover:text-blue-700 font-bold underline underline-offset-4">
+                <%= t('home.dealer.form.privacy_policy_link', default: 'Privacy Policy') %>
+              </button>
+            </label>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div>
+          <%= f.submit t('home.dealer.form.submit', default: 'Submit Dealer Application'), class: "w-full py-5 bg-blue-600 hover:bg-blue-700 text-white rounded-[1.5rem] font-black text-sm tracking-widest uppercase transition-all shadow-xl shadow-blue-500/30 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed", ":disabled": "!agreed" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

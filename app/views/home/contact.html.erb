@@ -24,7 +24,7 @@
     <div class="bg-slate-50 p-8 md:p-12 rounded-[2.5rem] border border-slate-100 shadow-2xl shadow-blue-500/5">
       <h2 class="text-2xl font-black text-slate-900 mb-8"><%= t('home.contact.send_message') %></h2>
       
-      <%= form_with(model: @contact_message, url: contact_path, local: true, class: "space-y-6", x_data: "{ agreed: false }", "@submit.prevent": "if(agreed) $el.submit(); else alert('#{t('home.contact.form.privacy_error')}')") do |f| %>
+      <%= form_with(model: @contact_message, url: contact_path, local: true, class: "space-y-6", x_data: "{ agreed: false }") do |f| %>
         <% if @contact_message.errors.any? %>
           <div class="p-4 bg-red-50 border border-red-100 rounded-xl text-red-800 text-sm">
             <ul class="list-disc pl-5">
@@ -58,7 +58,7 @@
 
         <div class="flex items-start space-x-3 pt-2">
           <div class="flex items-center h-5">
-            <%= check_box_tag :privacy_agreement, "1", false, x_model: "agreed", class: "w-5 h-5 text-blue-600 border-slate-300 rounded focus:ring-blue-500 cursor-pointer" %>
+            <%= check_box_tag :privacy_agreement, "1", false, "x-model": "agreed", required: true, class: "w-5 h-5 text-blue-600 border-slate-300 rounded focus:ring-blue-500 cursor-pointer" %>
           </div>
           <div class="text-sm">
             <label for="privacy_agreement" class="font-medium text-slate-600">

@@ -1,0 +1,151 @@
+<% content_for :admin_title, "经销商申请详情" %>
+
+<div class="mb-6 flex items-center justify-between">
+  <%= link_to admin_dealer_applications_path, class: "inline-flex items-center text-sm font-medium text-slate-500 hover:text-blue-600 transition-colors" do %>
+    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+    返回申请列表
+  <% end %>
+
+  <%= button_to admin_dealer_application_path(@dealer_application), method: :delete, data: { turbo_confirm: "确定要删除这条申请记录吗？" }, class: "inline-flex items-center px-4 py-2 bg-red-50 text-red-600 hover:bg-red-100 rounded-xl text-sm font-bold transition-colors" do %>
+    <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+    删除此申请
+  <% end %>
+</div>
+
+<div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden space-y-px bg-slate-200">
+  <!-- 1. Company Information -->
+  <div class="bg-white p-8">
+    <div class="flex items-center justify-between mb-6 pb-4 border-b border-slate-100">
+      <div class="flex items-center space-x-3">
+        <span class="w-7 h-7 rounded-full bg-blue-600 text-white font-black text-xs flex items-center justify-center">1</span>
+        <h3 class="text-lg font-black text-slate-900 uppercase tracking-tight">公司基本信息</h3>
+      </div>
+      <span class="text-xs text-slate-400 font-medium">提交时间：<%= @dealer_application.created_at.strftime("%Y年%m月%d日 %H:%M:%S") %></span>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div>
+        <label class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">公司法定名称</label>
+        <div class="text-slate-900 font-bold text-lg"><%= @dealer_application.company_name %></div>
+      </div>
+      <div>
+        <label class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">联系人姓名</label>
+        <div class="text-slate-900 font-medium"><%= @dealer_application.contact_person %></div>
+      </div>
+      <div>
+        <label class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">电子邮箱</label>
+        <div class="text-slate-900 font-medium">
+          <a href="mailto:<%= @dealer_application.email %>" class="text-blue-600 hover:underline"><%= @dealer_application.email %></a>
+        </div>
+      </div>
+      <div>
+        <label class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">联系电话</label>
+        <div class="text-slate-900 font-medium"><%= @dealer_application.phone %></div>
+      </div>
+      <div>
+        <label class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">官方网站</label>
+        <div class="text-slate-900 font-medium">
+          <% if @dealer_application.website.present? %>
+            <a href="<%= @dealer_application.website.start_with?('http') ? @dealer_application.website : "https://#{@dealer_application.website}" %>" target="_blank" class="text-blue-600 hover:underline flex items-center">
+              <%= @dealer_application.website %>
+              <svg class="w-3.5 h-3.5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+            </a>
+          <% else %>
+            <span class="text-slate-400">未填写</span>
+          <% end %>
+        </div>
+      </div>
+      <div class="md:col-span-2 lg:col-span-3">
+        <label class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">办公/营业地址</label>
+        <div class="text-slate-800 font-medium bg-slate-50 p-4 rounded-xl border border-slate-100">
+          <%= simple_format @dealer_application.address %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Business Profile -->
+  <div class="bg-white p-8">
+    <div class="flex items-center space-x-3 mb-6 pb-4 border-b border-slate-100">
+      <span class="w-7 h-7 rounded-full bg-blue-600 text-white font-black text-xs flex items-center justify-center">2</span>
+      <h3 class="text-lg font-black text-slate-900 uppercase tracking-tight">业务资料与经营概况</h3>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div>
+        <label class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">业务类型</label>
+        <div class="text-slate-900 font-bold">
+          <%= @dealer_application.business_type %>
+          <% if @dealer_application.business_type == 'Other' && @dealer_application.business_type_other.present? %>
+            <span class="text-slate-500 font-normal ml-1">(<%= @dealer_application.business_type_other %>)</span>
+          <% end %>
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">预估年采购额</label>
+        <div class="text-slate-900 font-bold">
+          <%= @dealer_application.annual_purchase_volume.presence || "未选择" %>
+        </div>
+      </div>
+
+      <div class="md:col-span-2">
+        <label class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">感兴趣的产品类别</label>
+        <div class="flex flex-wrap gap-2">
+          <% if @dealer_application.product_categories_list.any? %>
+            <% @dealer_application.product_categories_list.each do |cat| %>
+              <span class="px-3 py-1.5 bg-blue-50 text-blue-700 rounded-xl text-xs font-bold border border-blue-100">
+                <%= cat %>
+                <% if cat == 'Other' && @dealer_application.product_categories_other.present? %>
+                  : <%= @dealer_application.product_categories_other %>
+                <% end %>
+              </span>
+            <% end %>
+          <% else %>
+            <span class="text-slate-400 text-sm">未勾选特定类别</span>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Additional Information & Resale Certificate -->
+  <div class="bg-white p-8">
+    <div class="flex items-center space-x-3 mb-6 pb-4 border-b border-slate-100">
+      <span class="w-7 h-7 rounded-full bg-blue-600 text-white font-black text-xs flex items-center justify-center">3</span>
+      <h3 class="text-lg font-black text-slate-900 uppercase tracking-tight">其他信息与转售证明</h3>
+    </div>
+
+    <div class="space-y-6">
+      <div>
+        <label class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">留言或咨询问题</label>
+        <div class="text-slate-800 bg-slate-50 p-4 rounded-xl border border-slate-100 leading-relaxed">
+          <%= @dealer_application.comments.present? ? simple_format(@dealer_application.comments) : content_tag(:span, "无留言", class: "text-slate-400") %>
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">转售证书 (Resale Certificate)</label>
+        <% if @dealer_application.resale_certificate.attached? %>
+          <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+              <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+              <div>
+                <p class="text-sm font-bold text-slate-800"><%= @dealer_application.resale_certificate.filename %></p>
+                <p class="text-xs text-slate-400"><%= number_to_human_size(@dealer_application.resale_certificate.byte_size) %></p>
+              </div>
+            </div>
+            <%= link_to rails_blob_path(@dealer_application.resale_certificate, disposition: "attachment"), class: "px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold transition-colors inline-flex items-center space-x-1.5" do %>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+              <span>下载证书附件</span>
+            <% end %>
+          </div>
+        <% else %>
+          <div class="p-4 bg-slate-50 rounded-xl border border-slate-100 text-sm text-slate-400">
+            未上传转售证书文件
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

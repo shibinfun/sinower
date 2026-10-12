@@ -106,6 +106,9 @@
         <% end %>
 
         <li>
+          <%= link_to t('navbar.dealer', default: 'Become a Dealer'), dealer_path, class: "block py-2 px-3 #{current_page?(dealer_path) ? 'text-blue-600 font-bold border-b-2 border-blue-600' : 'text-slate-600 hover:text-blue-600'} transition-all duration-300 rounded-sm md:bg-transparent md:p-0" %>
+        </li>
+        <li>
           <%= link_to t('navbar.warranty'), warranty_path, class: "block py-2 px-3 #{current_page?(warranty_path) ? 'text-blue-600 font-bold border-b-2 border-blue-600' : 'text-slate-600 hover:text-blue-600'} transition-all duration-300 rounded-sm md:bg-transparent md:p-0" %>
         </li>
         <li>

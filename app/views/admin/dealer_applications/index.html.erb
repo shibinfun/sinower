@@ -1,0 +1,58 @@
+<% content_for :admin_title, "经销商申请" %>
+
+<div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+  <div class="overflow-x-auto">
+    <table class="w-full text-left border-collapse">
+      <thead>
+        <tr class="bg-slate-50 border-b border-slate-200">
+          <th class="px-6 py-4 text-sm font-semibold text-slate-700">公司名称</th>
+          <th class="px-6 py-4 text-sm font-semibold text-slate-700">联系人</th>
+          <th class="px-6 py-4 text-sm font-semibold text-slate-700">联系方式</th>
+          <th class="px-6 py-4 text-sm font-semibold text-slate-700">业务类型</th>
+          <th class="px-6 py-4 text-sm font-semibold text-slate-700">预估采购额</th>
+          <th class="px-6 py-4 text-sm font-semibold text-slate-700">申请日期</th>
+          <th class="px-6 py-4 text-sm font-semibold text-slate-700">操作</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-slate-100">
+        <% if @dealer_applications.empty? %>
+          <tr>
+            <td colspan="7" class="px-6 py-12 text-center text-sm text-slate-400">暂无经销商申请记录</td>
+          </tr>
+        <% else %>
+          <% @dealer_applications.each do |application| %>
+            <tr class="hover:bg-slate-50 transition-colors">
+              <td class="px-6 py-4 text-sm font-semibold text-slate-900">
+                <%= application.company_name %>
+                <% if application.resale_certificate.attached? %>
+                  <span class="ml-2 inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-emerald-50 text-emerald-700 border border-emerald-200">已附证书</span>
+                <% end %>
+              </td>
+              <td class="px-6 py-4 text-sm text-slate-700"><%= application.contact_person %></td>
+              <td class="px-6 py-4 text-sm text-slate-600">
+                <div><%= application.email %></div>
+                <div class="text-xs text-slate-400"><%= application.phone %></div>
+              </td>
+              <td class="px-6 py-4 text-sm text-slate-600">
+                <%= application.business_type %>
+                <% if application.business_type == 'Other' && application.business_type_other.present? %>
+                  <span class="text-xs text-slate-400 block"><%= application.business_type_other %></span>
+                <% end %>
+              </td>
+              <td class="px-6 py-4 text-sm text-slate-600"><%= application.annual_purchase_volume.presence || "-" %></td>
+              <td class="px-6 py-4 text-sm text-slate-500"><%= application.created_at.strftime("%Y-%m-%d %H:%M") %></td>
+              <td class="px-6 py-4 text-sm text-slate-600 space-x-3">
+                <%= link_to "查看", admin_dealer_application_path(application), class: "text-blue-600 hover:text-blue-800 font-medium" %>
+                <%= link_to "删除", admin_dealer_application_path(application), data: { turbo_method: :delete, turbo_confirm: "确定要删除这条申请记录吗？" }, class: "text-red-500 hover:text-red-700 font-medium" %>
+              </td>
+            </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="mt-8">
+  <%= paginate @dealer_applications %>
+</div>

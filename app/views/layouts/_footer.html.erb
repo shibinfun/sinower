@@ -12,6 +12,7 @@
           <h2 class="mb-6 text-sm font-semibold text-white uppercase"><%= t('footer.quick_links') %></h2>
           <ul class="text-slate-400 font-medium text-sm space-y-4">
             <li><%= link_to t('navbar.about_us'), about_path, class: "hover:underline" %></li>
+            <li><%= link_to t('navbar.dealer', default: 'Become a Dealer'), dealer_path, class: "hover:underline" %></li>
             <li><%= link_to t('navbar.warranty'), warranty_path, class: "hover:underline" %></li>
             <li><%= link_to t('navbar.contact_us'), contact_path, class: "hover:underline" %></li>
           </ul>

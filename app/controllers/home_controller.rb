@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
-  before_action :check_submission_rate_limit, only: [:create_contact, :create_warranty_inquiry]
+  before_action :check_submission_rate_limit, only: [:create_contact, :create_warranty_inquiry, :create_dealer_application]
 
   def index
   end
@@ -61,6 +61,29 @@ class HomeController < ApplicationController
     @spare_parts_pdf = WarrantyPdf.spare_parts
   end
 
+  def dealer
+    @dealer_application = DealerApplication.new
+  end
+
+  def create_dealer_application
+    if params[:privacy_agreement_dealer] != "1"
+      redirect_to dealer_path, alert: t('home.dealer.form.privacy_error', default: "Please agree to the privacy policy / 请同意隐私政策")
+      return
+    end
+
+    @dealer_application = DealerApplication.new(dealer_application_params)
+    if @dealer_application.save
+      begin
+        NotificationMailer.dealer_application_notification(@dealer_application).deliver_later
+      rescue => e
+        Rails.logger.error "Failed to queue dealer application email: #{e.message}"
+      end
+      redirect_to dealer_path, notice: t('home.dealer.feedback_success', default: "Application submitted successfully! Our team will contact you shortly. / 经销商申请提交成功！我们将尽快与您联系。")
+    else
+      render :dealer, status: :unprocessable_entity
+    end
+  end
+
   def create_warranty_inquiry
     if params[:privacy_agreement_warranty] != "1"
       redirect_to warranty_path, alert: t('home.warranty.form.privacy_error')
@@ -90,7 +113,12 @@ class HomeController < ApplicationController
   def check_submission_rate_limit
     last_submission = session[:last_submission_time]
     if last_submission.present? && Time.parse(last_submission) > 1.minute.ago
-      redirect_to (action_name == 'create_contact' ? contact_path : warranty_path), 
+      redirect_path = case action_name
+                      when 'create_contact' then contact_path
+                      when 'create_dealer_application' then dealer_path
+                      else warranty_path
+                      end
+      redirect_to redirect_path, 
                   alert: t('home.submission_limit', default: "You are submitting too frequently. Please try again in 1 minute. / 您提交得太频繁了，请在 1 分钟后再试。")
       return
     end
@@ -99,6 +127,24 @@ class HomeController < ApplicationController
 
   def contact_params
     params.require(:contact_message).permit(:name, :email, :subject, :message)
+  end
+
+  def dealer_application_params
+    params.require(:dealer_application).permit(
+      :company_name,
+      :contact_person,
+      :email,
+      :phone,
+      :address,
+      :website,
+      :business_type,
+      :business_type_other,
+      :annual_purchase_volume,
+      :product_categories_other,
+      :comments,
+      :resale_certificate,
+      product_categories: []
+    )
   end
 
   def warranty_inquiry_params

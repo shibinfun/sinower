@@ -260,7 +260,7 @@
         </button>
       </div>
       
-      <%= form_with model: @warranty_inquiry, url: warranty_inquiry_path, class: "p-8 space-y-6 max-h-[70vh] overflow-y-auto", "@submit.prevent": "if(agreed) $el.submit(); else alert('#{t('home.warranty.form.privacy_error')}')" do |f| %>
+      <%= form_with model: @warranty_inquiry, url: warranty_inquiry_path, class: "p-8 space-y-6 max-h-[70vh] overflow-y-auto" do |f| %>
         <% if @warranty_inquiry&.errors&.any? %>
           <div class="p-4 bg-red-50 border border-red-100 rounded-xl text-red-600 text-sm font-medium">
             <ul class="list-disc pl-5 space-y-1">
@@ -306,7 +306,7 @@
 
         <div class="flex items-start space-x-3 pt-2">
           <div class="flex items-center h-5">
-            <%= check_box_tag :privacy_agreement_warranty, "1", false, x_model: "agreed", class: "w-5 h-5 text-blue-600 border-slate-300 rounded focus:ring-blue-500 cursor-pointer" %>
+            <%= check_box_tag :privacy_agreement_warranty, "1", false, "x-model": "agreed", required: true, class: "w-5 h-5 text-blue-600 border-slate-300 rounded focus:ring-blue-500 cursor-pointer" %>
           </div>
           <div class="text-sm">
             <label for="privacy_agreement_warranty" class="font-medium text-slate-600">
