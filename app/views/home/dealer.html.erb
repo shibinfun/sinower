@@ -183,12 +183,35 @@
             <%= f.label :resale_certificate, class: "block text-xs font-black text-slate-600 uppercase tracking-widest mb-2" do %>
               <%= t('home.dealer.fields.resale_certificate', default: 'Resale Certificate') %>
             <% end %>
-            <div class="p-6 bg-white border-2 border-dashed border-slate-200 rounded-2xl hover:border-blue-400 transition-colors">
+            <div class="p-6 bg-white border-2 border-dashed border-slate-200 rounded-2xl hover:border-blue-400 transition-colors" x-data="{ fileName: '' }">
               <div class="flex flex-col items-center justify-center text-center">
                 <svg class="w-10 h-10 text-slate-400 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
                 <p class="text-sm font-bold text-slate-700 mb-1"><%= t('home.dealer.fields.upload_certificate_help', default: 'Upload your Resale Certificate / Tax ID document') %></p>
                 <p class="text-xs text-slate-400 mb-4"><%= t('home.dealer.fields.upload_file_types', default: 'PDF, JPG, PNG up to 10MB') %></p>
-                <%= f.file_field :resale_certificate, accept: ".pdf,image/*", class: "text-xs text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 cursor-pointer" %>
+                
+                <%= f.file_field :resale_certificate, accept: ".pdf,image/*", class: "sr-only", id: "dealer_resale_certificate", "@change": "fileName = $event.target.files.length ? $event.target.files[0].name : ''" %>
+
+                <!-- Custom UI button and file display -->
+                <div class="flex flex-wrap items-center justify-center gap-3">
+                  <label for="dealer_resale_certificate" class="inline-flex items-center px-4 py-2 bg-blue-50 text-blue-700 hover:bg-blue-100 font-bold text-xs rounded-xl cursor-pointer transition-colors shadow-sm">
+                    <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+                    <span x-text="fileName ? '<%= t('home.dealer.fields.change_file', default: 'Change File') %>' : '<%= t('home.dealer.fields.choose_file', default: 'Choose File') %>'"></span>
+                  </label>
+
+                  <template x-if="fileName">
+                    <button type="button" @click="$refs.fileInput ? $refs.fileInput.value = '' : null; document.getElementById('dealer_resale_certificate').value = ''; fileName = '';" class="inline-flex items-center px-3 py-2 bg-red-50 text-red-600 hover:bg-red-100 font-bold text-xs rounded-xl transition-colors">
+                      <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                      <span><%= t('home.dealer.fields.remove_file', default: 'Remove') %></span>
+                    </button>
+                  </template>
+                </div>
+
+                <div class="mt-3 text-xs font-medium text-slate-500 max-w-md truncate" x-show="fileName" x-transition>
+                  <span class="text-slate-400"><%= t('home.dealer.fields.resale_certificate', default: 'Resale Certificate') %>:</span> <span class="font-bold text-slate-700" x-text="fileName"></span>
+                </div>
+                <div class="mt-3 text-xs text-slate-400 italic" x-show="!fileName">
+                  <%= t('home.dealer.fields.no_file_chosen', default: 'No file chosen') %>
+                </div>
               </div>
             </div>
           </div>

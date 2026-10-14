@@ -208,6 +208,10 @@ zh-CN:
         resale_certificate: "转售证明 (Resale Certificate)"
         upload_certificate_help: "上传您的转售证书 / 税务登记文件"
         upload_file_types: "支持 PDF、JPG、PNG 格式，最大 10MB"
+        choose_file: "选择文件"
+        no_file_chosen: "未选择任何文件"
+        change_file: "更换文件"
+        remove_file: "移除"
       options:
         business_types:
           restaurant_equipment_dealer: "餐饮设备经销商 (Restaurant Equipment Dealer)"

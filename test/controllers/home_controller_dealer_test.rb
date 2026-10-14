@@ -5,12 +5,16 @@ class HomeControllerDealerTest < ActionDispatch::IntegrationTest
     get dealer_url(locale: :en)
     assert_response :success
     assert_select "h1", text: /BECOME A SINOWER DEALER/i
+    assert_select "label[for='dealer_resale_certificate']"
+    assert_select "input[type='file']#dealer_resale_certificate.sr-only"
   end
 
   test "should get dealer page with zh-CN locale" do
     get dealer_url(locale: "zh-CN")
     assert_response :success
     assert_select "h1", text: /成为 SINOWER 经销商/i
+    assert_select "label[for='dealer_resale_certificate']"
+    assert_select "input[type='file']#dealer_resale_certificate.sr-only"
   end
 
   test "should submit dealer application successfully" do

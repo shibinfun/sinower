@@ -236,6 +236,10 @@ en:
         resale_certificate: "Resale Certificate"
         upload_certificate_help: "Upload your Resale Certificate / Tax ID document"
         upload_file_types: "PDF, JPG, PNG up to 10MB"
+        choose_file: "Choose File"
+        no_file_chosen: "No file chosen"
+        change_file: "Change File"
+        remove_file: "Remove"
       options:
         business_types:
           restaurant_equipment_dealer: "Restaurant Equipment Dealer"
